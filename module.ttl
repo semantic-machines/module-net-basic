@@ -5,7 +5,7 @@
 
 v-s:module-net-basic
   rdf:type v-s:Module ;
-  v-s:moduleUrl "https://github.com/semantic-machines/module-net-basic" ;
+  v-s:moduleUrl "http://github.com/semantic-machines/module-net-basic" ;
   rdfs:label "Module - basic nets"@en ;
   rdfs:label "Модуль - базовый набор маршрутов"@ru ;
 .
