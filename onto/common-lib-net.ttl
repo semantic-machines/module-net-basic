@@ -2173,7 +2173,7 @@ s-wf:msg-template-universal-notification_processStart
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <h3><img src="cid:m-l:OptiflowLogoOrange" alt="Optiflow" /></h3>
+    <h3>Optiflow</h3>
     <p>Уважаемый пользователь: {{to}}</p>
     <p>
       Документ <a href="{{document_url}}">{{document}}</a> запущен по процессу.
@@ -2194,7 +2194,7 @@ s-wf:msg-template-universal-notification_processEnd
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <h3><img src="cid:m-l:OptiflowLogoOrange" alt="Optiflow" /></h3>
+    <h3>Optiflow</h3>
     <p>Уважаемый пользователь: {{to}}</p>
     <p>
       По документу <a href="{{document_url}}">{{document}}</a> завершен процесс .
