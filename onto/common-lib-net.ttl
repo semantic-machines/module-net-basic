@@ -973,6 +973,7 @@ s-wf:UserTaskFormTemplate
     decision.properties["rdfs:label"] = type.properties["rdfs:label"];
     decision["v-s:backwardTarget"] = [ individual ];
     decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+    decision["v-s:canRead"] = [ true ];
     return decision;
   }
   function decisionHandler () {
