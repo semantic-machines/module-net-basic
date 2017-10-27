@@ -609,7 +609,7 @@ s-wf:participantSpecification
   v-ui:forClass s-wf:SimpleRouteStartForm ;
   v-ui:forProperty s-wf:SimpleRouteStartForm_participant ;
   v-ui:minCardinality 1 ;
-  v-ui:maxCardinality 100 ;
+  v-ui:maxCardinality 1000 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' )&& ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal User' || 'v-s:origin'=='Group User') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
 .
 
