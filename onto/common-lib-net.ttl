@@ -1932,6 +1932,13 @@ s-wf:map_rdf_type_4_TIV_documentType
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:map_documentType_4_TIV_documentType
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_documentType ;
+  v-wf:mappingExpression  "process.getLocalVariable ('documentType')";
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:map_inbox_url_4_vedaInfo_appInboxUrl
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_inbox_url ;
