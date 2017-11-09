@@ -1457,6 +1457,17 @@ s-wf:map_redirect_from_2_undefine
   rdfs:label "redirect_from = undefine" ;
 .
 
+s-wf:map_result_decision_dateTo_2_actor_task_date_to
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_actor_task_date_to  ;
+  v-wf:mappingExpression """
+
+  get_properties_chain (process.getLocalVariable('result_decision'),
+              [{$get:'v-s:dateTo'}])
+
+  """;
+  rdfs:label "Новая дата срока задачи из формы решения пользователя Доработать"@ru ;
+.
 ##########################################################################################################################################
 
 
@@ -1722,7 +1733,7 @@ s-wf:nc_to_aur a v-wf:Flow;
 
 s-wf:nc_t2_to_r a v-wf:Flow;
   rdfs:isDefinedBy s-wf:;
-  v-wf:predicate "task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRejected')) == true || task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotPerformed')) == true || task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotForMe')) == true"^^xsd:string;
+  v-wf:predicate "task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRejected')) == true || task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotPerformed')) == true || task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotForMe')) == true || task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionProlongate')) == true"^^xsd:string;
   v-wf:belongsTo s-wf:net_coordination;
   v-wf:flowsInto s-wf:nc_return_to_initiator;
 .
@@ -1797,7 +1808,7 @@ s-wf:nc_f_t1_rti a v-wf:Flow;
 s-wf:nc_f_t2_oc a v-wf:Flow;
   rdfs:isDefinedBy s-wf: ;
   v-wf:flowsInto s-wf:nc_oc_rights;
-  v-wf:predicate "task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRedirect')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRejected')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotPerformed')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotForMe')) == false && task_result.is_all_executors_taken_decision ('result', task.getInputVariable ('decision_route_to_add_reaction')) == false"^^xsd:string.
+  v-wf:predicate "task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRedirect')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRejected')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotPerformed')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionNotForMe')) == false && task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionProlongate')) == false && task_result.is_all_executors_taken_decision ('result', task.getInputVariable ('decision_route_to_add_reaction')) == false"^^xsd:string.
 
 s-wf:nc_f_t2_t1 a v-wf:Flow;
   v-wf:predicate "task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRedirect')) == true"^^xsd:string;
@@ -1929,6 +1940,12 @@ s-wf:map_rdf_type_4_TIV_documentType
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_rdf_type ;
   v-wf:mappingExpression  "task.getInputVariable ('documentType')";
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_documentType_4_TIV_documentType
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_documentType ;
+  v-wf:mappingExpression  "process.getLocalVariable ('documentType')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2174,43 +2191,29 @@ s-wf:rule2currentNetFromIsProcess
 s-wf:msg-template-universal-notification_processStart
   rdf:type v-s:TemplateForText ;
   v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "Optiflow Уведомление о старте процесса по документу {{document}}" ;
+  v-s:templateSubject "Optiflow. Уведомление: запущен процесс по документу '{{document}}'" ;
   v-s:templateBody
-  """<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <h3>Optiflow</h3>
-    <p>Уважаемый пользователь: {{to}}</p>
-    <p>
-      Документ <a href="{{document_url}}">{{document}}</a> запущен по процессу.
-    </p>
-    <p>
-      <small>Данное сообщение является автоматической рассылкой. Отвечать на него не нужно.</small>
-    </p>
-  </body>
-</html>""" ;
+  """Уважаемый пользователь, {{to}}.
+
+Запущен процесс по документу '{{document}}' .
+{{document_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система Optiflow.
+""" ;
 .
 s-wf:msg-template-universal-notification_processEnd
   rdf:type v-s:TemplateForText ;
   v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "Optiflow Уведомление об окончании процесса по документу {{document}}" ;
+  v-s:templateSubject "Optiflow. Уведомление: завершен процесс по документу '{{document}}'" ;
   v-s:templateBody
-  """<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <h3>Optiflow</h3>
-    <p>Уважаемый пользователь: {{to}}</p>
-    <p>
-      По документу <a href="{{document_url}}">{{document}}</a> завершен процесс .
-    </p>
-    <p>
-      <small>Данное сообщение является автоматической рассылкой. Отвечать на него не нужно.</small>
-    </p>
-  </body>
-</html>""" ;
-.
+  """Уважаемый пользователь: {{to}}.
 
+Завершен процесс по документу '{{document}}'.
+{{document_url}}
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система Optiflow.
+""" ;
+.
