@@ -109,6 +109,17 @@ s-wf:codelet_change_responsible_right
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:codelet_change_to_informing_right
+  rdf:type v-s:Codelet ;
+  rdfs:label "Выдать права информируемому" ;
+  v-s:script """
+  process.getInputVariable ('rightset')?
+  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'to') :
+  change_rights_actor (process, task, newStr ('-r--'), 'to')
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:codelet_change_projectManager_right
   rdf:type v-s:Codelet ;
   rdfs:label "Выдать права руководителю проекта" ;
