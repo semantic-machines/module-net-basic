@@ -2185,11 +2185,11 @@ s-wf:rule2currentNetFromIsProcess
 s-wf:msg-template-universal-notification_processStart
   rdf:type v-s:TemplateForText ;
   v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "Optiflow. Уведомление: запущен процесс по документу '{{document}}'" ;
+  v-s:templateSubject "Optiflow. Уведомление: запущен процесс по документу '{{documentType}}: {{document}}'" ;
   v-s:templateBody
-  """Уважаемый пользователь, {{to}}.
+  """Уважаемый пользователь, {{to}}
 
-Запущен процесс по документу '{{document}}' .
+Запущен процесс по документу '{{documentType}}: {{document}}'
 {{document_url}}
 
 
@@ -2200,11 +2200,11 @@ s-wf:msg-template-universal-notification_processStart
 s-wf:msg-template-universal-notification_processEnd
   rdf:type v-s:TemplateForText ;
   v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "Optiflow. Уведомление: завершен процесс по документу '{{document}}'" ;
+  v-s:templateSubject "Optiflow. Уведомление: завершен процесс по документу '{{documentType}}: {{document}}'" ;
   v-s:templateBody
-  """Уважаемый пользователь: {{to}}.
+  """Уважаемый пользователь: {{to}}
 
-Завершен процесс по документу '{{document}}'.
+Завершен процесс по документу '{{documentType}}: {{document}}'
 {{document_url}}
 
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
