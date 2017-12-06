@@ -707,7 +707,7 @@ v-df:rul_SignTransform7
   rdf:type v-wf:Rule ;
   v-wf:segregateElement "contentName('@')" ;
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putString ('v-wf:variableValue', 'Подписать')";
+  v-wf:aggregate  "putString ('v-wf:variableValue', 'Подписание')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_action')";
 .
 v-df:rul_SignTransform8
