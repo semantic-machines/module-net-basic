@@ -135,11 +135,7 @@ v-df:ApprovalTaskTemplate
   </div>
   <br><br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-primary view -edit -search" id="edit" about="v-s:Edit" property="rdfs:label"/>
-    <button type="submit" class="action btn btn-success -view edit -search" id="save" about="v-s:Save" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
-    <button type="button" class="action btn btn-link view edit -search" id="delete" about="v-s:Delete" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></div>
   </div>
 </div>
 """ ;
@@ -336,15 +332,14 @@ v-df:SignRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -397,15 +392,14 @@ v-df:QuestionRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -454,15 +448,14 @@ v-df:InstructionRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -507,12 +500,11 @@ v-df:TaskRouteStartFormTemplate
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -558,12 +550,11 @@ v-df:DistributionRouteStartFormTemplate
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -608,15 +599,14 @@ v-df:CoordinationRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -1188,7 +1178,7 @@ v-df:DecisionTemplate2
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1197,8 +1187,7 @@ v-df:DecisionTemplate2
   <veda-control rel="v-s:hasActivity" data-type="link" class="-view edit search fulltext create"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
@@ -1533,7 +1522,7 @@ v-wf:DecisionRedirectTemplate
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1546,8 +1535,7 @@ v-wf:DecisionRedirectTemplate
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
@@ -1586,7 +1574,7 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1596,8 +1584,7 @@ v-wf:DecisionTemplate1
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
@@ -1611,7 +1598,7 @@ v-wf:DecisionTemplateForRemake
   v-ui:forClass v-wf:DecisionRemake ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1630,8 +1617,7 @@ v-wf:DecisionTemplateForRemake
   </div>
   <br>
   <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
