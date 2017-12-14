@@ -928,15 +928,8 @@ s-wf:UserTaskFormTemplate
     </div>
     <div about="@" rel="v-wf:takenDecision"></div>
     <div id="newDecisionHolder"></div>
-    <!--div class="actions view edit -search pull-right">
-      <div class="btn-group dropup">
-        <button class="btn btn-warning dropdown-toggle sendbutton view -edit -search" data-toggle="dropdown">
-          <span about="v-s:SendTask" property="rdfs:label"> </span>
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" id="standard-tasks">
-        </ul>
-      </div>
+    <!--div class="actions view edit -search">
+      <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></div>
     </div-->
   </div>
   <br>
