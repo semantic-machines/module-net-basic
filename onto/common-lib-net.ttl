@@ -884,8 +884,8 @@ s-wf:UserTaskFormTemplate
 
   //# sourceURL=s-wf:UserTaskFormTemplate_pre
 </script>
-<div class="container">
-  <div class="sheet clearfix">
+<div>
+  <div class="container sheet">
     <h2 about="@" property="rdfs:label"></h2>
     <div class="row">
       <div class="col-md-3">
@@ -933,9 +933,9 @@ s-wf:UserTaskFormTemplate
     </div-->
   </div>
   <br>
-  <div about="@" class="view edit -search sheet" data-template="v-ft:TaskRelatedTasksTemplate"></div>
+  <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
   <br>
-  <div about="@" rel="v-wf:onDocument" class="view edit -search sheet"></div>
+  <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
   $(".radio.decision input", template).change(function () {
