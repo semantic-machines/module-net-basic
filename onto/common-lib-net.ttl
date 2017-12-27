@@ -16,8 +16,8 @@
 <http://semantic-machines.com/veda/simple-workflow>
   rdf:type owl:Ontology ;
   owl:imports <http://semantic-machines.com/veda/veda-workflow> ;
-  rdfs:label "Simple workflow base ontology"@en ;
   rdfs:label "Онтология бизнес процессов базовая"@ru ;
+  rdfs:label "Simple workflow base ontology"@en ;
   v-s:loadPriority 21 ;
 .
 
