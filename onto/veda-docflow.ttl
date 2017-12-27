@@ -34,8 +34,8 @@ v-df:PsApprovalTask_from
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment')"^^xsd:string ;
-  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
+  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   rdfs:label "Спецификация отправителя задачи для класса Форма задачи утверждение"@ru ;
   rdfs:label "Task sender property specification for Approval task class"@en ;
 .
@@ -45,8 +45,8 @@ v-df:PsApprovalTask_dateGiven
   v-ui:forProperty v-wf:dateGiven ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:tooltip "Required, single value."@en ;
   v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
+  v-ui:tooltip "Required, single value."@en ;
   rdfs:label "Спецификация даты заседания технического комитета для класса AgShedule"@ru ;
   rdfs:label "Preferences property specification for dateFrom in AgShedule class"@en ;
 .
@@ -226,8 +226,8 @@ v-df:PsStartForm_dateTo
   v-ui:forProperty v-s:dateTo ;
   v-ui:minCardinality "0"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:tooltip "Required, single value."@en ;
   v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
+  v-ui:tooltip "Required, single value."@en ;
   rdfs:label "Спецификация контрольной даты для класса QuestionRouteStartForm"@ru ;
   rdfs:label "Preferences property specification for dateFrom QuestionRouteStartForm class"@en ;
 .
@@ -275,8 +275,8 @@ v-df:PsStartForm_processedDocument
   v-ui:forProperty v-wf:processedDocument ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
-  v-ui:tooltip "Non-required, multy value. Link"@en ;
   v-ui:tooltip "Необязательно к заполнению, множественное значение. Ссылка на объект."@ru ;
+  v-ui:tooltip "Non-required, multy value. Link"@en ;
   rdfs:label "Спецификация ссылки на документ для класса Стартовая форма задачи задать вопрос"@ru ;
   rdfs:label "Task by document property specification for QuestionRouteStartForm class"@en ;
 .
@@ -1162,8 +1162,8 @@ v-df:PsHasAction
   v-ui:minCardinality 1 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Action')"^^xsd:string ;
   v-ui:rangeRestriction v-s:Action ;
-  v-ui:tooltip "Non-required, multy value. Link to instance of Action class"@en ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Action."@ru ;
+  v-ui:tooltip "Non-required, multy value. Link to instance of Action class"@en ;
   rdfs:label "Спецификация ссылки на мероприятие для класса Согласовано в реализацию"@ru ;
   rdfs:label "Project phases shedule property specification for Project class"@en ;
   v-ui:placeholder "Добавьте мероприятие"@ru ;
@@ -1226,8 +1226,8 @@ v-df:PsresponsibleInDecision
   v-ui:forProperty v-s:responsible ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 1 ;
-  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
+  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   rdfs:label "Спецификация руководителя проекта для класса Решение тех.комитета"@ru ;
   rdfs:label "Projeсt manager property specification for AgDecision class"@en ;
 .
