@@ -12,8 +12,8 @@
 <http://semantic-machines.com/veda/veda-docflow>
   rdfs:isDefinedBy v-df: ;
   rdf:type owl:Ontology ;
-  rdfs:label "Veda system docflow ontology"@en ;
   rdfs:label "Онтология процессов документооборота системы Veda"@ru ;
+  rdfs:label "Veda system docflow ontology"@en ;
 #  owl:DversionInfo "1.2" ;
   v-s:loadPriority 9 ;
 .
@@ -22,8 +22,8 @@ v-df:ApprovalTask
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:DecisionForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Approval document"@en ;
   rdfs:label "Утвердить документ"@ru ;
+  rdfs:label "Approval document"@en ;
   rdfs:comment "Форма ответа на задачу утверждения"@ru ;
   v-ui:hasTemplate v-df:ApprovalTaskTemplate ;
 .
@@ -34,10 +34,10 @@ v-df:PsApprovalTask_from
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment')"^^xsd:string ;
-  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
-  rdfs:label "Task sender property specification for Approval task class"@en ;
+  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   rdfs:label "Спецификация отправителя задачи для класса Форма задачи утверждение"@ru ;
+  rdfs:label "Task sender property specification for Approval task class"@en ;
 .
 v-df:PsApprovalTask_dateGiven
   rdf:type v-ui:DatatypePropertySpecification ;
@@ -45,10 +45,10 @@ v-df:PsApprovalTask_dateGiven
   v-ui:forProperty v-wf:dateGiven ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:tooltip "Required, single value."@en ;
   v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
-  rdfs:label "Preferences property specification for dateFrom in AgShedule class"@en ;
+  v-ui:tooltip "Required, single value."@en ;
   rdfs:label "Спецификация даты заседания технического комитета для класса AgShedule"@ru ;
+  rdfs:label "Preferences property specification for dateFrom in AgShedule class"@en ;
 .
 
 v-df:approvalTask_decisionKind
@@ -81,8 +81,8 @@ v-wf:possibleDecisionClass
 v-df:ApprovalTaskTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:ApprovalTask ;
-  rdfs:label "Approval task template"@en ;
   rdfs:label "Шаблон формы задачи утверждения"@ru ;
+  rdfs:label "Approval task template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:ApprovalTask" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -135,11 +135,7 @@ v-df:ApprovalTaskTemplate
   </div>
   <br><br>
   <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-primary view -edit -search" id="edit" about="v-s:Edit" property="rdfs:label"/>
-    <button type="submit" class="action btn btn-success -view edit -search" id="save" about="v-s:Save" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
-    <button type="button" class="action btn btn-link view edit -search" id="delete" about="v-s:Delete" property="rdfs:label"/>
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></div>
   </div>
 </div>
 """ ;
@@ -151,8 +147,8 @@ v-df:SignRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Sign a document"@en ;
   rdfs:label "Подписание"@ru ;
+  rdfs:label "Sign a document"@en ;
   rdfs:comment "Задача подписать документ"@ru ;
   v-ui:hasTemplate v-df:SignRouteStartFormTemplate ;
 .
@@ -161,8 +157,8 @@ v-df:QuestionRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Question document"@en ;
   rdfs:label "Задать вопрос"@ru ;
+  rdfs:label "Question document"@en ;
   rdfs:comment "Задача задать вопрос"@ru ;
   v-ui:hasTemplate v-df:QuestionRouteStartFormTemplate ;
 .
@@ -170,8 +166,8 @@ v-df:InstructionRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Instruction document"@en ;
   rdfs:label "Исполнить поручение"@ru ;
+  rdfs:label "Instruction document"@en ;
   rdfs:comment "Задача исполнить поручение"@ru ;
   v-ui:hasTemplate v-df:InstructionRouteStartFormTemplate ;
 .
@@ -179,8 +175,8 @@ v-df:TaskRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Introduction"@en ;
   rdfs:label "На ознакомление"@ru ;
+  rdfs:label "Introduction"@en ;
   rdfs:comment "Задача ознакомиться"@ru ;
   v-ui:hasTemplate v-df:TaskRouteStartFormTemplate ;
 .
@@ -188,8 +184,8 @@ v-df:DistributionRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Distribution"@en ;
   rdfs:label "Рассылка"@ru ;
+  rdfs:label "Distribution"@en ;
   rdfs:comment "Задача рассылки"@ru ;
   v-ui:hasTemplate v-df:DistributionRouteStartFormTemplate ;
 .
@@ -197,8 +193,8 @@ v-df:CoordinationRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Coordination"@en ;
   rdfs:label "На согласование"@ru ;
+  rdfs:label "Coordination"@en ;
   rdfs:comment "Задача согласования"@ru ;
   v-ui:hasTemplate v-df:CoordinationRouteStartFormTemplate ;
 .
@@ -215,8 +211,8 @@ v-df:PsStartForm_responsible
   v-ui:maxCardinality 100 ;
   v-ui:minCardinality 1 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' )&& ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal User' || 'v-s:origin'=='Group User' ) || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
-  rdfs:label "Task sender property specification for Question task class"@en ;
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
+  rdfs:label "Task sender property specification for Question task class"@en ;
 .
 
 v-df:PsStartForm_dateTo
@@ -230,10 +226,10 @@ v-df:PsStartForm_dateTo
   v-ui:forProperty v-s:dateTo ;
   v-ui:minCardinality "0"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:tooltip "Required, single value."@en ;
   v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
-  rdfs:label "Preferences property specification for dateFrom QuestionRouteStartForm class"@en ;
+  v-ui:tooltip "Required, single value."@en ;
   rdfs:label "Спецификация контрольной даты для класса QuestionRouteStartForm"@ru ;
+  rdfs:label "Preferences property specification for dateFrom QuestionRouteStartForm class"@en ;
 .
 v-s:count
   rdfs:domain v-df:QuestionRouteStartForm ;
@@ -279,10 +275,10 @@ v-df:PsStartForm_processedDocument
   v-ui:forProperty v-wf:processedDocument ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
-  v-ui:tooltip "Non-required, multy value. Link"@en ;
   v-ui:tooltip "Необязательно к заполнению, множественное значение. Ссылка на объект."@ru ;
-  rdfs:label "Task by document property specification for QuestionRouteStartForm class"@en ;
+  v-ui:tooltip "Non-required, multy value. Link"@en ;
   rdfs:label "Спецификация ссылки на документ для класса Стартовая форма задачи задать вопрос"@ru ;
+  rdfs:label "Task by document property specification for QuestionRouteStartForm class"@en ;
 .
 v-df:PsStartForm_comment
   rdf:type v-ui:PropertySpecification ;
@@ -303,8 +299,8 @@ v-df:PsStartForm_comment
 v-df:SignRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:SignRouteStartForm ;
-  rdfs:label "SignRouteStartForm template"@en ;
   rdfs:label "Шаблон формы задачи подписание"@ru ;
+  rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:SignRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -335,16 +331,15 @@ v-df:SignRouteStartFormTemplate
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -364,8 +359,8 @@ v-df:SignRouteStartFormTemplate
 v-df:QuestionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:QuestionRouteStartForm ;
-  rdfs:label "QuestionRouteStartForm template"@en ;
   rdfs:label "Шаблон формы задачи задать вопрос"@ru ;
+  rdfs:label "QuestionRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:QuestionRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -396,16 +391,15 @@ v-df:QuestionRouteStartFormTemplate
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -422,8 +416,8 @@ v-df:QuestionRouteStartFormTemplate
 v-df:InstructionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:InstructionRouteStartForm ;
-  rdfs:label "InstructionRouteStartForm template"@en ;
   rdfs:label "Шаблон формы задачи исполнить поручение"@ru ;
+  rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -453,16 +447,15 @@ v-df:InstructionRouteStartFormTemplate
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -478,8 +471,8 @@ v-df:InstructionRouteStartFormTemplate
 v-df:TaskRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:TaskRouteStartForm ;
-  rdfs:label "TaskRouteStartForm template"@en ;
   rdfs:label "Шаблон формы задачи ознакомиться"@ru ;
+  rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:TaskRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -506,13 +499,12 @@ v-df:TaskRouteStartFormTemplate
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -529,8 +521,8 @@ v-df:TaskRouteStartFormTemplate
 v-df:DistributionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:DistributionRouteStartForm ;
-  rdfs:label "DistributionRouteStartForm template"@en ;
   rdfs:label "Шаблон формы задачи рассылки"@ru ;
+  rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:DistributionRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -557,13 +549,12 @@ v-df:DistributionRouteStartFormTemplate
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -580,8 +571,8 @@ v-df:DistributionRouteStartFormTemplate
 v-df:CoordinationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
-  rdfs:label "CoordinationRouteStartForm template"@en ;
   rdfs:label "Шаблон формы задачи согласования"@ru ;
+  rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
   <h3><span about="v-df:CoordinationRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
@@ -607,16 +598,15 @@ v-df:CoordinationRouteStartFormTemplate
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-warning" id="send" about="v-s:Send" property="rdfs:label"/>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
 <script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  $("#cancel", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -1172,10 +1162,10 @@ v-df:PsHasAction
   v-ui:minCardinality 1 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Action')"^^xsd:string ;
   v-ui:rangeRestriction v-s:Action ;
-  v-ui:tooltip "Non-required, multy value. Link to instance of Action class"@en ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Action."@ru ;
-  rdfs:label "Project phases shedule property specification for Project class"@en ;
+  v-ui:tooltip "Non-required, multy value. Link to instance of Action class"@en ;
   rdfs:label "Спецификация ссылки на мероприятие для класса Согласовано в реализацию"@ru ;
+  rdfs:label "Project phases shedule property specification for Project class"@en ;
   v-ui:placeholder "Добавьте мероприятие"@ru ;
   v-ui:placeholder "Add action"@en ;
 .
@@ -1188,7 +1178,7 @@ v-df:DecisionTemplate2
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1196,9 +1186,8 @@ v-df:DecisionTemplate2
   <div rel="v-s:hasActivity" data-template="v-df:ActionInDecisionTemplate" data-embedded="true"></div>
   <veda-control rel="v-s:hasActivity" data-type="link" class="-view edit search fulltext create"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
@@ -1237,10 +1226,10 @@ v-df:PsresponsibleInDecision
   v-ui:forProperty v-s:responsible ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 1 ;
-  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
-  rdfs:label "Projeсt manager property specification for AgDecision class"@en ;
+  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
   rdfs:label "Спецификация руководителя проекта для класса Решение тех.комитета"@ru ;
+  rdfs:label "Projeсt manager property specification for AgDecision class"@en ;
 .
 
 v-wf:permission_c_on_decision
@@ -1533,7 +1522,7 @@ v-wf:DecisionRedirectTemplate
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1545,9 +1534,8 @@ v-wf:DecisionRedirectTemplate
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
@@ -1586,7 +1574,7 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1595,9 +1583,8 @@ v-wf:DecisionTemplate1
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
@@ -1611,7 +1598,7 @@ v-wf:DecisionTemplateForRemake
   v-ui:forClass v-wf:DecisionRemake ;
   v-ui:template """
 <script>
-  $("#cancel.action", template).click(function () {
+  template.on("click", "#cancel.action", function () {
     window.history.back();
   });
 </script>
@@ -1629,9 +1616,8 @@ v-wf:DecisionTemplateForRemake
     </div>
   </div>
   <br>
-  <div class="actions">
-    <button type="submit" class="action btn btn-primary -view edit -search" id="send">Ok</button>
-    <button type="button" class="action btn btn-default -view edit -search" id="cancel" about="v-s:Cancel" property="rdfs:label"/>
+  <div class="actions -view edit -search">
+    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
   </div>
 </div>
   """ ;
