@@ -872,11 +872,13 @@ s-wf:UserTaskFormTemplate
       var tmpl = radioTmpl.clone().insertBefore(radioTmpl);
       var input = $("input", tmpl).val(index);
       $("label", tmpl).append("<span about='" + value.id + "' property='rdfs:label'></span>");
-      if (
-        individual.hasValue("v-wf:takenDecision")
-        && individual["v-wf:takenDecision"][0]["rdf:type"][0].id === individual["v-wf:possibleDecisionClass"][index].id
-      ) {
-        input.prop("checked", true);
+      if (individual.hasValue("v-wf:takenDecision")) {
+        individual["v-wf:takenDecision"][0].load()
+          .then(function (decision) {
+            if ( decision["rdf:type"][0].id === individual["v-wf:possibleDecisionClass"][index].id ) {
+              input.prop("checked", true);
+            }
+          });
       }
     });
   }
