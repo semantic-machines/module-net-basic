@@ -974,7 +974,7 @@ s-wf:UserTaskFormTemplate
               || (veda.appointment && veda.appointment.hasValue("v-s:occupation") && veda.appointment["v-s:occupation"][0].id === individual["v-wf:to"][0].id)
               || (veda.user && veda.user.id === individual["v-wf:to"][0].id)
               || individual.rights.hasValue("v-s:canUpdate", true);
-    var isOpen = !individual.hasValue("v-wf:isCompleted", true);
+    var isOpen = individual.hasValue("v-wf:isCompleted", false) && !individual.hasValue("v-wf:takenDecision");
     if (isMine && isOpen) {
       $(".radio.decision", template).removeClass("disabled").find("input").prop("disabled", false);
       $(".radio.decision input", template).first().prop("checked", true).change();
