@@ -864,26 +864,6 @@ s-wf:UserTaskFormTemplate
   rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
   v-ui:forClass s-wf:UserTaskForm ;
   v-ui:template """
-<script>
-  // Render possible decisions radios
-  var radioTmpl = $(".radio.decision", template);
-  if (individual.hasValue("v-wf:possibleDecisionClass")) {
-    individual["v-wf:possibleDecisionClass"].map( function (value, index) {
-      var tmpl = radioTmpl.clone().insertBefore(radioTmpl);
-      var input = $("input", tmpl).val(index);
-      $("label", tmpl).append("<span about='" + value.id + "' property='rdfs:label'></span>");
-      if (
-        individual.hasValue("v-wf:takenDecision")
-        && individual["v-wf:takenDecision"][0]["rdf:type"][0].id === individual["v-wf:possibleDecisionClass"][index].id
-      ) {
-        input.prop("checked", true);
-      }
-    });
-  }
-  radioTmpl.remove();
-
-  //# sourceURL=s-wf:UserTaskFormTemplate_pre
-</script>
 <div>
   <div class="container sheet">
     <h2 about="@" property="rdfs:label"></h2>
@@ -920,17 +900,20 @@ s-wf:UserTaskFormTemplate
       </div>
     </div>
     <hr />
-    <em about="v-wf:takenDecision" property="rdfs:label"></em>
-    <div class="radio decision">
-      <label>
-        <input type="radio" name="decisionRadios">
-      </label>
-    </div>
     <div about="@" rel="v-wf:takenDecision"></div>
-    <div id="newDecisionHolder"></div>
-    <!--div class="actions view edit -search">
-      <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></div>
-    </div-->
+    <div class="possible-decisions">
+      <em about="v-wf:takenDecision" property="rdfs:label"></em>
+      <div about="@" rel="v-wf:possibleDecisionClass">
+        <div class="radio">
+          <label>
+            <input type="radio" name="decisionRadios">
+            <span property="rdfs:label"></span>
+          </label>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="new-decision"></div>
   </div>
   <br>
   <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
@@ -938,50 +921,34 @@ s-wf:UserTaskFormTemplate
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
-  $(".radio.decision input", template).change(function () {
-    var type = individual["v-wf:possibleDecisionClass"][$(this).val()];
-    var decision = createDecision(type);
-    var holder = $("#newDecisionHolder", template).empty();
-    decision.present(holder, undefined, "edit");
-    // Disable decision radios a decision is saved
-    decision.one("afterSave", disableRadios);
-    template.one("remove", function () {
-      decision.off("afterSave", disableRadios);
-    });
+  $(".possible-decisions input", template).on("change", function (e) {
+    var input = $(this);
+    var hoder = $(".new-decision", template).empty();
+    var decisionClassId = input.closest("[resource]").attr("resource");
+    var decisionClass = new veda.IndividualModel( decisionClassId );
+    decision["rdf:type"] = [ decisionClass ];
+    decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
+    decision.present(hoder, undefined, "edit");
   });
 
-  decisionHandler();
-
-  individual.on("v-wf:isCompleted", decisionHandler);
-  template.one("remove", function () {
-    individual.off("v-wf:isCompleted", decisionHandler);
-  });
-
-  function disableRadios () {
-    $(".radio.decision", template).addClass("disabled").find("input").prop("disabled", true);
+  function completedHandler() {
+    if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
+      $(".possible-decisions, .new-decision", template).remove();
+    }
   }
-  function createDecision(type) {
+  individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+  template.one("remove", function () {
+    individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+  });
+
+  if ( individual.hasValue("v-wf:takenDecision") || !individual.rights.hasValue("v-s:canUpdate", true) ) {
+    $(".possible-decisions, .new-decision", template).remove();
+  } else {
     var decision = new veda.IndividualModel();
-    decision["rdf:type"] = [ type ];
-    decision.properties["rdfs:label"] = type.properties["rdfs:label"];
     decision["v-s:backwardTarget"] = [ individual ];
     decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
     decision["v-s:canRead"] = [ true ];
-    return decision;
-  }
-  function decisionHandler () {
-    var isMine = (veda.appointment && veda.appointment.id === individual["v-wf:to"][0].id)
-              || (veda.appointment && veda.appointment.hasValue("v-s:occupation") && veda.appointment["v-s:occupation"][0].id === individual["v-wf:to"][0].id)
-              || (veda.user && veda.user.id === individual["v-wf:to"][0].id)
-              || individual.rights.hasValue("v-s:canUpdate", true);
-    var isOpen = individual.hasValue("v-wf:isCompleted", false) && !individual.hasValue("v-wf:takenDecision");
-    if (isMine && isOpen) {
-      $(".radio.decision", template).removeClass("disabled").find("input").prop("disabled", false);
-      $(".radio.decision input", template).first().prop("checked", true).change();
-    } else {
-      $(".radio.decision", template).addClass("disabled").find("input").prop("disabled", true);
-      $("#newDecisionHolder", template).remove();
-    }
+    $(".possible-decisions input", template).first().prop("checked", "checked").change();
   }
 
   //# sourceURL=s-wf:UserTaskFormTemplate_post
