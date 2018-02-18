@@ -22,8 +22,10 @@
 s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4
   a v-wf:Mapping;
   v-wf:mappingExpression """
-     if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAgreed'))) {
-       newUri('v-wf:DecisionAgreed');
+//     if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAgreed'))) {
+//       newUri('v-wf:DecisionAgreed');
+     if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionDeclined'))) {
+       newUri('v-wf:DecisionDeclined');
      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionSign'))) {
        newUri('v-wf:DecisionSign');
      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionApprove'))) {
@@ -35,11 +37,11 @@ s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4
      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionExamined'))) {
        newUri('v-wf:DecisionExamined');
      } else {
-       newUri('v-wf:DecisionDeclined');
+       newUri('v-wf:DecisionAgreed');
      }
   """;
   v-wf:mapToVariable s-wf:var_result;
-  rdfs:label "map for s-wf:InterlayerNet_t";
+  rdfs:label "map for s-wf:InterlayerNet_t ";
 .
 
 s-wf:InterlayerNet
