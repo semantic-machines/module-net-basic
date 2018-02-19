@@ -610,7 +610,7 @@ s-wf:participantSpecification
   v-ui:forProperty s-wf:SimpleRouteStartForm_participant ;
   v-ui:minCardinality 1 ;
   v-ui:maxCardinality 1000 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
 .
 
 #--------------------------------------------------------------------------------------
