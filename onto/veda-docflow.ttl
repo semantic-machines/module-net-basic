@@ -135,7 +135,7 @@ v-df:ApprovalTaskTemplate
   </div>
   <br><br>
   <div class="actions">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></span>
   </div>
 </div>
 """ ;
@@ -332,7 +332,7 @@ v-df:SignRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -392,7 +392,7 @@ v-df:QuestionRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -448,7 +448,7 @@ v-df:InstructionRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -500,7 +500,7 @@ v-df:TaskRouteStartFormTemplate
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -550,7 +550,7 @@ v-df:DistributionRouteStartFormTemplate
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -599,7 +599,7 @@ v-df:CoordinationRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -1187,7 +1187,7 @@ v-df:DecisionTemplate2
   <veda-control rel="v-s:hasActivity" data-type="link" class="-view edit search fulltext create"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1536,7 +1536,7 @@ v-wf:DecisionRedirectTemplate
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1586,7 +1586,7 @@ v-wf:DecisionTemplate1
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1620,7 +1620,7 @@ v-wf:DecisionTemplateForRemake
   </div>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
