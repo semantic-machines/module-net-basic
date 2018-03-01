@@ -865,18 +865,31 @@ s-wf:UserTaskFormTemplate
   v-ui:forClass s-wf:UserTaskForm ;
   v-ui:template """
 <script>
-  if ( individual.hasValue("v-wf:dateGiven") && individual.hasValue("v-wf:isCompleted", false) ) {
+  if ( individual.hasValue("v-wf:dateGiven") ) {
     var label = $(".date-given", template);
     var now = new Date();
     var yesterday = new Date().setHours(0,0,0,1);
     var tomorrow = new Date().setHours(23,59,59,999);
     var dateGiven = individual["v-wf:dateGiven"][0];
-    if (dateGiven < yesterday) {
-      label.toggleClass("label-default label-danger");
-    } else if (yesterday < dateGiven && dateGiven <= tomorrow) {
-      label.toggleClass("label-default label-warning");
-    } else if (tomorrow < dateGiven) {
-      label.toggleClass("label-default label-success");
+    var dateGivenYesterday = new Date(dateGiven).setHours(0,0,0,1);
+    var dateGivenTomorrow = new Date(dateGiven).setHours(23,59,59,999);
+    var dateDone = individual.hasValue("v-wf:takenDecision") && individual["v-wf:takenDecision"][0]["v-s:created"][0];
+    if ( individual.hasValue("v-wf:isCompleted", false) ) {
+      if (dateGiven < yesterday) {
+        label.toggleClass("label-default label-danger");
+      } else if (yesterday < dateGiven && dateGiven <= tomorrow) {
+        label.toggleClass("label-default label-warning");
+      } else if (tomorrow < dateGiven) {
+        label.toggleClass("label-default label-success");
+      }
+    } else {
+      if (dateGivenYesterday < dateDone && dateDone <= dateGivenTomorrow) {
+        label.toggleClass("label-default label-warning");
+      } else if (dateDone < dateGiven) {
+        label.toggleClass("label-default label-success");
+      } else if (dateGiven < dateDone ) {
+        label.toggleClass("label-default label-danger");
+      }
     }
   }
 //# sourceURL=s-wf:UserTaskFormTemplate_pre
@@ -889,7 +902,7 @@ s-wf:UserTaskFormTemplate
       }
     </style>
     <div class="row">
-      <div class="col-xs-6 col-md-9" style="border-right: 1px dotted #ccc;">
+      <div class="col-xs-7 col-md-9" style="border-right: 1px dotted #ccc;">
         <h2>
           <span about="@" property="rdfs:label"></span><br/>
           <small about="@" property="v-s:description"></small>
@@ -909,7 +922,8 @@ s-wf:UserTaskFormTemplate
           </div>
         </div>
         <div class="possible-decisions">
-          <em about="v-wf:takenDecision" property="rdfs:label"></em>
+          <hr />
+          <h4 about="v-wf:takenDecision" property="rdfs:label"></h4>
           <div about="@" rel="v-wf:possibleDecisionClass">
             <div class="radio">
               <label>
@@ -919,11 +933,10 @@ s-wf:UserTaskFormTemplate
             </div>
           </div>
         </div>
-        <hr />
-        <div class="new-decision"></div>
+        <div class="well new-decision"></div>
         <div class="well taken-decision" about="@" rel="v-wf:takenDecision"></div>
       </div>
-      <div class="col-xs-6 col-md-3">
+      <div class="col-xs-5 col-md-3">
         <h3><span about="@" property="v-wf:dateGiven" class="date-given label label-default"></span></h3>
         <em about="v-wf:from" property="rdfs:label"></em>
         <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
