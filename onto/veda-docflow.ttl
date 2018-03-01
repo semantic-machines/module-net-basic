@@ -1183,11 +1183,29 @@ v-df:DecisionTemplate2
   });
 </script>
 <div>
+  <h4 class="decision">
+    <span about="@" property="rdfs:label"></span>
+    <small class="label label-default" about="@" property="v-s:created"></small>
+  </h4>
   <div rel="v-s:hasActivity" data-template="v-df:ActionInDecisionTemplate" data-embedded="true"></div>
   <veda-control rel="v-s:hasActivity" data-type="link" class="-view edit search fulltext create"></veda-control>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+    <!--div class="action btn-group dropup">
+      <button class="action btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+        <span about="v-s:SendTask" property="rdfs:label"> </span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#" about="v-s:Question" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Instruction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Introduction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Distribution" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Coordination" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Sign" property="rdfs:label"></a></li>
+      </ul>
+    </div-->
   </div>
 </div>
   """ ;
@@ -1527,16 +1545,33 @@ v-wf:DecisionRedirectTemplate
   });
 </script>
 <div>
-  <h3><span class="label label-default" about="@" property="rdfs:label"></span></h3>
+  <h4 class="decision">
+    <span about="@" property="rdfs:label"></span>
+    <small class="label label-default" about="@" property="v-s:created"></small>
+  </h4>
   <em about="v-wf:to" property="rdfs:label"></em>
   <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+    <!--div class="action btn-group dropup">
+      <button class="action btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+        <span about="v-s:SendTask" property="rdfs:label"> </span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#" about="v-s:Question" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Instruction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Introduction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Distribution" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Coordination" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Sign" property="rdfs:label"></a></li>
+      </ul>
+    </div-->
   </div>
 </div>
   """ ;
@@ -1580,13 +1615,30 @@ v-wf:DecisionTemplate1
   });
 </script>
 <div>
-  <h3><span class="label label-default" about="@" property="rdfs:label"></span></h3>
+  <h4 class="decision">
+    <span about="@" property="rdfs:label"></span>
+    <small class="label label-default" about="@" property="v-s:created"></small>
+  </h4>
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+    <!--div class="action btn-group dropup">
+      <button class="action btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+        <span about="v-s:SendTask" property="rdfs:label"> </span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#" about="v-s:Question" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Instruction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Introduction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Distribution" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Coordination" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Sign" property="rdfs:label"></a></li>
+      </ul>
+    </div-->
   </div>
 </div>
   """ ;
@@ -1605,7 +1657,10 @@ v-wf:DecisionTemplateForRemake
   });
 </script>
 <div>
-  <h3><span class="label label-default" about="@" property="rdfs:label"></span></h3>
+  <h4 class="decision">
+    <span about="@" property="rdfs:label"></span>
+    <small class="label label-default" about="@" property="v-s:created"></small>
+  </h4>
   <div class="row">
     <div class="col-md-9">
       <em about="rdfs:comment" property="rdfs:label"></em>
@@ -1618,9 +1673,23 @@ v-wf:DecisionTemplateForRemake
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
     </div>
   </div>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+    <!--div class="action btn-group dropup">
+      <button class="action btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+        <span about="v-s:SendTask" property="rdfs:label"> </span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#" about="v-s:Question" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Instruction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Introduction" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Distribution" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Coordination" property="rdfs:label"></a></li>
+        <li><a href="#" about="v-s:Sign" property="rdfs:label"></a></li>
+      </ul>
+    </div-->
   </div>
 </div>
   """ ;

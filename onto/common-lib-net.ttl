@@ -864,56 +864,73 @@ s-wf:UserTaskFormTemplate
   rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
   v-ui:forClass s-wf:UserTaskForm ;
   v-ui:template """
+<script>
+  if ( individual.hasValue("v-wf:dateGiven") && individual.hasValue("v-wf:isCompleted", false) ) {
+    var label = $(".date-given", template);
+    var now = new Date();
+    var yesterday = new Date().setHours(0,0,0,1);
+    var tomorrow = new Date().setHours(23,59,59,999);
+    var dateGiven = individual["v-wf:dateGiven"][0];
+    if (dateGiven < yesterday) {
+      label.toggleClass("label-default label-danger");
+    } else if (yesterday < dateGiven && dateGiven <= tomorrow) {
+      label.toggleClass("label-default label-warning");
+    } else if (tomorrow < dateGiven) {
+      label.toggleClass("label-default label-success");
+    }
+  }
+//# sourceURL=s-wf:UserTaskFormTemplate_pre
+</script>
 <div>
   <div class="container sheet">
-    <h2 about="@" property="rdfs:label"></h2>
+    <style scoped>
+      .taken-decision:empty {
+        display:none;
+      }
+    </style>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-xs-6 col-md-9" style="border-right: 1px dotted #ccc;">
+        <h2>
+          <span about="@" property="rdfs:label"></span><br/>
+          <small about="@" property="v-s:description"></small>
+        </h2>
+        <div about="@" rel="v-wf:redirect_from_task">
+          <hr/>
+          <div class="row">
+            <div class="col-md-3">
+              <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
+              <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
+              <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
+            </div>
+            <div rel="v-wf:takenDecision" class="col-md-3">
+              <em about="rdfs:comment" property="rdfs:label"> </em>
+              <span about="@"  property="rdfs:comment"></span>
+            </div>
+          </div>
+        </div>
+        <div class="possible-decisions">
+          <em about="v-wf:takenDecision" property="rdfs:label"></em>
+          <div about="@" rel="v-wf:possibleDecisionClass">
+            <div class="radio">
+              <label>
+                <input type="radio" name="decisionRadios">
+                <span property="rdfs:label"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="new-decision"></div>
+        <div class="well taken-decision" about="@" rel="v-wf:takenDecision"></div>
+      </div>
+      <div class="col-xs-6 col-md-3">
+        <h3><span about="@" property="v-wf:dateGiven" class="date-given label label-default"></span></h3>
         <em about="v-wf:from" property="rdfs:label"></em>
         <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
-      </div>
-      <div class="col-md-3">
-         <em about="v-wf:to" property="rdfs:label"></em>
-         <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
-      </div>
-      <div class="col-md-3">
-        <em about="v-s:description" property="rdfs:label"></em>
-        <div about="@" property="v-s:description"></div>
-      </div>
-      <div class="col-md-3">
-        <em about="v-wf:dateGiven" property="rdfs:label"></em>
-        <div about="@" property="v-wf:dateGiven"></div>
+        <em about="v-wf:to" property="rdfs:label"></em>
+        <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
       </div>
     </div>
-    <div about="@" rel="v-wf:redirect_from_task">
-      <hr>
-      <div class="row">
-        <div class="col-md-3">
-          <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
-          <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
-          <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
-        </div>
-        <div rel="v-wf:takenDecision" class="col-md-3">
-          <em about="rdfs:comment" property="rdfs:label"> </em>
-          <span about="@"  property="rdfs:comment"></span>
-        </div>
-      </div>
-    </div>
-    <hr />
-    <div about="@" rel="v-wf:takenDecision"></div>
-    <div class="possible-decisions">
-      <em about="v-wf:takenDecision" property="rdfs:label"></em>
-      <div about="@" rel="v-wf:possibleDecisionClass">
-        <div class="radio">
-          <label>
-            <input type="radio" name="decisionRadios">
-            <span property="rdfs:label"></span>
-          </label>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="new-decision"></div>
   </div>
   <br>
   <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
@@ -950,8 +967,7 @@ s-wf:UserTaskFormTemplate
     decision["v-s:canRead"] = [ true ];
     $(".possible-decisions input", template).first().prop("checked", "checked").change();
   }
-
-  //# sourceURL=s-wf:UserTaskFormTemplate_post
+//# sourceURL=s-wf:UserTaskFormTemplate_post
 </script>
   """ ;
 .
