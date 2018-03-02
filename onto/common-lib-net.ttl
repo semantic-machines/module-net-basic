@@ -24,8 +24,8 @@
 #------------------------Строки----------
 v-s:TaskIsRedirectedFrom
   rdf:type v-s:Bundle ;
-  rdfs:label "Задача перенаправлена от"@ru ;
-  rdfs:label "Task is redirected from"@en ;
+  rdfs:label "Задача перенаправлена"@ru ;
+  rdfs:label "Task was redirected by"@en ;
 .
 # -----------------------------------------------
 
