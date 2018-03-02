@@ -907,7 +907,7 @@ s-wf:UserTaskFormTemplate
           <span about="@" property="rdfs:label"></span><br/>
           <small about="@" property="v-s:description"></small>
         </h2>
-        <div class="possible-decisions">
+        <div class="possible-decisions clearfix" style="position:relative">
           <hr />
           <h4 about="v-wf:takenDecision" property="rdfs:label"></h4>
           <div about="@" rel="v-wf:possibleDecisionClass">
@@ -917,6 +917,9 @@ s-wf:UserTaskFormTemplate
                 <span property="rdfs:label"></span>
               </label>
             </div>
+          </div>
+          <div style="position:absolute; bottom:15px; right:0;">
+            <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
           </div>
         </div>
         <div class="well new-decision"></div>
