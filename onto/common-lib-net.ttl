@@ -907,20 +907,6 @@ s-wf:UserTaskFormTemplate
           <span about="@" property="rdfs:label"></span><br/>
           <small about="@" property="v-s:description"></small>
         </h2>
-        <div about="@" rel="v-wf:redirect_from_task">
-          <hr/>
-          <div class="row">
-            <div class="col-md-3">
-              <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
-              <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
-              <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
-            </div>
-            <div rel="v-wf:takenDecision" class="col-md-3">
-              <em about="rdfs:comment" property="rdfs:label"> </em>
-              <span about="@"  property="rdfs:comment"></span>
-            </div>
-          </div>
-        </div>
         <div class="possible-decisions">
           <hr />
           <h4 about="v-wf:takenDecision" property="rdfs:label"></h4>
@@ -942,6 +928,18 @@ s-wf:UserTaskFormTemplate
         <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
         <em about="v-wf:to" property="rdfs:label"></em>
         <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
+        <div about="@" rel="v-wf:redirect_from_task">
+          <div>
+            <hr class="margin-sm"/>
+            <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
+            <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
+            <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
+            <div rel="v-wf:takenDecision">
+              <em about="rdfs:comment" property="rdfs:label"> </em>
+              <span about="@"  property="rdfs:comment"></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
