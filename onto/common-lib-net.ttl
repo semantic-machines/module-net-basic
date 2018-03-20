@@ -520,6 +520,15 @@ s-wf:SimpleRouteStartForm_deadlineDays
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:SimpleRouteStartForm_canEdit
+  rdf:type rdf:Property ;
+  rdfs:label "Разрешить редактировать"@ru ;
+  rdfs:label "Permission to edit"@en ;
+  rdfs:domain s-wf:SimpleRouteStartForm ;
+  rdfs:range xsd:boolean ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:pm_sf
   rdf:type v-s:PermissionStatement ;
   v-s:canCreate "true"^^xsd:boolean ;
@@ -527,6 +536,19 @@ s-wf:pm_sf
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
 
+#---------------------------------СПЕЦИФИКАЦИИ--------------------
+s-wf:PsSimpleRouteStartForm_canEdit
+  rdf:type v-ui:PropertySpecification ;
+  v-ui:forClass s-wf:SimpleRouteStartForm ;
+  v-ui:forProperty s-wf:SimpleRouteStartForm_canEdit ;
+  v-ui:maxCardinality 1 ;
+  v-ui:minCardinality 1 ;
+  v-ui:defaultValue "false"^^xsd:boolean ;
+  rdfs:label "Спецификация для свойства разрешения редактирования класса SimpleRouteStartForm"@ru ;
+  rdfs:label "Permission to edit specification for SImpleRouteStartForm class"@en ;
+.
+
+#---------------------------------ШАБЛОНЫ-------------------------
 s-wf:SimpleRouteStartFormMinimal_Template
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy s-wf: ;
@@ -540,6 +562,12 @@ s-wf:SimpleRouteStartFormMinimal_Template
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
   <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
+  <div class="checkbox">
+    <label>
+      <veda-control property="s-wf:SimpleRouteStartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="s-wf:SimpleRouteStartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
@@ -560,6 +588,12 @@ s-wf:SimpleRouteStartFormShort_Template
   <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
   <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
+  <div class="checkbox">
+    <label>
+      <veda-control property="s-wf:SimpleRouteStartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="s-wf:SimpleRouteStartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
@@ -592,6 +626,12 @@ s-wf:SimpleRouteStartFormFull_Template
   <em about="s-wf:SimpleRouteStartForm_controller" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_controller" class="view -edit -search"></div>
   <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_controller" class="-view edit -search fulltext"></veda-control>
+  <div class="checkbox">
+    <label>
+      <veda-control property="s-wf:SimpleRouteStartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="s-wf:SimpleRouteStartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
