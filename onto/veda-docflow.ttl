@@ -1543,7 +1543,7 @@ v-wf:DecisionRedirect
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Перенаправить другому"@ru ;
+  rdfs:label "Перенаправить"@ru ;
   rdfs:label "Redirect"@en ;
   v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
@@ -1577,7 +1577,7 @@ v-wf:DecisionAcceptMotivatedRefusal
 v-wf:DecisionRedirectTemplate
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Перенаправить другому-"@ru ;
+  rdfs:label "Шаблон для класса -Перенаправить-"@ru ;
   rdfs:label "Template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
@@ -1790,7 +1790,7 @@ v-wf:DecisionRedirectTemplateSpec2_comment
 v-wf:DecisionRedirectTemplateSpec3
   rdf:type v-ui:ObjectPropertySpecification ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация свойств для класса -Перенаправить другому-"@ru ;
+  rdfs:label "Спецификация свойств для класса -Перенаправить-"@ru ;
   rdfs:label "Spec for template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
