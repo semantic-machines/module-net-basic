@@ -329,7 +329,12 @@ v-df:SignRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
@@ -452,6 +457,12 @@ v-df:InstructionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
@@ -510,6 +521,12 @@ v-df:TaskRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <br>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
@@ -563,6 +580,12 @@ v-df:DistributionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <br>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
@@ -611,7 +634,12 @@ v-df:CoordinationRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
