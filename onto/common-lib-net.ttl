@@ -1867,18 +1867,6 @@ d:a6caa3c11-9333-4270-549f-e899df057223 a v-wf:Flow;
   v-s:created "2015-11-25T09:21:02.222Z"^^xsd:dateTime;
   v-wf:flowsInto s-wf:nc_oc.
 
-
-#---- ---- -----
-
-s-wf:ss1 a v-s:SavedSearch;
-  rdfs:isDefinedBy s-wf: ;
-  v-s:author td:RomanKarpov;
-  v-s:query "'rdfs:isDefinedBy' == 's-wf:'"^^xsd:string;
-  rdfs:label "Базовая онтология маршрутов монди"^^xsd:string;
-  v-s:created "2015-05-23T13:27:18.000Z"^^xsd:dateTime.
-
-
-
 # ----------- define vars for message template -------
 s-wf:map_msg_template_4_SV_default_template
   rdf:type v-wf:Mapping ;
