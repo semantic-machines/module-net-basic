@@ -346,7 +346,7 @@ v-df:SignRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -411,7 +411,7 @@ v-df:ConfirmationRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -539,7 +539,7 @@ v-df:InstructionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -603,7 +603,7 @@ v-df:TaskRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -716,7 +716,7 @@ v-df:CoordinationRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -935,6 +935,17 @@ v-df:rul_ConfirmationTransform8
   v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'controller')";
 .
+v-df:rul_ConfirmationTransform9
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_canEdit')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'rightset')";
+  v-wf:aggregate  """
+    if ( getElement()[0].data==true) {
+      putString ('v-wf:variableValue', '-ru-');
+    };
+  """;
+.
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС В СЕТЬ --
 v-df:QuestionRouteStartFormToNet
@@ -1040,6 +1051,7 @@ v-df:InstructionRouteStartFormToNet
   v-wf:transformRule v-df:rul_InstructionTransform6_3 ;
   v-wf:transformRule v-df:rul_InstructionTransform7 ;
   v-wf:transformRule v-df:rul_InstructionTransform8 ;
+  v-wf:transformRule v-df:rul_InstructionTransform9 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_InstructionTransform0
@@ -1117,6 +1129,17 @@ v-df:rul_InstructionTransform8
   v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'controller')";
 .
+v-df:rul_InstructionTransform9
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_canEdit')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'rightset')";
+  v-wf:aggregate  """
+    if ( getElement()[0].data==true) {
+      putString ('v-wf:variableValue', '-ru-');
+    };
+  """;
+.
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ В СЕТЬ --
 v-df:TaskRouteStartFormToNet
@@ -1131,6 +1154,7 @@ v-df:TaskRouteStartFormToNet
   v-wf:transformRule v-df:rul_TaskTransform6_0 ;
   v-wf:transformRule v-df:rul_TaskTransform6_3 ;
   v-wf:transformRule v-df:rul_TaskTransform7 ;
+  v-wf:transformRule v-df:rul_TaskTransform8 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_TaskTransform0
@@ -1195,6 +1219,17 @@ v-df:rul_TaskTransform7
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putString ('v-wf:variableValue', 'Ознакомиться')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_action')";
+.
+v-df:rul_TaskTransform8
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_canEdit')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'rightset')";
+  v-wf:aggregate  """
+    if ( getElement()[0].data==true) {
+      putString ('v-wf:variableValue', '-ru-');
+    };
+  """;
 .
 
 
@@ -1276,7 +1311,6 @@ v-df:rul_DistributionTransform7
   v-wf:aggregate  "putString ('v-wf:variableValue', 'Рассылка')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_action')";
 .
-
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ CОГЛАСОВАНИЕ В СЕТЬ --
 
 v-df:CoordinationRouteStartFormToNet
@@ -1292,6 +1326,7 @@ v-df:CoordinationRouteStartFormToNet
   v-wf:transformRule v-df:rul_CoordinationTransform6_3 ;
   v-wf:transformRule v-df:rul_CoordinationTransform7 ;
   v-wf:transformRule v-df:rul_CoordinationTransform8 ;
+  v-wf:transformRule v-df:rul_CoordinationTransform9 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_CoordinationTransform0
@@ -1368,6 +1403,17 @@ v-df:rul_CoordinationTransform8
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'controller')";
+.
+v-df:rul_CoordinationTransform9
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_canEdit')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'rightset')";
+  v-wf:aggregate  """
+    if ( getElement()[0].data==true) {
+      putString ('v-wf:variableValue', '-ru-');
+    };
+  """;
 .
 
 # -- ФОРМА ОТВЕТА ЗАДАЧИ ИДЕЯ В РЕАЛИЗАЦИЮ --
