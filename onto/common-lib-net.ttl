@@ -24,8 +24,8 @@
 #------------------------Строки----------
 v-s:TaskIsRedirectedFrom
   rdf:type v-s:Bundle ;
-  rdfs:label "Задача перенаправлена от"@ru ;
-  rdfs:label "Task is redirected from"@en ;
+  rdfs:label "Задача перенаправлена"@ru ;
+  rdfs:label "Task was redirected by"@en ;
 .
 # -----------------------------------------------
 
@@ -540,6 +540,12 @@ s-wf:SimpleRouteStartFormMinimal_Template
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
   <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
@@ -560,6 +566,12 @@ s-wf:SimpleRouteStartFormShort_Template
   <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
   <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
@@ -592,6 +604,12 @@ s-wf:SimpleRouteStartFormFull_Template
   <em about="s-wf:SimpleRouteStartForm_controller" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_controller" class="view -edit -search"></div>
   <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_controller" class="-view edit -search fulltext"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
@@ -610,7 +628,7 @@ s-wf:participantSpecification
   v-ui:forProperty s-wf:SimpleRouteStartForm_participant ;
   v-ui:minCardinality 1 ;
   v-ui:maxCardinality 1000 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
 .
 
 #--------------------------------------------------------------------------------------
@@ -864,56 +882,87 @@ s-wf:UserTaskFormTemplate
   rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
   v-ui:forClass s-wf:UserTaskForm ;
   v-ui:template """
+<script>
+  if ( individual.hasValue("v-wf:dateGiven") ) {
+    var label = $(".date-given", template);
+    var now = new Date();
+    var yesterday = new Date().setHours(0,0,0,1);
+    var tomorrow = new Date().setHours(23,59,59,999);
+    var dateGiven = individual["v-wf:dateGiven"][0];
+    var dateGivenYesterday = new Date(dateGiven).setHours(0,0,0,1);
+    var dateGivenTomorrow = new Date(dateGiven).setHours(23,59,59,999);
+    var dateDone = individual.hasValue("v-wf:takenDecision") && individual["v-wf:takenDecision"][0]["v-s:created"][0];
+    if ( individual.hasValue("v-wf:isCompleted", false) ) {
+      if (dateGiven < yesterday) {
+        label.toggleClass("label-default label-danger");
+      } else if (yesterday < dateGiven && dateGiven <= tomorrow) {
+        label.toggleClass("label-default label-warning");
+      } else if (tomorrow < dateGiven) {
+        label.toggleClass("label-default label-success");
+      }
+    } else {
+      if (dateGivenYesterday < dateDone && dateDone <= dateGivenTomorrow) {
+        label.toggleClass("label-default label-warning");
+      } else if (dateDone < dateGiven) {
+        label.toggleClass("label-default label-success");
+      } else if (dateGiven < dateDone ) {
+        label.toggleClass("label-default label-danger");
+      }
+    }
+  }
+//# sourceURL=s-wf:UserTaskFormTemplate_pre
+</script>
 <div>
   <div class="container sheet">
-    <h2 about="@" property="rdfs:label"></h2>
+    <style scoped>
+      .taken-decision:empty {
+        display:none;
+      }
+    </style>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-xs-7 col-md-9" style="border-right: 1px dotted #ccc;">
+        <h2>
+          <span about="@" property="rdfs:label"></span><br/>
+          <small about="@" property="v-s:description"></small>
+        </h2>
+        <div class="possible-decisions clearfix" style="position:relative">
+          <hr />
+          <h4 about="v-wf:takenDecision" property="rdfs:label"></h4>
+          <div about="@" rel="v-wf:possibleDecisionClass">
+            <div class="radio">
+              <label>
+                <input type="radio" name="decisionRadios">
+                <span property="rdfs:label"></span>
+              </label>
+            </div>
+          </div>
+          <div style="position:absolute; bottom:15px; right:0;">
+            <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
+          </div>
+        </div>
+        <div class="well new-decision"></div>
+        <div class="well taken-decision" about="@" rel="v-wf:takenDecision"></div>
+      </div>
+      <div class="col-xs-5 col-md-3">
+        <h3><span about="@" property="v-wf:dateGiven" class="date-given label label-default"></span></h3>
         <em about="v-wf:from" property="rdfs:label"></em>
         <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
-      </div>
-      <div class="col-md-3">
-         <em about="v-wf:to" property="rdfs:label"></em>
-         <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
-      </div>
-      <div class="col-md-3">
-        <em about="v-s:description" property="rdfs:label"></em>
-        <div about="@" property="v-s:description"></div>
-      </div>
-      <div class="col-md-3">
-        <em about="v-wf:dateGiven" property="rdfs:label"></em>
-        <div about="@" property="v-wf:dateGiven"></div>
-      </div>
-    </div>
-    <div about="@" rel="v-wf:redirect_from_task">
-      <hr>
-      <div class="row">
-        <div class="col-md-3">
-          <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
-          <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
-          <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
-        </div>
-        <div rel="v-wf:takenDecision" class="col-md-3">
-          <em about="rdfs:comment" property="rdfs:label"> </em>
-          <span about="@"  property="rdfs:comment"></span>
+        <em about="v-wf:to" property="rdfs:label"></em>
+        <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
+        <div about="@" rel="v-wf:redirect_from_task">
+          <div>
+            <hr class="margin-sm"/>
+            <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
+            <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
+            <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
+            <div rel="v-wf:takenDecision">
+              <em about="rdfs:comment" property="rdfs:label"> </em>
+              <span about="@"  property="rdfs:comment"></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <hr />
-    <div about="@" rel="v-wf:takenDecision"></div>
-    <div class="possible-decisions">
-      <em about="v-wf:takenDecision" property="rdfs:label"></em>
-      <div about="@" rel="v-wf:possibleDecisionClass">
-        <div class="radio">
-          <label>
-            <input type="radio" name="decisionRadios">
-            <span property="rdfs:label"></span>
-          </label>
-        </div>
-      </div>
-      <hr>
-    </div>
-    <div class="new-decision"></div>
   </div>
   <br>
   <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
@@ -950,8 +999,7 @@ s-wf:UserTaskFormTemplate
     decision["v-s:canRead"] = [ true ];
     $(".possible-decisions input", template).first().prop("checked", "checked").change();
   }
-
-  //# sourceURL=s-wf:UserTaskFormTemplate_post
+//# sourceURL=s-wf:UserTaskFormTemplate_post
 </script>
   """ ;
 .
@@ -1525,16 +1573,15 @@ s-wf:map_jrn_msg_nc_t2_b
   rdf:type v-wf:Mapping ;
   rdfs:isDefinedBy s-wf: ;
   v-wf:mapToVariable s-wf:var_journal_msg ;
-  v-wf:mappingExpression "newStr ('Выдана задача: '+process.getLocalVariable ('actor_task_action')[0].data)" ;
+  v-wf:mappingExpression "newStr (process.getLocalVariable ('actor_task_action')[0].data)" ;
 .
 
 s-wf:map_jrn_msg_nc_t2_b_remake
   rdf:type v-wf:Mapping ;
   rdfs:isDefinedBy s-wf: ;
   v-wf:mapToVariable s-wf:var_journal_msg ;
-  v-wf:mappingExpression "newStr ('Выдана задача: Доработать')" ;
+  v-wf:mappingExpression "newStr ('Доработать')" ;
 .
-
 
 s-wf:map_jrn_msg_nc_t2_b_ev
   rdf:type v-wf:Mapping ;
@@ -1820,18 +1867,6 @@ d:a6caa3c11-9333-4270-549f-e899df057223 a v-wf:Flow;
   v-s:created "2015-11-25T09:21:02.222Z"^^xsd:dateTime;
   v-wf:flowsInto s-wf:nc_oc.
 
-
-#---- ---- -----
-
-s-wf:ss1 a v-s:SavedSearch;
-  rdfs:isDefinedBy s-wf: ;
-  v-s:author td:RomanKarpov;
-  v-s:query "'rdfs:isDefinedBy' == 's-wf:'"^^xsd:string;
-  rdfs:label "Базовая онтология маршрутов монди"^^xsd:string;
-  v-s:created "2015-05-23T13:27:18.000Z"^^xsd:dateTime.
-
-
-
 # ----------- define vars for message template -------
 s-wf:map_msg_template_4_SV_default_template
   rdf:type v-wf:Mapping ;
@@ -1861,10 +1896,17 @@ s-wf:map_from_4_TIV_from
   rdfs:isDefinedBy s-wf: ;
 .
 
-s-wf:map_wf_from_4_TIV_initiator
+s-wf:map_wf_from_4_TIV_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
   v-wf:mappingExpression  "newUri ('cfg:VedaSystemAppointment')";
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_wf_from_4_TIV_initiator
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_wf_from ;
+  v-wf:mappingExpression  "task.getInputVariable ('from')";
   rdfs:isDefinedBy s-wf: ;
 .
 

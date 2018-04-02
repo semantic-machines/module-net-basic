@@ -135,7 +135,7 @@ v-df:ApprovalTaskTemplate
   </div>
   <br><br>
   <div class="actions">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></span>
   </div>
 </div>
 """ ;
@@ -147,19 +147,29 @@ v-df:SignRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Подписание"@ru ;
-  rdfs:label "Sign a document"@en ;
-  rdfs:comment "Задача подписать документ"@ru ;
+  rdfs:label "Подписать"@ru ;
+  rdfs:label "Sign"@en ;
+  rdfs:comment "Задача подписать"@ru ;
   v-ui:hasTemplate v-df:SignRouteStartFormTemplate ;
+.
+
+v-df:ConfirmationRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Утвердить"@ru ;
+  rdfs:label "Confirmation"@en ;
+  rdfs:comment "Задача подписать"@ru ;
+  v-ui:hasTemplate v-df:ConfirmationRouteStartFormTemplate ;
 .
 
 v-df:QuestionRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "Задать вопрос"@ru ;
-  rdfs:label "Question document"@en ;
-  rdfs:comment "Задача задать вопрос"@ru ;
+  rdfs:label "Ответить на вопрос"@ru ;
+  rdfs:label "Answer question"@en ;
+  rdfs:comment "Задача ответить на вопрос"@ru ;
   v-ui:hasTemplate v-df:QuestionRouteStartFormTemplate ;
 .
 v-df:InstructionRouteStartForm
@@ -167,7 +177,7 @@ v-df:InstructionRouteStartForm
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
   rdfs:label "Исполнить поручение"@ru ;
-  rdfs:label "Instruction document"@en ;
+  rdfs:label "Perform instruction"@en ;
   rdfs:comment "Задача исполнить поручение"@ru ;
   v-ui:hasTemplate v-df:InstructionRouteStartFormTemplate ;
 .
@@ -175,8 +185,8 @@ v-df:TaskRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "На ознакомление"@ru ;
-  rdfs:label "Introduction"@en ;
+  rdfs:label "Ознакомиться"@ru ;
+  rdfs:label "Get informed"@en ;
   rdfs:comment "Задача ознакомиться"@ru ;
   v-ui:hasTemplate v-df:TaskRouteStartFormTemplate ;
 .
@@ -193,9 +203,9 @@ v-df:CoordinationRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:isDefinedBy v-df: ;
-  rdfs:label "На согласование"@ru ;
-  rdfs:label "Coordination"@en ;
-  rdfs:comment "Задача согласования"@ru ;
+  rdfs:label "Согласовать"@ru ;
+  rdfs:label "Coordinate"@en ;
+  rdfs:comment "Задача согласовать"@ru ;
   v-ui:hasTemplate v-df:CoordinationRouteStartFormTemplate ;
 .
 
@@ -207,10 +217,11 @@ v-df:PsStartForm_responsible
   v-ui:forClass v-df:DistributionRouteStartForm ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
   v-ui:forClass v-df:SignRouteStartForm ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty v-s:responsible ;
   v-ui:maxCardinality 100 ;
   v-ui:minCardinality 1 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' ) || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
   rdfs:label "Task sender property specification for Question task class"@en ;
 .
@@ -223,6 +234,7 @@ v-df:PsStartForm_dateTo
   v-ui:forClass v-df:DistributionRouteStartForm ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
   v-ui:forClass v-df:SignRouteStartForm;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty v-s:dateTo ;
   v-ui:minCardinality "0"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
@@ -238,6 +250,7 @@ v-s:count
   rdfs:domain v-df:DistributionRouteStartForm ;
   rdfs:domain v-df:CoordinationRouteStartForm ;
   rdfs:domain v-df:SignRouteStartForm ;
+  rdfs:domain v-df:ConfirmationRouteStartForm ;
 
 .
 v-df:PsCountForStartForm
@@ -250,6 +263,7 @@ v-df:PsCountForStartForm
   v-ui:forClass v-df:DistributionRouteStartForm ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
   v-ui:forClass v-df:SignRouteStartForm;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty v-s:count ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
@@ -263,6 +277,7 @@ v-wf:processedDocument
   rdfs:domain v-df:DistributionRouteStartForm ;
   rdfs:domain v-df:CoordinationRouteStartForm ;
   rdfs:domain v-df:SignRouteStartForm;
+  rdfs:domain v-df:ConfirmationRouteStartForm ;
 .
 v-df:PsStartForm_processedDocument
   rdf:type v-ui:ObjectPropertySpecification ;
@@ -272,6 +287,7 @@ v-df:PsStartForm_processedDocument
   v-ui:forClass v-df:DistributionRouteStartForm ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
   v-ui:forClass v-df:SignRouteStartForm ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty v-wf:processedDocument ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
@@ -288,6 +304,7 @@ v-df:PsStartForm_comment
   v-ui:forClass v-df:DistributionRouteStartForm ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
   v-ui:forClass v-df:SignRouteStartForm;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty rdfs:comment ;
   rdfs:label "Спецификация к свойству комментарий для QuestionRouteStartForm"@ru ;
   rdfs:label "Spec for comment for QuestionRouteStartFormclass"@en ;
@@ -303,9 +320,12 @@ v-df:SignRouteStartFormTemplate
   rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
-  <h3><span about="v-df:SignRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
-  <em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div>
+  <h3>
+    <span about="v-df:SignRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -326,13 +346,18 @@ v-df:SignRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -352,6 +377,71 @@ v-df:SignRouteStartFormTemplate
 """ ;
 .
 
+# -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЕ --
+v-df:ConfirmationRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  rdfs:label "Шаблон формы задачи утвреждение"@ru ;
+  rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
+  v-ui:template """
+<div class="container sheet">
+  <h3>
+    <span about="v-df:ConfirmationRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+    <div class="col-md-2">
+      <em about="v-s:count" property="rdfs:label"></em>
+      <div property="v-s:count" class="view -edit -search"></div>
+      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <em about="v-s:controller" property="rdfs:label"></em>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  if ( mode === "edit" && this.isNew() ) {
+    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+  }
+  template.on("click", "#cancel.action", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  //# sourceURL=v-df:ConfirmationRouteStartFormTemplate
+</script>
+""" ;
+.
+
 
 
 
@@ -363,9 +453,12 @@ v-df:QuestionRouteStartFormTemplate
   rdfs:label "QuestionRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
-  <h3><span about="v-df:QuestionRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
-  <em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div>
+  <h3>
+    <span about="v-df:QuestionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -392,7 +485,7 @@ v-df:QuestionRouteStartFormTemplate
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -420,9 +513,12 @@ v-df:InstructionRouteStartFormTemplate
   rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
-  <h3><span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
-  <em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div>
+  <h3>
+    <span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -443,12 +539,18 @@ v-df:InstructionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -475,9 +577,12 @@ v-df:TaskRouteStartFormTemplate
   rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
-  <h3><span about="v-df:TaskRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
-  <em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div>
+  <h3>
+    <span about="v-df:TaskRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -498,9 +603,15 @@ v-df:TaskRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -525,9 +636,12 @@ v-df:DistributionRouteStartFormTemplate
   rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
-  <h3><span about="v-df:DistributionRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
-  <em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div>
+  <h3>
+    <span about="v-df:DistributionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -548,9 +662,15 @@ v-df:DistributionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -575,9 +695,12 @@ v-df:CoordinationRouteStartFormTemplate
   rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
 <div class="container sheet">
-  <h3><span about="v-df:CoordinationRouteStartForm" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
-  <em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div>
+  <h3>
+    <span about="v-df:CoordinationRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -593,13 +716,18 @@ v-df:CoordinationRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-
+  <div class="checkbox -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
 <script>
@@ -621,7 +749,7 @@ v-df:CoordinationRouteStartFormTemplate
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ В СЕТЬ --
 v-df:SignRouteStartFormToNet
-  rdfs:label "Трансформация из СтФ Задать вопрос в стандартную сеть процесса"^^xsd:string;
+  rdfs:label "Трансформация из СтФ Подписание в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
   v-wf:transformRule v-df:rul_SignTransform0 ;
   v-wf:transformRule v-df:rul_SignTransform1 ;
@@ -707,16 +835,101 @@ v-df:rul_SignTransform8
   v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'controller')";
 .
+v-df:rul_SignTransform9
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_canEdit')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'rightset')";
+.
 
-
-
-
-
-
-
-
-
-
+v-df:ConfirmationRouteStartFormToNet
+  rdfs:label "Трансформация из СтФ Утверждение в стандартную сеть процесса"^^xsd:string;
+  rdf:type v-wf:Transform ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform0 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform1 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform2 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform3 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform4 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform5 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform6_0 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform6_3 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform7 ;
+  v-wf:transformRule v-df:rul_ConfirmationTransform8;
+  rdfs:isDefinedBy v-df: ;
+.
+v-df:rul_ConfirmationTransform0
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'startForm_id')";
+.
+v-df:rul_ConfirmationTransform1
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:processedDocument')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'docId')";
+.
+v-df:rul_ConfirmationTransform2
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-s:responsible')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'actor')";
+.
+v-df:rul_ConfirmationTransform3
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('rdfs:comment')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_comment')";
+.
+v-df:rul_ConfirmationTransform4
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-s:dateTo')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_date_to')";
+.
+v-df:rul_ConfirmationTransform5
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-s:creator')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'initiator')";
+.
+v-df:rul_ConfirmationTransform6_0
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionApprove')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
+.
+v-df:rul_ConfirmationTransform6_3
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 's-wf:UserTaskForm')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'decision_form_type')";
+.
+v-df:rul_ConfirmationTransform7
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putString ('v-wf:variableValue', 'Утвердить')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_action')";
+.
+v-df:rul_ConfirmationTransform8
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-s:controller')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'controller')";
+.
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС В СЕТЬ --
 v-df:QuestionRouteStartFormToNet
@@ -1183,11 +1396,25 @@ v-df:DecisionTemplate2
   });
 </script>
 <div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
   <div rel="v-s:hasActivity" data-template="v-df:ActionInDecisionTemplate" data-embedded="true"></div>
   <veda-control rel="v-s:hasActivity" data-type="link" class="-view edit search fulltext create"></veda-control>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1483,7 +1710,7 @@ v-wf:DecisionRedirect
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Перенаправить другому"@ru ;
+  rdfs:label "Перенаправить"@ru ;
   rdfs:label "Redirect"@en ;
   v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
@@ -1517,7 +1744,7 @@ v-wf:DecisionAcceptMotivatedRefusal
 v-wf:DecisionRedirectTemplate
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Перенаправить другому-"@ru ;
+  rdfs:label "Шаблон для класса -Перенаправить-"@ru ;
   rdfs:label "Template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
@@ -1527,16 +1754,29 @@ v-wf:DecisionRedirectTemplate
   });
 </script>
 <div>
-  <h3><span class="label label-default" about="@" property="rdfs:label"></span></h3>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
   <em about="v-wf:to" property="rdfs:label"></em>
   <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1580,13 +1820,26 @@ v-wf:DecisionTemplate1
   });
 </script>
 <div>
-  <h3><span class="label label-default" about="@" property="rdfs:label"></span></h3>
-  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1605,7 +1858,20 @@ v-wf:DecisionTemplateForRemake
   });
 </script>
 <div>
-  <h3><span class="label label-default" about="@" property="rdfs:label"></span></h3>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
   <div class="row">
     <div class="col-md-9">
       <em about="rdfs:comment" property="rdfs:label"></em>
@@ -1618,9 +1884,9 @@ v-wf:DecisionTemplateForRemake
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
     </div>
   </div>
-  <br>
+  <br class="-view edit -search">
   <div class="actions -view edit -search">
-    <div about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></div>
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
   """ ;
@@ -1691,29 +1957,38 @@ v-wf:DecisionRedirectTemplateSpec2_comment
 v-wf:DecisionRedirectTemplateSpec3
   rdf:type v-ui:ObjectPropertySpecification ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация свойств для класса -Перенаправить другому-"@ru ;
+  rdfs:label "Спецификация свойств для класса -Перенаправить-"@ru ;
   rdfs:label "Spec for template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:forProperty v-wf:to ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' )&& ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal User' || 'v-s:origin'=='Group User') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' )&& ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
 .
 
 v-wf:signRouteStartFormLinkRule
   rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Подписание"@ru ;
-  rdfs:label "Sign document"@en ;
+  rdfs:label "Подписать"@ru ;
+  rdfs:label "Sign"@en ;
   v-s:classTo v-df:SignRouteStartForm;
   v-s:hasTransformation v-wf:signRouteStartForm;
   v-s:isRoute "true"^^xsd:boolean;
 .
 
+v-wf:confirmationRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Утвердить"@ru ;
+  rdfs:label "Confirmation"@en ;
+  v-s:classTo v-df:ConfirmationRouteStartForm ;
+  v-s:hasTransformation v-wf:confirmationRouteStartForm ;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+
 v-wf:questionRouteStartFormLinkRule
   rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Задать вопрос"@ru ;
-  rdfs:label "Ask a question"@en ;
+  rdfs:label "Ответить на вопрос"@ru ;
+  rdfs:label "Answer question"@en ;
   v-s:classTo v-df:QuestionRouteStartForm;
   v-s:hasTransformation v-wf:questionRouteStartForm;
   v-s:isRoute "true"^^xsd:boolean;
@@ -1721,7 +1996,7 @@ v-wf:questionRouteStartFormLinkRule
 v-wf:instructionRouteStartFormLinkRule
   rdf:type v-s:DocumentLinkRules;
   rdfs:label "Исполнить поручение"@ru ;
-  rdfs:label "Execute instruction"@en ;
+  rdfs:label "Perform instruction"@en ;
   v-s:classTo v-df:InstructionRouteStartForm;
   v-s:hasTransformation v-wf:instructionRouteStartForm;
   v-s:isRoute "true"^^xsd:boolean;
@@ -1729,7 +2004,7 @@ v-wf:instructionRouteStartFormLinkRule
 v-wf:taskRouteStartFormLinkRule
   rdf:type v-s:DocumentLinkRules;
   rdfs:label "Ознакомиться"@ru ;
-  rdfs:label "Introduction"@en ;
+  rdfs:label "Get informed"@en ;
   v-s:classTo v-df:TaskRouteStartForm;
   v-s:hasTransformation v-wf:taskRouteStartForm;
   v-s:isRoute "true"^^xsd:boolean;
@@ -1745,7 +2020,7 @@ v-wf:distributionRouteStartFormLinkRule
 
 v-wf:coordinationRouteStartFormLinkRule
   rdf:type v-s:DocumentLinkRules;
-  rdfs:label "На согласование"@ru ;
+  rdfs:label "Согласовать"@ru ;
   rdfs:label "Coordination"@en ;
   v-s:classTo v-df:CoordinationRouteStartForm;
   v-s:hasTransformation v-wf:coordinationRouteStartForm;
@@ -1761,11 +2036,14 @@ v-wf:permission_on_simple_routes_start_from
   v-s:permissionObject v-df:TaskRouteStartForm ;
   v-s:permissionObject v-df:DistributionRouteStartForm ;
   v-s:permissionObject v-df:CoordinationRouteStartForm ;
+  v-s:permissionObject v-df:ConfirmationRouteStartForm ;
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
 
 v-wf:signRouteStartForm
   rdf:type v-wf:Transform ;
+  rdfs:label "Подписать"@ru ;
+  rdfs:label "Sign"@en ;
   v-wf:transformRule v-wf:rule1sign ;
   v-wf:transformRule v-wf:rule2sign ;
   v-wf:transformRule v-wf:rule3sign ;
@@ -1794,9 +2072,42 @@ v-wf:rule3sign
   v-wf:grouping "1";
 .
 
+v-wf:confirmationRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Утвердить"@ru ;
+  rdfs:label "Confirmation"@en ;
+  v-wf:transformRule v-wf:rule1confirmation ;
+  v-wf:transformRule v-wf:rule2confirmation ;
+  v-wf:transformRule v-wf:rule3confirmation ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1confirmation
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2confirmation
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3confirmation
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:ConfirmationRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:ConfirmationRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
 
 v-wf:questionRouteStartForm
   rdf:type v-wf:Transform ;
+  rdfs:label "Ответить на вопрос"@ru ;
+  rdfs:label "Answer question"@en ;
   v-wf:transformRule v-wf:rule1question ;
   v-wf:transformRule v-wf:rule2question ;
   v-wf:transformRule v-wf:rule3question ;
@@ -1827,6 +2138,8 @@ v-wf:rule3question
 
 v-wf:instructionRouteStartForm
   rdf:type v-wf:Transform ;
+  rdfs:label "Исполнить поручение"@ru ;
+  rdfs:label "Perform instruction"@en ;
   v-wf:transformRule v-wf:rule1instruction ;
   v-wf:transformRule v-wf:rule2instruction ;
   v-wf:transformRule v-wf:rule3instruction ;
@@ -1857,6 +2170,8 @@ v-wf:rule3instruction
 
 v-wf:taskRouteStartForm
   rdf:type v-wf:Transform ;
+  rdfs:label "Ознакомиться"@ru ;
+  rdfs:label "Get informed"@en ;
   v-wf:transformRule v-wf:rule1task ;
   v-wf:transformRule v-wf:rule2task ;
   v-wf:transformRule v-wf:rule3task ;
@@ -1887,6 +2202,8 @@ v-wf:rule3task
 
 v-wf:distributionRouteStartForm
   rdf:type v-wf:Transform ;
+  rdfs:label "Рассылка"@ru ;
+  rdfs:label "Distribution"@en ;
   v-wf:transformRule v-wf:rule1distribution ;
   v-wf:transformRule v-wf:rule2distribution ;
   v-wf:transformRule v-wf:rule3distribution ;
@@ -1916,6 +2233,8 @@ v-wf:rule3distribution
 .
 v-wf:coordinationRouteStartForm
   rdf:type v-wf:Transform ;
+  rdfs:label "Согласовать"@ru ;
+  rdfs:label "Coordination"@en ;
   v-wf:transformRule v-wf:rule1coordination ;
   v-wf:transformRule v-wf:rule2coordination ;
   v-wf:transformRule v-wf:rule3coordination ;
