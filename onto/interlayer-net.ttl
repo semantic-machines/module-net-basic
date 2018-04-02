@@ -66,7 +66,7 @@ s-wf:InterlayerNet_t
   a v-wf:Task;
   v-wf:subNet s-wf:net_coordination;
   v-wf:split v-wf:None;
-  v-wf:startingMapping s-wf:map_doc_id, s-wf:map_initiator, s-wf:InterlayerNet_task_action, s-wf:InterlayerNet_task_form_type, s-wf:InterlayerNet_task_comment, s-wf:InterlayerNet_task_date_to, s-wf:InterlayerNet_task_controller, s-wf:InterlayerNet_task_possible_decisions;
+  v-wf:startingMapping s-wf:map_doc_id, s-wf:map_initiator, s-wf:InterlayerNet_task_action, s-wf:InterlayerNet_task_form_type, s-wf:InterlayerNet_rightset, s-wf:InterlayerNet_task_comment, s-wf:InterlayerNet_task_date_to, s-wf:InterlayerNet_task_controller, s-wf:InterlayerNet_task_possible_decisions;
   v-wf:join v-wf:None;
   v-wf:completedMapping s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4;
   v-wf:executor s-wf:InterlayerNet_executor;
@@ -104,6 +104,19 @@ s-wf:InterlayerNet_task_action
   """
     get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_task_label'}])
   """;
+.
+
+s-wf:InterlayerNet_rightset
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_rightset ;
+  v-wf:mappingExpression  
+  """
+    var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_canEdit'}]);
+    print('@@@ComplexRoute checkbox=', toJson(checkBox));
+    if ( checkBox[0].data==true) {
+      newStr('-ru-');
+    }
+  """ ;
 .
 
 s-wf:InterlayerNet_task_comment

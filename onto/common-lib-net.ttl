@@ -279,6 +279,13 @@ s-wf:map_get_rights
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:map_get_rightset
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_rightset ;
+  v-wf:mappingExpression  "process.getInputVariable ('rightset')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:map_orig_rights
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_right_1 ;
@@ -540,13 +547,16 @@ s-wf:SimpleRouteStartFormMinimal_Template
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
   <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox" style="display:none">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
 </div>
+<script>
+  $('.sign .checkbox').show();
+</script>
   """ ;
 .
 
@@ -1866,6 +1876,18 @@ d:a6caa3c11-9333-4270-549f-e899df057223 a v-wf:Flow;
   v-wf:predicate "true"^^xsd:string;
   v-s:created "2015-11-25T09:21:02.222Z"^^xsd:dateTime;
   v-wf:flowsInto s-wf:nc_oc.
+
+
+#---- ---- -----
+
+s-wf:ss1 a v-s:SavedSearch;
+  rdfs:isDefinedBy s-wf: ;
+  v-s:author td:RomanKarpov;
+  v-s:query "'rdfs:isDefinedBy' == 's-wf:'"^^xsd:string;
+  rdfs:label "Базовая онтология маршрутов монди"^^xsd:string;
+  v-s:created "2015-05-23T13:27:18.000Z"^^xsd:dateTime.
+
+
 
 # ----------- define vars for message template -------
 s-wf:map_msg_template_4_SV_default_template

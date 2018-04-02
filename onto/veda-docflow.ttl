@@ -761,6 +761,7 @@ v-df:SignRouteStartFormToNet
   v-wf:transformRule v-df:rul_SignTransform6_3 ;
   v-wf:transformRule v-df:rul_SignTransform7 ;
   v-wf:transformRule v-df:rul_SignTransform8;
+  v-wf:transformRule v-df:rul_SignTransform9;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_SignTransform0
@@ -839,8 +840,12 @@ v-df:rul_SignTransform9
   rdf:type v-wf:Rule ;
   v-wf:segregateElement "contentName('v-wf:StartForm_canEdit')" ;
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'rightset')";
+  v-wf:aggregate  """
+    if ( getElement()[0].data==true) {
+      putString ('v-wf:variableValue', '-ru-');
+    };
+  """;
 .
 
 v-df:ConfirmationRouteStartFormToNet
