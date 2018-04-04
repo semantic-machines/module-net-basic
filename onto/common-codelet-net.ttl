@@ -81,7 +81,7 @@ s-wf:codelet_down_right
   rdfs:label "Понизить права" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights_actor (process, task, process.getInputVariable ('rightset')) :
+  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'actor') :
   down_right_and_store (process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
