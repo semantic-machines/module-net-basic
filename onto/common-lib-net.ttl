@@ -75,6 +75,19 @@ s-wf:var_dateTo
   rdfs:label "Контрольный срок задачи"@ru ;
   rdfs:isDefinedBy s-wf: ;
 .
+s-wf:var_set_status
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "setStatus" ;
+  rdfs:label "Установка статусов"@ru ;
+  v-wf:varDefineScope v-wf:Net ;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_set_status
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_set_status ;
+  v-wf:mappingExpression  "process.getInputVariable ('setStatus')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
 s-wf:var_actor_task_add_to_date_to
   rdf:type v-wf:VarDefine ;
   v-wf:varDefineName "actor_task_add_to_date_to" ;

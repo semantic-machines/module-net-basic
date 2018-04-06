@@ -159,7 +159,7 @@ v-df:ConfirmationRouteStartForm
   rdfs:isDefinedBy v-df: ;
   rdfs:label "Утвердить"@ru ;
   rdfs:label "Confirmation"@en ;
-  rdfs:comment "Задача подписать"@ru ;
+  rdfs:comment "Задача утвердить"@ru ;
   v-ui:hasTemplate v-df:ConfirmationRouteStartFormTemplate ;
 .
 
@@ -181,6 +181,7 @@ v-df:InstructionRouteStartForm
   rdfs:comment "Задача исполнить поручение"@ru ;
   v-ui:hasTemplate v-df:InstructionRouteStartFormTemplate ;
 .
+
 v-df:TaskRouteStartForm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:StartForm ;
@@ -545,6 +546,12 @@ v-df:InstructionRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
+  <div class="checkbox" id="process-setStatus">
+    <label>
+      <veda-control property="v-wf:StartForm_setStatus" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setStatus" property="rdfs:label"></span>
+    </label>
+  </div>
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
@@ -557,6 +564,15 @@ v-df:InstructionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
+  var showSetStatus=false;
+  //Если пользователь не Истомин и не td:RomanKarpov-Analyst1, то установка статусов недоступна
+  if( veda.appointment.id === "d:mondi_appointment_00058240_71024477" || veda.appointment.id === "td:RomanKarpov-Analyst1" ) {
+    if (this["v-wf:processedDocument"][0]["rdf:type"][0].id === "mnd-s:ActFailureAction") {
+      showSetStatus=true;
+    }
+  }
+  showSetStatus? $("#process-setStatus", template).show() : $("#process-setStatus", template).hide();
+
   template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -861,6 +877,7 @@ v-df:ConfirmationRouteStartFormToNet
   v-wf:transformRule v-df:rul_ConfirmationTransform6_3 ;
   v-wf:transformRule v-df:rul_ConfirmationTransform7 ;
   v-wf:transformRule v-df:rul_ConfirmationTransform8;
+  v-wf:transformRule v-df:rul_ConfirmationTransform9;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_ConfirmationTransform0
@@ -1052,6 +1069,7 @@ v-df:InstructionRouteStartFormToNet
   v-wf:transformRule v-df:rul_InstructionTransform7 ;
   v-wf:transformRule v-df:rul_InstructionTransform8 ;
   v-wf:transformRule v-df:rul_InstructionTransform9 ;
+  v-wf:transformRule v-df:rul_InstructionTransform10 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_InstructionTransform0
@@ -1139,6 +1157,13 @@ v-df:rul_InstructionTransform9
       putString ('v-wf:variableValue', '-ru-');
     };
   """;
+.
+v-df:rul_InstructionTransform10
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_setStatus')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'setStatus')";
 .
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ В СЕТЬ --

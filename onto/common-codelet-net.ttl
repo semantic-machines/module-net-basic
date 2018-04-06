@@ -38,7 +38,7 @@ s-wf:codelet_add_status_execution
   rdf:type v-s:Codelet ;
   rdfs:label "Установить статус 'Исполнение'" ;
   v-s:script """
-    change_document_status(process, 'v-s:StatusExecution')
+    change_document_status(process, 'v-s:StatusExecution');
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -49,7 +49,7 @@ s-wf:codelet_add_status_executed
   rdf:type v-s:Codelet ;
   rdfs:label "Установить статус 'Исполнено'" ;
   v-s:script """
-    change_document_status(process, 'v-s:StatusExecuted')
+    change_document_status(process, 'v-s:StatusExecuted');
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
