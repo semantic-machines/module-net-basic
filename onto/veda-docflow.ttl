@@ -1719,6 +1719,15 @@ v-wf:DecisionNotForMe
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
+v-wf:DecisionRevokeTask
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Отозвать задачу"@ru ;
+  rdfs:label "Revoke task"@en ;
+  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
+.
+
 v-wf:DecisionProlongate
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
@@ -1889,6 +1898,7 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionAgreedToProject ;
   v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
+  v-ui:forClass v-wf:DecisionRevokeTask ;
   v-ui:template """
 <script>
   template.on("click", "#cancel.action", function () {
