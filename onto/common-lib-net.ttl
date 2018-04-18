@@ -464,7 +464,7 @@ s-wf:SimpleRouteStartForm_possible_decisions
   rdfs:label "Варианты ответа"@ru ;
   rdfs:label "Possible decisions"@en ;
   rdfs:domain s-wf:SimpleRouteStartForm ;
-  rdfs:range v-s:Appointment ;
+  rdfs:range xsd:string ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1647,7 +1647,7 @@ s-wf:map_jrn_decision_b
   v-wf:mappingExpression "order.getOutVariable ('result_data')" ;
 .
 
-s-wf:c1 
+s-wf:c1
   v-wf:hasFlow s-wf:nc_f_c1_set_status_start;
   a v-wf:Condition;
   rdfs:label "C1"@ru;
