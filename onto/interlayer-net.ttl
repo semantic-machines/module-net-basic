@@ -124,7 +124,6 @@ s-wf:InterlayerNet_set_status
   v-wf:mappingExpression  
   """
     var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_setStatus'}]);
-    print('@@@ComplexRoute checkbox=', toJson(checkBox));
     if ( checkBox[0].data==true) {
       newBool (true);
     } else {
