@@ -445,6 +445,8 @@ s-wf:SimpleRouteStartForm
   rdf:type rdfs:Class ;
   rdfs:subClassOf v-s:Embedded ;
   rdfs:subClassOf v-wf:StartForm ;
+  rdfs:subClassOf v-s:AutomaticallyVersioned ;
+  rdfs:subClassOf v-s:Journaling ;
   rdfs:label "Стартовая форма сети Простой маршрут"@ru ;
   rdfs:label "Simple route start form"@en ;
   rdfs:isDefinedBy s-wf: ;
@@ -903,6 +905,12 @@ s-wf:UserTaskForm
   rdfs:isDefinedBy s-wf: ;
   v-ui:hasTemplate s-wf:UserTaskFormTemplate ;
 .
+
+s-wf:UserTaskForm_StartForm_Bundle
+  rdf:type v-s:Bundle ;
+  rdfs:label "Стартовая форма"@ru ;
+  rdfs:label "Start form"@en ;
+.
 # ------------------------------------------------------------------------------------------
 
 s-wf:UserTaskFormTemplate
@@ -939,6 +947,18 @@ s-wf:UserTaskFormTemplate
       }
     }
   }
+  var isReworkTask=individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
+  if (isReworkTask) {
+    var variableArr = individual["v-wf:onDocument"][0]["v-wf:isProcess"][0]["v-wf:inVars"];
+    var startForm=variableArr.filter(function(variable){
+      return variable["v-wf:variableName"][0] == "startForm_id";
+    })[0]["v-wf:variableValue"][0];
+    $("#edit-StartForm", template).click(function(){
+      var modal = veda.Util.showModal(startForm, new veda.IndividualModel("s-wf:ComplexRouteStartForm_Template"), "view");
+    });
+  } else {
+    $("#edit-StartForm", template).remove();
+  };
 //# sourceURL=s-wf:UserTaskFormTemplate_pre
 </script>
 <div>
@@ -966,6 +986,7 @@ s-wf:UserTaskFormTemplate
             </div>
           </div>
           <div style="position:absolute; bottom:15px; right:0;">
+            <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
             <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
           </div>
         </div>
