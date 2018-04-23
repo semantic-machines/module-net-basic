@@ -1941,14 +1941,14 @@ s-wf:ss1 a v-s:SavedSearch;
 s-wf:map_msg_template_4_SV_default_template
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_msg_template ;
-  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('m-l:msg-template-universal')";
+  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('mnd-s:msg-template-universal')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_msg_template_4_SV_default_template_notification
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_msg_template ;
-  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('m-l:msg-template-universal_notification')";
+  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('mnd-s:msg-template-universal_notification')";
   rdfs:isDefinedBy s-wf: ;
 .
 
