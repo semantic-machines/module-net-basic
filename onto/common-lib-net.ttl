@@ -1941,14 +1941,14 @@ s-wf:ss1 a v-s:SavedSearch;
 s-wf:map_msg_template_4_SV_default_template
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_msg_template ;
-  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('mnd-s:msg-template-universal')";
+  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('s-wf:msg-template-universal')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_msg_template_4_SV_default_template_notification
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_msg_template ;
-  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('mnd-s:msg-template-universal_notification')";
+  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('s-wf:msg-template-universal_notification')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2188,23 +2188,6 @@ s-wf:var_inbox_url
   rdfs:isDefinedBy s-wf: ;
 .
 
-s-wf:msg-default-template
-  rdf:type v-s:TemplateForText ;
-  v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "СЭД Задача: Исполнить поручение по документу: {{document}}" ;
-  v-s:templateBody
-  """
-от пользователя: {{from}}, Вам поступило поручение по документу: {{document}}
-Комментарий: {{comment}}.
-
-Используйте ссылки для перехода на нужные страницы:
-
-документ: {{document_url}}
-задача: {{task_url}}
-все входящие задачи: {{inbox_url}}
-  """;
-.
-
 s-wf:map_currentNetToIsProcess_to_transformation
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:transformation_uri ;
@@ -2252,12 +2235,12 @@ s-wf:rule2currentNetFromIsProcess
   v-wf:grouping "@", "1";
 .
 
-#Шаблоны писем уведомлений рассылки
+# Шаблоны e-mail уведомлений
 
 s-wf:msg-template-universal-notification_processStart
   rdf:type v-s:TemplateForText ;
   v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "Optiflow. Уведомление: запущен процесс по документу '{{documentType}}: {{document}}'" ;
+  v-s:templateSubject "{{app_name}}. Уведомление: запущен процесс по документу '{{documentType}}: {{document}}'" ;
   v-s:templateBody
   """Уважаемый пользователь, {{to}}
 
@@ -2266,13 +2249,13 @@ s-wf:msg-template-universal-notification_processStart
 
 
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система Optiflow.
+Система {{app_name}}.
 """ ;
 .
 s-wf:msg-template-universal-notification_processEnd
   rdf:type v-s:TemplateForText ;
   v-s:templateLanguage v-ui:RU ;
-  v-s:templateSubject "Optiflow. Уведомление: завершен процесс по документу '{{documentType}}: {{document}}'" ;
+  v-s:templateSubject "{{app_name}}. Уведомление: завершен процесс по документу '{{documentType}}: {{document}}'" ;
   v-s:templateBody
   """Уважаемый пользователь: {{to}}
 
@@ -2280,6 +2263,241 @@ s-wf:msg-template-universal-notification_processEnd
 {{document_url}}
 
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система Optiflow.
+Система {{app_name}}.
+""" ;
+.
+
+
+
+
+
+
+s-wf:msg-template-universal
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Задача: '{{task}}' по документу '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вы получили задачу '{{task}}', {{comment}}
+По документу '{{documentType}}: {{document}}'
+
+Задачу направил {{from}}
+
+Пожалуйста, используйте ссылки для перехода на нужные страницы:
+* Документ: {{document_url}}
+* Задача: {{task_url}}
+* Все входящие задачи: {{inbox_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-universal-notification
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Уведомление: предоставлен доступ к документу '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вам был предоставлен доступ к документу {{documentType}}: {{document}}
+{{document_url}}
+
+Доступ предоставил {{from}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-project
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Задача: рассмотреть документ '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вы получили на рассмотрение предложение по повышению эффективности работы нашей компании.
+
+Задачу направил {{from}}
+
+Пожалуйста, оцените его эффективность и примите решение по реализации.
+
+Помните, что в приоритете те предложения, которые:
+* Направлены на повышение качества выпускаемой продукции
+* Приведут к сокращению себестоимости выпускаемой продукции
+* Направлены на повышение уровня безопасности и улучшение условий труда
+* Могут быть реализованы с небольшими затратами
+* Применимы в других подразделениях, на аналогичном оборудовании или операциях
+* Оригинальны и просты
+* Могут быть реализованы собственными силами
+
+Используйте ссылки для перехода на нужные страницы:
+* Документ: {{document_url}}
+* Задача: {{task_url}}
+* Все входящие задачи: {{inbox_url}}
+
+На принятие решения по поступившему предложению у Вас есть 30 дней.
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-meeting-approval
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Задача: утвердить документ '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вы получили на утверждение документ '{{documentType}}: {{document}}'
+Вы имеете возможность редактировать документ. После утверждения система сделает автоматическую рассылку отчета о встрече исполнителям.
+
+Задачу направил {{from}}
+
+Используйте ссылки для перехода на нужные страницы:
+* Документ: {{document_url}}
+* Задача: {{task_url}}
+* Все входящие задачи: {{inbox_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-meeting-distribution
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Задача: ознакомиться с документом '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вы получили на ознакомление документ '{{documentType}}: {{document}}'
+
+Задачу направил {{from}}
+
+Используйте ссылки для перехода на нужные страницы:
+* Документ: {{document_url}}
+* Задача: {{task_url}}
+* Все входящие задачи: {{inbox_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-meeting-instruction
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Задача: поручение по документу '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вы получили поручение по документу '{{documentType}}: {{document}}'
+
+Задачу направил {{from}}
+
+Используйте ссылки для перехода на нужные страницы:
+* Документ: {{document_url}}
+* Задача: {{task_url}}
+* Все входящие задачи: {{inbox_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-meeting-notification
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Задача: принять отчет об исполнении поручения по документу '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Вы получили отчет об исполнении поручения по документу '{{documentType}}: {{document}}'
+Пожалуйста, оцените качество исполнения поручения.
+После утверждения исполненного поручения система автоматически закроет его как выполненное.
+
+Задачу направил {{from}}
+
+Используйте ссылки для перехода на нужные страницы:
+* Документ: {{document_url}}
+* Задача: {{task_url}}
+* Все входящие задачи: {{inbox_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-universal-notification_approvalEnd
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Уведомление: завершено утверждение документа '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Документ '{{documentType}}: {{document}}' утвержден.
+{{document_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-universal-notification_signEnd
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Уведомление: завершено подписание документа '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь: {{to}}
+
+Документ '{{documentType}}: {{document}}' подписан.
+{{document_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-universal-notification_coordinationEnd
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Уведомление: завершено согласование документа '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Документ '{{documentType}}: {{document}}' согласован.
+{{document_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
+""" ;
+.
+
+s-wf:msg-template-universal-notification_reviewEnd
+  rdf:type v-s:TemplateForText ;
+  v-s:templateLanguage v-ui:RU ;
+  v-s:templateSubject "{{app_name}}. Уведомление: завершено рассмотрение документа '{{documentType}}: {{document}}'" ;
+  v-s:templateBody
+  """Уважаемый пользователь, {{to}}
+
+Документ '{{documentType}}: {{document}}' рассмотрен.
+{{document_url}}
+
+
+Это сообщение сформировано автоматически. Отвечать на него не нужно.
+Система {{app_name}}.
 """ ;
 .
