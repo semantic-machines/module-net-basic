@@ -85,7 +85,7 @@ s-wf:var_set_status
 s-wf:map_set_status
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_set_status ;
-  v-wf:mappingExpression  "process.getInputVariable ('setStatus')" ;
+  v-wf:mappingExpression "process.getInputVariable ('setStatus')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 s-wf:var_actor_task_add_to_date_to
@@ -231,42 +231,42 @@ s-wf:possible_decision_for_add_reaction
 s-wf:map_possible_decision
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression  "process.getInputVariable ('possible_decision')" ;
+  v-wf:mappingExpression "process.getInputVariable ('possible_decision')" ;
 .
 
 s-wf:possible_decision_after_return
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression  "[newUri('v-wf:DecisionAcceptMotivatedRefusal'), newUri ('v-wf:DecisionRemake'), newUri('v-wf:DecisionRedirect')]" ;
+  v-wf:mappingExpression "[newUri('v-wf:DecisionAcceptMotivatedRefusal'), newUri ('v-wf:DecisionRemake'), newUri('v-wf:DecisionRedirect')]" ;
 .
 s-wf:possible_decision_for_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression  "[newUri('v-wf:DecisionConfirm'), newUri ('v-wf:DecisionRemake'), newUri('v-wf:DecisionRedirect')]" ;
+  v-wf:mappingExpression "[newUri('v-wf:DecisionConfirm'), newUri ('v-wf:DecisionRemake'), newUri('v-wf:DecisionRedirect')]" ;
 .
 s-wf:map_decision_route_to_add_reaction
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:decision_route_to_add_reaction ;
-  v-wf:mappingExpression  "process.getInputVariable ('decision_route_to_add_reaction')" ;
+  v-wf:mappingExpression "process.getInputVariable ('decision_route_to_add_reaction')" ;
 .
 
 s-wf:map_possible_decision_for_add_reaction
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision_for_add_reaction ;
-  v-wf:mappingExpression  "process.getInputVariable ('possible_decision_for_add_reaction')" ;
+  v-wf:mappingExpression "process.getInputVariable ('possible_decision_for_add_reaction')" ;
 .
 
 s-wf:map_decision_of_set_responsible
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_decision_of_set_responsible ;
-  v-wf:mappingExpression  "task_result.getValue ('result_decision')";
+  v-wf:mappingExpression "task_result.getValue ('result_decision')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_result_decision_from_task_result
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result_decision ;
-  v-wf:mappingExpression  "task_result.getValue ('result_decision')";
+  v-wf:mappingExpression "task_result.getValue ('result_decision')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -274,35 +274,35 @@ s-wf:map_result_decision_from_task_result
 s-wf:map_last_actor_4_TR_last_actor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_last_actor ;
-  v-wf:mappingExpression  "task_result.getValue ('last_actor')";
+  v-wf:mappingExpression "task_result.getValue ('last_actor')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_initiator_4_PLV_last_actor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_initiator ;
-  v-wf:mappingExpression  "process.getLocalVariable ('last_actor')";
+  v-wf:mappingExpression "process.getLocalVariable ('last_actor')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_get_rights
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_right_1 ;
-  v-wf:mappingExpression  "task_result.getValue ('right')";
+  v-wf:mappingExpression "task_result.getValue ('right')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_get_rightset
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_rightset ;
-  v-wf:mappingExpression  "process.getInputVariable ('rightset')" ;
+  v-wf:mappingExpression "process.getInputVariable ('rightset')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_orig_rights
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_right_1 ;
-  v-wf:mappingExpression  "process.getInputVariable ('originalRights')" ;
+  v-wf:mappingExpression "process.getInputVariable ('originalRights')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -311,84 +311,84 @@ s-wf:map_orig_rights
 s-wf:map_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_initiator ;
-  v-wf:mappingExpression  "process.getInputVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getInputVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_responsible
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_responsible ;
-  v-wf:mappingExpression  "process.getInputVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getInputVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_actor_task_add_to_date_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_add_to_date_to ;
-  v-wf:mappingExpression  "process.getInputVariable ('taskAddToDateTo')" ;
+  v-wf:mappingExpression "process.getInputVariable ('taskAddToDateTo')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_initiator_from_actor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_initiator ;
-  v-wf:mappingExpression  "process.getLocalVariable ('actor')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('actor')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_initiator_4_PLV_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_initiator ;
-  v-wf:mappingExpression  "process.getLocalVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_from_4_PLV_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
-  v-wf:mappingExpression  "process.getLocalVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_controller_4_PLV_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_controller ;
-  v-wf:mappingExpression  "process.getLocalVariable ('controller')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('controller')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_doc_id
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_doc_id ;
-  v-wf:mappingExpression  "process.getInputVariable ('docId')" ;
+  v-wf:mappingExpression "process.getInputVariable ('docId')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_redirect_from_4_PLV_redirect_from
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_redirect_from ;
-  v-wf:mappingExpression  "process.getLocalVariable ('redirect_from')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('redirect_from')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_decision_form_type_4_PLV_decision_form_type
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_decision_form_type ;
-  v-wf:mappingExpression  "process.getLocalVariable ('decision_form_type')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('decision_form_type')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_decision_form_type_4_PIV_decision_form_type
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_decision_form_type ;
-  v-wf:mappingExpression  "process.getInputVariable ('decision_form_type')" ;
+  v-wf:mappingExpression "process.getInputVariable ('decision_form_type')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_actor_task_action_4_PIV_actor_task_action
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_action ;
-  v-wf:mappingExpression  "process.getInputVariable ('actor_task_action')" ;
+  v-wf:mappingExpression "process.getInputVariable ('actor_task_action')" ;
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "actor_task_action <- actor_task_action" ;
 .
@@ -396,14 +396,14 @@ s-wf:map_actor_task_action_4_PIV_actor_task_action
 s-wf:map_coordinator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_coordinator ;
-  v-wf:mappingExpression  "process.getInputVariable ('coordinator')" ;
+  v-wf:mappingExpression "process.getInputVariable ('coordinator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_project2_to_docId
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_doc_id ;
-  v-wf:mappingExpression  "process.getLocalVariable ('project2')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('project2')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 #----
@@ -436,7 +436,7 @@ s-wf:var_result_t1
 s-wf:map_t1_e
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result_t1 ;
-  v-wf:mappingExpression  "task_result.getValue ('res')" ;
+  v-wf:mappingExpression "task_result.getValue ('res')" ;
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "Вытащить из задачи результаты работы"@ru ;
 .
@@ -1205,77 +1205,77 @@ s-wf:var_journal_process_id
 s-wf:map_journal_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression  "order.getExecutor ()" ;
+  v-wf:mappingExpression "order.getExecutor ()" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_to_4_PLV_actor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression  "process.getLocalVariable ('actor')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('actor')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_to_4_PLV_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression  "process.getLocalVariable ('controller')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('controller')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_to_4_PLV_responsible
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression  "process.getLocalVariable ('responsible')?process.getLocalVariable ('responsible'):process.getLocalVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('responsible')?process.getLocalVariable ('responsible'):process.getLocalVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_to_4_OOV_result_data_N_author
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression  "get_properties_chain (order.getOutVariable ('result_data'), [{$get:'v-s:author'}])" ;
+  v-wf:mappingExpression "get_properties_chain (order.getOutVariable ('result_data'), [{$get:'v-s:author'}])" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_to_fc
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression  "process.getInputVariable ('financial_controller')" ;
+  v-wf:mappingExpression "process.getInputVariable ('financial_controller')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_msg_4_task_label_start
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_msg ;
-  v-wf:mappingExpression  "task.getLabel ()" ;
+  v-wf:mappingExpression "task.getLabel ()" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_msg_4_task_label_complete
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_msg ;
-  v-wf:mappingExpression  "task.getLabel ()" ;
+  v-wf:mappingExpression "task.getLabel ()" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_initiator ;
-  v-wf:mappingExpression  "process.getInputVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getInputVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_process_id
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_process_id ;
-  v-wf:mappingExpression  "newUri (process.src_data['@'])" ;
+  v-wf:mappingExpression "newUri (process.src_data['@'])" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_journal_doc_id
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_doc_id ;
-  v-wf:mappingExpression  "process.getInputVariable ('docId')" ;
+  v-wf:mappingExpression "process.getInputVariable ('docId')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1303,7 +1303,7 @@ s-wf:value
 s-wf:map_docID_to_src
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:src_uri ;
-  v-wf:mappingExpression  "process.getInputVariable ('docId')" ;
+  v-wf:mappingExpression "process.getInputVariable ('docId')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1319,7 +1319,7 @@ s-wf:var_actor_task
 s-wf:map_decision_of_set_responsible_2_actor_task
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task ;
-  v-wf:mappingExpression  "process.getLocalVariable ('decision_of_set_responsible')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('decision_of_set_responsible')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1450,7 +1450,7 @@ s-wf:map_task_date_to_2_actor_task
 s-wf:map_PI_actor_task_4_actor_task
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task ;
-  v-wf:mappingExpression  "process.getInputVariable ('actor_task')" ;
+  v-wf:mappingExpression "process.getInputVariable ('actor_task')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1470,14 +1470,14 @@ s-wf:map_PI_actor_task_date_to_4_actor_task_date_to
 s-wf:map_PI_actor_task_action_4_actor_task_action
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_action ;
-  v-wf:mappingExpression  "process.getInputVariable ('actor_task_action')" ;
+  v-wf:mappingExpression "process.getInputVariable ('actor_task_action')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_PI_actor_task_comment_4_actor_task_comment
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression  "process.getInputVariable ('actor_task_comment')" ;
+  v-wf:mappingExpression "process.getInputVariable ('actor_task_comment')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1599,21 +1599,21 @@ s-wf:def_exec_responsible
 s-wf:map_set_if_result
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result ;
-  v-wf:mappingExpression  "task_result.if_all_executors_taken_decision('v-wf:DecisionAgreed', 'v-wf:DecisionRemake')";
+  v-wf:mappingExpression "task_result.if_all_executors_taken_decision('v-wf:DecisionAgreed', 'v-wf:DecisionRemake')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_set_result_decision_from_TR_result_data
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result_decision ;
-  v-wf:mappingExpression  "task_result.getValue ('result_data')";
+  v-wf:mappingExpression "task_result.getValue ('result_data')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_set_result_decision_nct2_from_TR_result_data
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result_decision_nct2 ;
-  v-wf:mappingExpression  "task_result.getValue ('result_data')";
+  v-wf:mappingExpression "task_result.getValue ('result_data')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1651,7 +1651,7 @@ s-wf:map_set_actor_from_executor_or_PI_controller
 s-wf:map_set_add_request_actor_from_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_add_request_actor ;
-  v-wf:mappingExpression  "process.getInputVariable ('initiator')";
+  v-wf:mappingExpression "process.getInputVariable ('initiator')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1743,35 +1743,35 @@ d:ac2ce1732-d914-c4f9-f4b6-2064864b3f23 a v-wf:Flow;
 s-wf:map_set_result_from_local
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result ;
-  v-wf:mappingExpression  "process.getLocalVariable ('result')";
+  v-wf:mappingExpression "process.getLocalVariable ('result')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_last_actor_4_PLV_actor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_last_actor ;
-  v-wf:mappingExpression  "process.getLocalVariable ('actor')";
+  v-wf:mappingExpression "process.getLocalVariable ('actor')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:m_result_f_out_var
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result ;
-  v-wf:mappingExpression  "task.getOutVariable ('result')";
+  v-wf:mappingExpression "task.getOutVariable ('result')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_set_result_decision_from_local
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_result_decision ;
-  v-wf:mappingExpression  "process.getLocalVariable ('result_decision')";
+  v-wf:mappingExpression "process.getLocalVariable ('result_decision')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_now_plus_30_4_actor_task_date_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_date_to ;
-  v-wf:mappingExpression  "newDate (addDay (new Date (), 30))";
+  v-wf:mappingExpression "newDate (addDay (new Date (), 30))";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1842,35 +1842,35 @@ s-wf:nc_f_t2_c2 a v-wf:Flow;
 s-wf:map_t2_sm1
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_date_to ;
-  v-wf:mappingExpression  "process.getLocalVariable ('actor_task_date_to')";
+  v-wf:mappingExpression "process.getLocalVariable ('actor_task_date_to')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_t2_sm2
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_action ;
-  v-wf:mappingExpression  "process.getLocalVariable ('actor_task_action')";
+  v-wf:mappingExpression "process.getLocalVariable ('actor_task_action')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_t2_sm3
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression  "process.getLocalVariable ('actor_task_comment')";
+  v-wf:mappingExpression "process.getLocalVariable ('actor_task_comment')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_t2_sm_control
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression  "newStr(getFirstValue(process.getLocalVariable ('actor_task_comment')) || '')";
+  v-wf:mappingExpression "newStr(getFirstValue(process.getLocalVariable ('actor_task_comment')) || '')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_t2_sm5
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression  "get_properties_chain (task_result.getValue ('result_data'), [{$get:'rdfs:comment'}])";
+  v-wf:mappingExpression "get_properties_chain (task_result.getValue ('result_data'), [{$get:'rdfs:comment'}])";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1977,84 +1977,84 @@ s-wf:ss1 a v-s:SavedSearch;
 s-wf:map_msg_template_4_SV_default_template
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_msg_template ;
-  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('s-wf:msg-template-universal')";
+  v-wf:mappingExpression "process.getInputVariable('$template') ? process.getInputVariable('$template') : newUri('s-wf:msg-template-universal')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_msg_template_4_SV_default_template_notification
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_msg_template ;
-  v-wf:mappingExpression  "process.getInputVariable('$template')?process.getInputVariable('$template'):newUri ('s-wf:msg-template-universal_notification')";
+  v-wf:mappingExpression "process.getInputVariable('$template') ? process.getInputVariable('$template') : newUri('s-wf:msg-template-universal_notification')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_from_4_TIV_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
-  v-wf:mappingExpression  "task.getInputVariable ('initiator')";
+  v-wf:mappingExpression "task.getInputVariable ('initiator')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_from_4_TIV_from
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
-  v-wf:mappingExpression  "task.getInputVariable ('from')";
+  v-wf:mappingExpression "task.getInputVariable ('from')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_wf_from_4_TIV_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-  v-wf:mappingExpression  "newUri ('cfg:VedaSystemAppointment')";
+  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_wf_from_4_TIV_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-  v-wf:mappingExpression  "task.getInputVariable ('from')";
+  v-wf:mappingExpression "task.getInputVariable ('from')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_document_4_TIV_docId
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_document ;
-  v-wf:mappingExpression  "task.getInputVariable ('docId')";
+  v-wf:mappingExpression "task.getInputVariable ('docId')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_comment_4_TIV_actor_task_action
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_task ;
-  v-wf:mappingExpression  "task.getInputVariable ('actor_task_action')";
+  v-wf:mappingExpression "task.getInputVariable ('actor_task_action')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_comment_4_TIV_actor_task_rework
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_task ;
-  v-wf:mappingExpression  "newStr('Доработать')";
+  v-wf:mappingExpression "newStr('Доработать')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_comment_4_TIV_actor_task_comment
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_comment ;
-  v-wf:mappingExpression  "task.getInputVariable ('actor_task_comment')";
+  v-wf:mappingExpression "task.getInputVariable ('actor_task_comment')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_rdf_type_4_TIV_documentType
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_rdf_type ;
-  v-wf:mappingExpression  "task.getInputVariable ('documentType')";
+  v-wf:mappingExpression "task.getInputVariable ('documentType')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_documentType_4_TIV_documentType
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_documentType ;
-  v-wf:mappingExpression  "process.getLocalVariable ('documentType')";
+  v-wf:mappingExpression "process.getLocalVariable ('documentType')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2082,42 +2082,42 @@ s-wf:map_doc_url_4_vedaInfo_appUrl
 s-wf:map_var_wf_to_task_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_to ;
-  v-wf:mappingExpression  "task.getInputVariable ('to')";
+  v-wf:mappingExpression "task.getInputVariable ('to')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_var_to_task_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_to ;
-  v-wf:mappingExpression  "task.getInputVariable ('to')";
+  v-wf:mappingExpression "task.getInputVariable ('to')";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_msg_executor_informing
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_to ;
-  v-wf:mappingExpression  "order.getExecutor ()";
+  v-wf:mappingExpression "order.getExecutor ()";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_vf_to_4_O_executor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_to ;
-  v-wf:mappingExpression  "order.getExecutor ()";
+  v-wf:mappingExpression "order.getExecutor ()";
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_vf_to_4_0_initiator
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_to ;
-  v-wf:mappingExpression  "process.getInputVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getInputVariable ('initiator')" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
 s-wf:map_to_4_O_executor
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_to ;
-  v-wf:mappingExpression  "order.getExecutor ()";
+  v-wf:mappingExpression "order.getExecutor ()";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2134,7 +2134,7 @@ s-wf:map_task_url_4_O_DecisionForms
 s-wf:map_rdf_type_4_v_s_Email
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_rdf_type ;
-  v-wf:mappingExpression  "newUri ('v-s:Email')";
+  v-wf:mappingExpression "newUri ('v-s:Email')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2227,7 +2227,7 @@ s-wf:var_inbox_url
 s-wf:map_currentNetToIsProcess_to_transformation
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:transformation_uri ;
-  v-wf:mappingExpression  "newUri('s-wf:currentNetToIsProcess')" ;
+  v-wf:mappingExpression "newUri('s-wf:currentNetToIsProcess')" ;
   rdfs:label "добавление id процесса в поле документа"@ru ;
 .
 
@@ -2251,7 +2251,7 @@ s-wf:rule2currentNetToIsProcess
 s-wf:map_currentNetFromIsProcess_to_transformation
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:transformation_uri ;
-  v-wf:mappingExpression  "newUri('s-wf:currentNetFromIsProcess')" ;
+  v-wf:mappingExpression "newUri('s-wf:currentNetFromIsProcess')" ;
   rdfs:label "удаление id процесса из поля документа"@ru ;
 .
 s-wf:currentNetFromIsProcess
@@ -2302,11 +2302,6 @@ s-wf:msg-template-universal-notification_processEnd
 Система {{app_name}}.
 """ ;
 .
-
-
-
-
-
 
 s-wf:msg-template-universal
   rdf:type v-s:TemplateForText ;

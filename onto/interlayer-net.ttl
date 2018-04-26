@@ -109,7 +109,7 @@ s-wf:InterlayerNet_task_action
 s-wf:InterlayerNet_rightset
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_rightset ;
-  v-wf:mappingExpression  
+  v-wf:mappingExpression
   """
     var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_canEdit'}]);
     if ( checkBox[0].data==true) {
@@ -121,7 +121,7 @@ s-wf:InterlayerNet_rightset
 s-wf:InterlayerNet_set_status
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_set_status ;
-  v-wf:mappingExpression  
+  v-wf:mappingExpression
   """
     var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_setStatus'}]);
     if ( checkBox[0].data==true) {
@@ -134,13 +134,13 @@ s-wf:InterlayerNet_set_status
 s-wf:InterlayerNet_task_comment
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression  "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_comment'}])" ;
+  v-wf:mappingExpression "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_comment'}])" ;
 .
 
 s-wf:InterlayerNet_task_date_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_date_to ;
-  v-wf:mappingExpression  """
+  v-wf:mappingExpression """
     (get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}]) && get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0])?
   newDate(new Date(new Date().getTime()+(get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0].data*24*60*60*1000))):
   get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDate'}]);
@@ -157,12 +157,12 @@ s-wf:InterlayerNet_task_possible_decisions
 s-wf:InterlayerNet_task_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_controller ;
-  v-wf:mappingExpression  "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_controller'}])" ;
+  v-wf:mappingExpression "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_controller'}])" ;
 .
 
 s-wf:InterlayerNet_task_form_type
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_decision_form_type ;
-  v-wf:mappingExpression  "newUri ('s-wf:UserTaskForm')";
+  v-wf:mappingExpression "newUri ('s-wf:UserTaskForm')";
 .
 
