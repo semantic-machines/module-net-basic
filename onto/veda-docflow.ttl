@@ -226,6 +226,22 @@ v-df:PsStartForm_responsible
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
   rdfs:label "Task sender property specification for Question task class"@en ;
 .
+v-df:PsStartForm_v-s:controller
+  rdf:type v-ui:ObjectPropertySpecification ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty v-s:controller ;
+  v-ui:maxCardinality 1 ;
+  v-ui:minCardinality 0 ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  rdfs:label "Спецификация Контролирующего задачи для класса Стартовая форма задачи"@ru ;
+  rdfs:label "Task controller property specification for task class"@en ;
+.
 
 v-df:PsStartForm_dateTo
   rdf:type v-ui:DatatypePropertySpecification ;
