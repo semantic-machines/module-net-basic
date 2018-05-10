@@ -1554,6 +1554,14 @@ s-wf:map_from_2_result_decision_author
   rdfs:label "Автор задачи из формы решения пользователя"@ru ;
 .
 
+s-wf:map_from_sys_appt
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_from ;
+  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Автор задачи - система"@ru ;
+.
+
 s-wf:map_redirect_from_2_undefine
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_redirect_from ;
