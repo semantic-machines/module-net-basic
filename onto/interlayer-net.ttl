@@ -22,23 +22,37 @@
 s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4
   a v-wf:Mapping;
   v-wf:mappingExpression """
-//     if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAgreed'))) {
-//       newUri('v-wf:DecisionAgreed');
-     if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionDeclined'))) {
-       newUri('v-wf:DecisionDeclined');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionSign'))) {
-       newUri('v-wf:DecisionSign');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionApprove'))) {
-       newUri('v-wf:DecisionApprove');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionReview'))) {
-       newUri('v-wf:DecisionReview');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAchieved'))) {
-       newUri('v-wf:DecisionAchieved');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionExamined'))) {
-       newUri('v-wf:DecisionExamined');
-     } else {
-       newUri('v-wf:DecisionAgreed');
-     }
+    print('@@mapping');
+    if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRevokeTask'))) {
+      newUri('v-wf:DecisionRevokeTask');
+    } else {
+      if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionRevokeTask'))) {
+        var revokeResult = newUri ('v-wf:DecisionRevokeTask');
+        task_result.work_item_result = task_result.work_item_result.filter(function(current) {
+          var currentIsRevoke = false;
+          var currentResult = current['result'];
+          if (currentResult && currentResult.length > 0) {
+            currentIsRevoke = (currentResult[0].data == revokeResult[0].data) && (currentResult[0].type == revokeResult[0].type);
+          }
+          return !currentIsRevoke;
+        });
+      };
+      if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionDeclined'))) {
+        newUri('v-wf:DecisionDeclined');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionSign'))) {
+        newUri('v-wf:DecisionSign');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionApprove'))) {
+        newUri('v-wf:DecisionApprove');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionReview'))) {
+        newUri('v-wf:DecisionReview');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAchieved'))) {
+        newUri('v-wf:DecisionAchieved');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionExamined'))) {
+        newUri('v-wf:DecisionExamined');
+      } else {
+        newUri('v-wf:DecisionAgreed');
+      };
+    };
   """;
   v-wf:mapToVariable s-wf:var_result;
   rdfs:label "map for s-wf:InterlayerNet_t ";
