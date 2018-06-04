@@ -2082,8 +2082,34 @@ s-wf:map_inbox_url_4_vedaInfo_appInboxUrl
   rdfs:isDefinedBy s-wf: ;
   v-wf:mappingExpression
   """
-  get_properties_chain (newUri ('v-s:vedaInfo'),
-              [{$get:'v-wf:appInboxUrl'}])
+  get_properties_chain (newUri ('v-s:vedaInfo'),[{$get:'v-wf:appInboxUrl'}])
+  """;
+.
+s-wf:map_inbox_url_4_appInboxUrl_of_to
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_inbox_url ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mappingExpression
+  """
+  newStr ( getInboxUrl(task.getInputVariable ('to')) )
+  """;
+.
+s-wf:map_inbox_url_4_appInboxUrl_of_initiator
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_inbox_url ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mappingExpression
+  """
+  newStr ( getInboxUrl(process.getInputVariable ('initiator')) )
+  """;
+.
+s-wf:map_inbox_url_4_appInboxUrl_of_executor
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_inbox_url ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mappingExpression
+  """
+  newStr ( getInboxUrl(order.getExecutor()) )
   """;
 .
 
@@ -2094,6 +2120,36 @@ s-wf:map_doc_url_4_vedaInfo_appUrl
   v-wf:mappingExpression
   """
   newStr (getFirstValue (get_properties_chain (newUri ('v-s:vedaInfo'), [{$get:'v-s:appUrl'}])) + "/" + getFirstValue(task.getInputVariable ('docId')))
+  """;
+.
+
+s-wf:map_doc_url_4_appUrl_of_to
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_document_url ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mappingExpression
+  """
+  newStr ( getSystemUrl(task.getInputVariable('to')) + "/" + getFirstValue(task.getInputVariable ('docId')) )
+  """;
+.
+
+s-wf:map_doc_url_4_appUrl_of_initiator
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_document_url ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mappingExpression
+  """
+  newStr ( getSystemUrl(process.getInputVariable('initiator')) + "/" + getFirstValue(task.getInputVariable ('docId')) )
+  """;
+.
+
+s-wf:map_doc_url_4_appUrl_of_executor
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_document_url ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mappingExpression
+  """
+  newStr ( getSystemUrl(order.getExecutor()) + "/" + getFirstValue(task.getInputVariable ('docId')) )
   """;
 .
 
@@ -2145,6 +2201,34 @@ s-wf:map_task_url_4_O_DecisionForms
   v-wf:mappingExpression
   """
   newStr (getFirstValue (get_properties_chain (newUri ('v-s:vedaInfo'), [{$get:'v-s:appUrl'}])) + "/" + getFirstValue(order.getDecisionForms ()))
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_task_url_4_O_DecisionForms_of_to
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_task_url;
+  v-wf:mappingExpression
+  """
+  newStr ( getSystemUrl(task.getInputVariable('to')) + "/" + getFirstValue(order.getDecisionForms()) )
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_task_url_4_O_DecisionForms_of_initiator
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_task_url;
+  v-wf:mappingExpression
+  """
+  newStr ( getSystemUrl(process.getInputVariable('initiator')) + "/" + getFirstValue(order.getDecisionForms()) )
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_task_url_4_O_DecisionForms_of_executor
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_task_url;
+  v-wf:mappingExpression
+  """
+  newStr ( getSystemUrl(order.getExecutor()) + "/" + getFirstValue(order.getDecisionForms()) )
   """;
   rdfs:isDefinedBy s-wf: ;
 .
