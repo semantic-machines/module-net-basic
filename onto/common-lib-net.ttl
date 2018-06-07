@@ -652,14 +652,14 @@ s-wf:SimpleRouteStartFormFull_Template
   <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
   <div class="row">
     <div class="col-md-6">
-      <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
-      <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
-      <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
-    </div>
-    <div class="col-md-6">
       <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="s-wf:SimpleRouteStartForm_deadlineDate" class="view -edit -search"></div>
       <veda-control data-type="dateTime" property="s-wf:SimpleRouteStartForm_deadlineDate" class="-view edit -search"></veda-control>
+    </div>
+    <div class="col-md-6">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
+      <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
+      <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
     </div>
   </div>
   <div class="checkbox checkbox_canEdit -edit">
@@ -992,9 +992,9 @@ s-wf:UserTaskFormTemplate
       })[0]["v-wf:variableValue"][0];
       $("#edit-StartForm", template).click(function(){
         var modal = veda.Util.showModal(startFormId, new veda.IndividualModel("s-wf:ComplexRouteStartForm_Template"), "view");
-      });  
+      });
     } else {
-      $("#edit-StartForm", template).remove();  
+      $("#edit-StartForm", template).remove();
     };
   } catch (error) {
     $("#edit-StartForm", template).remove();
