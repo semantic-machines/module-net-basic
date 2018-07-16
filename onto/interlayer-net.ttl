@@ -22,23 +22,37 @@
 s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4
   a v-wf:Mapping;
   v-wf:mappingExpression """
-//     if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAgreed'))) {
-//       newUri('v-wf:DecisionAgreed');
-     if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionDeclined'))) {
-       newUri('v-wf:DecisionDeclined');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionSign'))) {
-       newUri('v-wf:DecisionSign');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionApprove'))) {
-       newUri('v-wf:DecisionApprove');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionReview'))) {
-       newUri('v-wf:DecisionReview');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAchieved'))) {
-       newUri('v-wf:DecisionAchieved');
-     } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionExamined'))) {
-       newUri('v-wf:DecisionExamined');
-     } else {
-       newUri('v-wf:DecisionAgreed');
-     }
+    print('@@mapping');
+    if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionRevokeTask'))) {
+      newUri('v-wf:DecisionRevokeTask');
+    } else {
+      if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionRevokeTask'))) {
+        var revokeResult = newUri ('v-wf:DecisionRevokeTask');
+        task_result.work_item_result = task_result.work_item_result.filter(function(current) {
+          var currentIsRevoke = false;
+          var currentResult = current['result'];
+          if (currentResult && currentResult.length > 0) {
+            currentIsRevoke = (currentResult[0].data == revokeResult[0].data) && (currentResult[0].type == revokeResult[0].type);
+          }
+          return !currentIsRevoke;
+        });
+      };
+      if (task_result.is_some_executor_taken_decision ('result', newUri ('v-wf:DecisionDeclined'))) {
+        newUri('v-wf:DecisionDeclined');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionSign'))) {
+        newUri('v-wf:DecisionSign');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionApprove'))) {
+        newUri('v-wf:DecisionApprove');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionReview'))) {
+        newUri('v-wf:DecisionReview');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionAchieved'))) {
+        newUri('v-wf:DecisionAchieved');
+      } else if (task_result.is_all_executors_taken_decision ('result', newUri ('v-wf:DecisionExamined'))) {
+        newUri('v-wf:DecisionExamined');
+      } else {
+        newUri('v-wf:DecisionAgreed');
+      };
+    };
   """;
   v-wf:mapToVariable s-wf:var_result;
   rdfs:label "map for s-wf:InterlayerNet_t ";
@@ -66,7 +80,7 @@ s-wf:InterlayerNet_t
   a v-wf:Task;
   v-wf:subNet s-wf:net_coordination;
   v-wf:split v-wf:None;
-  v-wf:startingMapping s-wf:map_doc_id, s-wf:map_initiator, s-wf:InterlayerNet_task_action, s-wf:InterlayerNet_task_form_type, s-wf:InterlayerNet_task_comment, s-wf:InterlayerNet_task_date_to, s-wf:InterlayerNet_task_controller, s-wf:InterlayerNet_task_possible_decisions;
+  v-wf:startingMapping s-wf:map_doc_id, s-wf:map_initiator, s-wf:InterlayerNet_task_action, s-wf:InterlayerNet_task_form_type, s-wf:InterlayerNet_rightset, s-wf:InterlayerNet_set_status, s-wf:InterlayerNet_task_comment, s-wf:InterlayerNet_task_date_to, s-wf:InterlayerNet_task_controller, s-wf:InterlayerNet_task_possible_decisions;
   v-wf:join v-wf:None;
   v-wf:completedMapping s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4;
   v-wf:executor s-wf:InterlayerNet_executor;
@@ -106,16 +120,41 @@ s-wf:InterlayerNet_task_action
   """;
 .
 
+s-wf:InterlayerNet_rightset
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_rightset ;
+  v-wf:mappingExpression
+  """
+    var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_canEdit'}]);
+    if ( checkBox[0].data==true) {
+      newStr('-ru-');
+    }
+  """ ;
+.
+
+s-wf:InterlayerNet_set_status
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_set_status ;
+  v-wf:mappingExpression
+  """
+    var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_setStatus'}]);
+    if ( checkBox[0].data==true) {
+      newBool (true);
+    } else {
+      newBool (false);
+    };
+  """ ;
+.
 s-wf:InterlayerNet_task_comment
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression  "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_comment'}])" ;
+  v-wf:mappingExpression "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_comment'}])" ;
 .
 
 s-wf:InterlayerNet_task_date_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_date_to ;
-  v-wf:mappingExpression  """
+  v-wf:mappingExpression """
     (get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}]) && get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0])?
   newDate(new Date(new Date().getTime()+(get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0].data*24*60*60*1000))):
   get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDate'}]);
@@ -132,12 +171,12 @@ s-wf:InterlayerNet_task_possible_decisions
 s-wf:InterlayerNet_task_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_controller ;
-  v-wf:mappingExpression  "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_controller'}])" ;
+  v-wf:mappingExpression "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_controller'}])" ;
 .
 
 s-wf:InterlayerNet_task_form_type
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_decision_form_type ;
-  v-wf:mappingExpression  "newUri ('s-wf:UserTaskForm')";
+  v-wf:mappingExpression "newUri ('s-wf:UserTaskForm')";
 .
 

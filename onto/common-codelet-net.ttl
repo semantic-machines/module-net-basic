@@ -32,6 +32,28 @@ s-wf:codelet_create_use_transformation
   rdfs:isDefinedBy s-wf: ;
 .
 
+# ------------------------------ CODELET : "установка статуса 'Исполнение'"------------------------------------- #
+
+s-wf:codelet_add_status_execution
+  rdf:type v-s:Codelet ;
+  rdfs:label "Установить статус 'Исполнение'" ;
+  v-s:script """
+    change_document_status(process, 'v-s:StatusExecution');
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+# ------------------------------ CODELET : "установка статуса 'Исполнено'"------------------------------------- #
+
+s-wf:codelet_add_status_executed
+  rdf:type v-s:Codelet ;
+  rdfs:label "Установить статус 'Исполнено'" ;
+  v-s:script """
+    change_document_status(process, 'v-s:StatusExecuted');
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 # ------------------------------ CODELET : ------------------------------------- #
 
 s-wf:codelet_add_value_to_document
@@ -81,7 +103,7 @@ s-wf:codelet_down_right
   rdfs:label "Понизить права" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights (process, task, process.getInputVariable ('rightset')) :
+  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'actor') :
   down_right_and_store (process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
