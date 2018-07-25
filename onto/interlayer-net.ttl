@@ -107,7 +107,7 @@ s-wf:InterlayerNet_executor
   rdf:type v-wf:ExecutorDefinition ;
   v-wf:executorExpression
   """
-    get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_participant'}])
+    veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_participant'}])
   """;
   rdfs:label "Исполнители из формы решения пользователя"@ru.
 
@@ -116,7 +116,7 @@ s-wf:InterlayerNet_task_action
   v-wf:mapToVariable s-wf:var_actor_task_action ;
   v-wf:mappingExpression
   """
-    get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_task_label'}])
+    veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_task_label'}])
   """;
 .
 
@@ -125,7 +125,7 @@ s-wf:InterlayerNet_rightset
   v-wf:mapToVariable s-wf:var_rightset ;
   v-wf:mappingExpression
   """
-    var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_canEdit'}]);
+    var checkBox = veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_canEdit'}]);
     if ( checkBox[0].data==true) {
       veda.Util.newStr('-ru-');
     }
@@ -137,7 +137,7 @@ s-wf:InterlayerNet_set_status
   v-wf:mapToVariable s-wf:var_set_status ;
   v-wf:mappingExpression
   """
-    var checkBox = get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_setStatus'}]);
+    var checkBox = veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'v-wf:StartForm_setStatus'}]);
     if ( checkBox[0].data==true) {
       veda.Util.newBool (true);
     } else {
@@ -148,30 +148,30 @@ s-wf:InterlayerNet_set_status
 s-wf:InterlayerNet_task_comment
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_comment'}])" ;
+  v-wf:mappingExpression "veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_comment'}])" ;
 .
 
 s-wf:InterlayerNet_task_date_to
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_date_to ;
   v-wf:mappingExpression """
-    (get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}]) && get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0])?
-  veda.Util.newDate(new Date(new Date().getTime()+(get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0].data*24*60*60*1000))):
-  get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDate'}]);
+    (veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}]) && veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0])?
+  veda.Util.newDate(new Date(new Date().getTime()+(veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDays'}])[0].data*24*60*60*1000))):
+  veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_deadlineDate'}]);
   """ ;
 .
 
 s-wf:InterlayerNet_task_possible_decisions
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression "eval(get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_possible_decisions'}])[0].data)" ;
+  v-wf:mappingExpression "eval(veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_possible_decisions'}])[0].data)" ;
   rdfs:label "Варианты ответа для исполнения"^^xsd:string;
 .
 
 s-wf:InterlayerNet_task_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_controller ;
-  v-wf:mappingExpression "get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_controller'}])" ;
+  v-wf:mappingExpression "veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_controller'}])" ;
 .
 
 s-wf:InterlayerNet_task_form_type
