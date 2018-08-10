@@ -466,7 +466,7 @@ s-wf:SimpleRouteStartForm_possible_decisions
   rdfs:label "Варианты ответа"@ru ;
   rdfs:label "Possible decisions"@en ;
   rdfs:domain s-wf:SimpleRouteStartForm ;
-  rdfs:range xsd:string ;
+  rdfs:range owl:Class ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -571,7 +571,7 @@ s-wf:SimpleRouteStartFormMinimal_Template
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
   <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
-  <div class="checkbox checkbox_canEdit -edit">
+  <div class="checkbox checkbox_canEdit" style="display:none">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -1560,6 +1560,14 @@ s-wf:map_from_sys_appt
   v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "Автор задачи - система"@ru ;
+.
+
+s-wf:map_wf_from_sys_appt
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_wf_from ;
+  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Автор письма - система"@ru ;
 .
 
 s-wf:map_redirect_from_2_undefine
