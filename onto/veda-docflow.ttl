@@ -337,7 +337,9 @@ v-df:SignRouteStartFormTemplate
   rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  if ( individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
@@ -407,7 +409,9 @@ v-df:ConfirmationRouteStartFormTemplate
   rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
   v-ui:template """
 <script>
-  if ( !individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
@@ -540,7 +544,9 @@ v-df:InstructionRouteStartFormTemplate
   rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  if ( !individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
@@ -616,7 +622,9 @@ v-df:SpecialInstructionRouteStartFormTemplate
   rdfs:label "Special InstructionRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  if ( !individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
@@ -690,7 +698,9 @@ v-df:TaskRouteStartFormTemplate
   rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  if ( !individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
@@ -754,7 +764,9 @@ v-df:DistributionRouteStartFormTemplate
   rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  if ( !individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
@@ -818,7 +830,9 @@ v-df:CoordinationRouteStartFormTemplate
   rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  if ( !individual.rights.hasValue('v-s:canUpdate', true)) {
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
     $('#set-canEdit', template).hide();
   }
 </script>
