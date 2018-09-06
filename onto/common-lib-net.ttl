@@ -2441,7 +2441,7 @@ s-wf:msg-template-universal
 
 s-wf:msg-template-universal-notification
   rdf:type v-s:Notification ;
-  v-s:hasMessageType v-s:PermissionsGrantedNotification ;
+  v-s:hasMessageType v-s:OtherNotification ;
   v-s:notificationLanguage v-ui:RU ;
   v-s:notificationSubject "{{app_name}}. Уведомление: предоставлен доступ к документу '{{documentType}}: {{document}}'" ;
   v-s:notificationBody
