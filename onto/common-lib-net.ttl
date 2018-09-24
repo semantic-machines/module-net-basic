@@ -27,6 +27,12 @@ v-s:TaskIsRedirectedFrom
   rdfs:label "Задача перенаправлена"@ru ;
   rdfs:label "Task was redirected by"@en ;
 .
+
+v-s:OverloadNotificationMessage
+  rdf:type v-s:Bundle ;
+  rdfs:label "В связи с загруженностью системы, функция ответа на задачу времено недоступна. Попробуйте позже."@ru ;
+  rdfs:label "Task was redirected by"@en ;
+.
 # -----------------------------------------------
 
 s-wf:EmptyTask
@@ -1032,6 +1038,10 @@ s-wf:UserTaskFormTemplate
           </div>
         </div>
         <div class="well new-decision"></div>
+        <div class="alert alert-danger hidden" id="show-OverloadNotification">
+          <h4>Внимание</h4>
+          <span about="v-s:OverloadNotificationMessage" property="rdfs:label"></span>
+        </div>
         <div class="well taken-decision" about="@" rel="v-wf:takenDecision"></div>
       </div>
       <div class="col-xs-5 col-md-3">
@@ -1082,9 +1092,31 @@ s-wf:UserTaskFormTemplate
     }
   }
   individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+  function isOverloadQueue(){
+    var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
+    var total = scriptMainQueue.properties['srv:total_count'][0].data;
+    var current = scriptMainQueue.properties['srv:current_count'][0].data;
+    var count = total - current;
+    //console.log('current queue: '+ count);
+    if (count > 1000) {
+      $('.well.new-decision', template).hide();
+      $('.action #task-button', template).hide();
+      $('#show-OverloadNotification').removeClass('hidden');
+    } else {
+      $('.well.new-decision', template).show();
+      $('.action #task-button', template).show();
+      $('#show-OverloadNotification').addClass('hidden');
+    }
+  }
+  isOverloadQueue();
+  var intervalId = setInterval(isOverloadQueue, 30000);
+
   template.one("remove", function () {
     individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+    clearInterval(intervalId);
   });
+
+
 
   if ( individual.hasValue("v-wf:takenDecision") || !individual.rights.hasValue("v-s:canUpdate", true) ) {
     $(".possible-decisions, .new-decision", template).remove();
