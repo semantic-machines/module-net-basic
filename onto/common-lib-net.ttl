@@ -1092,12 +1092,15 @@ s-wf:UserTaskFormTemplate
     }
   }
   individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+
+  var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
   function isOverloadQueue(){
-    var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
+    scriptMainQueue.reset();
     var total = scriptMainQueue.properties['srv:total_count'][0].data;
     var current = scriptMainQueue.properties['srv:current_count'][0].data;
     var count = total - current;
-    //console.log('current queue: '+ count);
+    // console.log('total count: '+ total);
+    // console.log('current queue: '+ count);
     if (count > 1000) {
       $('.well.new-decision', template).hide();
       $('.action #task-button', template).hide();
