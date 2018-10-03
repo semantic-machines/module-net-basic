@@ -164,7 +164,12 @@ s-wf:InterlayerNet_task_date_to
 s-wf:InterlayerNet_task_possible_decisions
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression "eval(veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_possible_decisions'}])[0].data)" ;
+  v-wf:mappingExpression """
+    print('fghfgh');
+    var decisions = veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_possible_decisions'}]);
+    print(veda.Util.toJson(decisions));
+    decisions[0].type == 'String'? eval(decisions[0].data) : eval(decisions);
+  """ ;
   rdfs:label "Варианты ответа для исполнения"^^xsd:string;
 .
 
