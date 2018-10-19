@@ -608,9 +608,9 @@ s-wf:SimpleRouteStartFormForActions_Template
     <veda-control data-type="text" property="v-s:description" class="-view edit -search"></veda-control>
   </div>
   <div class="col-md-3">
-    <em about="v-s:datePlan" property="rdfs:label"></em>
-    <div property="v-s:datePlan" class="view -edit -search"></div>
-    <veda-control data-type="dateTime" property="v-s:datePlan" class="-view edit -search"></veda-control>
+    <em about="v-s:dateToPlan" property="rdfs:label"></em>
+    <div property="v-s:dateToPlan" class="view -edit -search"></div>
+    <veda-control data-type="dateTime" property="v-s:dateToPlan" class="-view edit -search"></veda-control>
   </div>
 </div>
 <hr>
