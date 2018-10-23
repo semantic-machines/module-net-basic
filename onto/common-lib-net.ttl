@@ -1101,8 +1101,10 @@ s-wf:UserTaskFormTemplate
       var total = scriptMainQueue.properties['srv:total_count'][0].data;
       var current = scriptMainQueue.properties['srv:current_count'][0].data;
       count = total - current;
+    } catch (e) {
+      console.log(e);
     }
-    
+
     // console.log('total count: '+ total);
     // console.log('current queue: '+ count);
     if (count > 1000) {
@@ -2433,9 +2435,8 @@ s-wf:msg-template-universal-notification_processStart
 Запущен процесс по документу '{{documentType}}: {{document}}'
 {{document_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 s-wf:msg-template-universal-notification_processEnd
@@ -2450,7 +2451,7 @@ s-wf:msg-template-universal-notification_processEnd
 {{document_url}}
 
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2472,9 +2473,8 @@ s-wf:msg-template-universal
 * Задача: {{task_url}}
 * Все входящие задачи: {{inbox_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2491,9 +2491,8 @@ s-wf:msg-template-universal-notification
 
 Доступ предоставил {{from}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2528,7 +2527,7 @@ s-wf:msg-template-project
 На принятие решения по поступившему предложению у Вас есть 30 дней.
 
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2550,9 +2549,8 @@ s-wf:msg-template-meeting-approval
 * Задача: {{task_url}}
 * Все входящие задачи: {{inbox_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2573,9 +2571,8 @@ s-wf:msg-template-meeting-distribution
 * Задача: {{task_url}}
 * Все входящие задачи: {{inbox_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2596,9 +2593,8 @@ s-wf:msg-template-meeting-instruction
 * Задача: {{task_url}}
 * Все входящие задачи: {{inbox_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2621,9 +2617,8 @@ s-wf:msg-template-meeting-notification
 * Задача: {{task_url}}
 * Все входящие задачи: {{inbox_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2638,9 +2633,8 @@ s-wf:msg-template-universal-notification_approvalEnd
 Документ '{{documentType}}: {{document}}' утвержден.
 {{document_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2655,9 +2649,8 @@ s-wf:msg-template-universal-notification_signEnd
 Документ '{{documentType}}: {{document}}' подписан.
 {{document_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2672,9 +2665,8 @@ s-wf:msg-template-universal-notification_coordinationEnd
 Документ '{{documentType}}: {{document}}' согласован.
 {{document_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
 
@@ -2689,8 +2681,7 @@ s-wf:msg-template-universal-notification_reviewEnd
 Документ '{{documentType}}: {{document}}' рассмотрен.
 {{document_url}}
 
-
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
-Система {{app_name}}.
+Система {{app_name}}
 """ ;
 .
