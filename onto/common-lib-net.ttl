@@ -1095,10 +1095,14 @@ s-wf:UserTaskFormTemplate
 
   var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
   function isOverloadQueue(){
-    scriptMainQueue.reset();
-    var total = scriptMainQueue.properties['srv:total_count'][0].data;
-    var current = scriptMainQueue.properties['srv:current_count'][0].data;
-    var count = total - current;
+    var count = 0;
+    try {
+      scriptMainQueue.reset();
+      var total = scriptMainQueue.properties['srv:total_count'][0].data;
+      var current = scriptMainQueue.properties['srv:current_count'][0].data;
+      count = total - current;
+    }
+    
     // console.log('total count: '+ total);
     // console.log('current queue: '+ count);
     if (count > 1000) {
