@@ -1093,36 +1093,36 @@ s-wf:UserTaskFormTemplate
   }
   individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
 
-  var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
-  function isOverloadQueue(){
-    var count = 0;
-    try {
-      scriptMainQueue.reset();
-      var total = scriptMainQueue.properties['srv:total_count'][0].data;
-      var current = scriptMainQueue.properties['srv:current_count'][0].data;
-      count = total - current;
-    } catch (e) {
-      console.log(e);
-    }
+  // var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
+  // function isOverloadQueue(){
+  //   var count = 0;
+  //   try {
+  //     scriptMainQueue.reset();
+  //     var total = scriptMainQueue.properties['srv:total_count'][0].data;
+  //     var current = scriptMainQueue.properties['srv:current_count'][0].data;
+  //     count = total - current;
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
 
-    // console.log('total count: '+ total);
-    // console.log('current queue: '+ count);
-    if (count > 1000) {
-      $('.well.new-decision', template).hide();
-      $('.action #task-button', template).hide();
-      $('#show-OverloadNotification').removeClass('hidden');
-    } else {
-      $('.well.new-decision', template).show();
-      $('.action #task-button', template).show();
-      $('#show-OverloadNotification').addClass('hidden');
-    }
-  }
-  isOverloadQueue();
-  var intervalId = setInterval(isOverloadQueue, 30000);
+  //   // console.log('total count: '+ total);
+  //   // console.log('current queue: '+ count);
+  //   if (count > 1000) {
+  //     $('.well.new-decision', template).hide();
+  //     $('.action #task-button', template).hide();
+  //     $('#show-OverloadNotification').removeClass('hidden');
+  //   } else {
+  //     $('.well.new-decision', template).show();
+  //     $('.action #task-button', template).show();
+  //     $('#show-OverloadNotification').addClass('hidden');
+  //   }
+  // }
+  // isOverloadQueue();
+  // var intervalId = setInterval(isOverloadQueue, 30000);
 
   template.one("remove", function () {
     individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
-    clearInterval(intervalId);
+    //clearInterval(intervalId);
   });
 
 
