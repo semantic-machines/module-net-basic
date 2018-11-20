@@ -992,7 +992,7 @@ s-wf:UserTaskFormTemplate
   try {
     var isReworkTask = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
     if (isReworkTask) {
-      var variableArr = individual["v-wf:onDocument"][0]["v-wf:isProcess"][0]["v-wf:inVars"];
+      var variableArr = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forProcess"][0]["v-wf:inVars"];
       var startFormId = variableArr.filter(function(variable){
         return variable["v-wf:variableName"][0] == "startForm_id";
       })[0]["v-wf:variableValue"][0];
