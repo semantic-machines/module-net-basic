@@ -220,7 +220,7 @@ v-df:PsStartForm_responsible
   v-ui:forClass v-df:SignRouteStartForm ;
   v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty v-s:responsible ;
-  v-ui:maxCardinality 100 ;
+  v-ui:maxCardinality 400 ;
   v-ui:minCardinality 1 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
