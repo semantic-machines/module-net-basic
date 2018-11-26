@@ -1587,10 +1587,7 @@ s-wf:map_from_2_result_decision_author
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
   v-wf:mappingExpression """
-
-  veda.Workflow.get_properties_chain (process.getLocalVariable('result_decision'),
-              [{$get:'v-s:creator'}])
-
+  veda.Workflow.get_properties_chain(process.getLocalVariable('redirect_from'), [{$get:'v-wf:from'}]).length > 0  ? veda.Workflow.get_properties_chain(process.getLocalVariable('redirect_from'), [{$go:'v-wf:from'}, {$get:'v-s:defaultAppointment'}]) : veda.Workflow.get_properties_chain(process.getLocalVariable('result_decision'), [{$get:'v-s:creator'}])
   """;
   rdfs:label "Автор задачи из формы решения пользователя"@ru ;
 .
