@@ -2691,7 +2691,7 @@ s-wf:msg-template-universal-notification_prolongate
   v-s:notificationBody
   """Уважаемый пользователь,
   
-Походит к концу срок действия документа '{{documentType}}: {{document}}'.
+Подходит к концу срок действия документа '{{documentType}}: {{document}}'.
 {{document_url}}
 
 Это сообщение сформировано автоматически. Отвечать на него не нужно.
