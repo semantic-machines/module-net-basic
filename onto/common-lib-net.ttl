@@ -1070,9 +1070,7 @@ s-wf:UserTaskFormTemplate
       </div>
     </div>
   </div>
-  <br>
   <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
-  <br>
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
@@ -2690,7 +2688,7 @@ s-wf:msg-template-universal-notification_prolongate
   v-s:notificationSubject "{{app_name}}. Напоминание: подходит к концу срок действия документа '{{documentType}}: {{document}}'" ;
   v-s:notificationBody
   """Уважаемый пользователь,
-  
+
 Подходит к концу срок действия документа '{{documentType}}: {{document}}'.
 {{document_url}}
 
