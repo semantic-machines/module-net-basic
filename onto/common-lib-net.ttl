@@ -992,13 +992,22 @@ s-wf:UserTaskFormTemplate
   try {
     var isReworkTask = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
     if (isReworkTask) {
-      var variableArr = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forProcess"][0]["v-wf:inVars"];
-      var startFormId = variableArr.filter(function(variable){
-        return variable["v-wf:variableName"][0] == "startForm_id";
-      })[0]["v-wf:variableValue"][0];
-      $("#edit-StartForm", template).click(function(){
-        var modal = veda.Util.showModal(startFormId, new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
-      });
+      var forProcess = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forProcess"][0];
+      var startForm = forProcess.properties["v-wf:hasStartForm"];
+      if (startForm) {
+        startForm = startForm[0].data;
+      } else {
+        //Устаревший вариант
+        var startFormVar = forProcess["v-wf:inVars"].filter(function (vrbl) {
+          return vrbl.hasValue("v-wf:variableName",  "startForm_id");
+        });
+        startForm = startFormVar[0]["v-wf:variableValue"][0].id;
+      };
+      if (startForm) {
+        $("#edit-StartForm", template).click(function(){
+          var modal = veda.Util.showModal(new veda.IndividualModel(startForm), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
+        });
+      }
     } else {
       $("#edit-StartForm", template).remove();
     };
