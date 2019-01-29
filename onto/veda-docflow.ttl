@@ -220,7 +220,7 @@ v-df:PsStartForm_responsible
   v-ui:forClass v-df:SignRouteStartForm ;
   v-ui:forClass v-df:ConfirmationRouteStartForm ;
   v-ui:forProperty v-s:responsible ;
-  v-ui:maxCardinality 100 ;
+  v-ui:maxCardinality 400 ;
   v-ui:minCardinality 1 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
@@ -336,6 +336,13 @@ v-df:SignRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи подписание"@ru ;
   rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:SignRouteStartForm" property="rdfs:label"></span><br>
@@ -363,7 +370,7 @@ v-df:SignRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox">
+  <div class="checkbox" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -401,6 +408,13 @@ v-df:ConfirmationRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи утвреждение"@ru ;
   rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:ConfirmationRouteStartForm" property="rdfs:label"></span><br>
@@ -428,7 +442,7 @@ v-df:ConfirmationRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox">
+  <div class="checkbox" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -529,6 +543,13 @@ v-df:InstructionRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи исполнить поручение"@ru ;
   rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span><br>
@@ -556,7 +577,7 @@ v-df:InstructionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox">
+  <div class="checkbox" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -600,6 +621,13 @@ v-df:SpecialInstructionRouteStartFormTemplate
   rdfs:label "Спец шаблон формы задачи исполнить поручение"@ru ;
   rdfs:label "Special InstructionRouteStartForm template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span><br>
@@ -625,7 +653,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox">
+  <div class="checkbox" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -669,6 +697,13 @@ v-df:TaskRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи ознакомиться"@ru ;
   rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:TaskRouteStartForm" property="rdfs:label"></span><br>
@@ -696,7 +731,7 @@ v-df:TaskRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox">
+  <div class="checkbox" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -728,6 +763,13 @@ v-df:DistributionRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи рассылки"@ru ;
   rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:DistributionRouteStartForm" property="rdfs:label"></span><br>
@@ -755,7 +797,7 @@ v-df:DistributionRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox -edit">
+  <div class="checkbox -edit" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -787,6 +829,13 @@ v-df:CoordinationRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи согласования"@ru ;
   rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
+<script>
+  var doc = individual['v-wf:processedDocument'][0];
+  if (!doc) { return; }
+  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
+    $('#set-canEdit', template).hide();
+  }
+</script>
 <div class="container sheet">
   <h3>
     <span about="v-df:CoordinationRouteStartForm" property="rdfs:label"></span><br>
@@ -809,7 +858,7 @@ v-df:CoordinationRouteStartFormTemplate
   <em about="rdfs:comment" property="rdfs:label"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
-  <div class="checkbox">
+  <div class="checkbox" id="set-canEdit">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>

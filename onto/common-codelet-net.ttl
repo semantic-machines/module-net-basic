@@ -27,7 +27,7 @@ s-wf:codelet_create_use_transformation
   rdf:type v-s:Codelet ;
   rdfs:label "Создать на основе трансформации (src_uri, transformation_uri)" ;
   v-s:script """
-  create_use_transformation (process, task)
+  veda.Codelet.create_use_transformation (process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -38,7 +38,7 @@ s-wf:codelet_add_status_execution
   rdf:type v-s:Codelet ;
   rdfs:label "Установить статус 'Исполнение'" ;
   v-s:script """
-    change_document_status(process, 'v-s:StatusExecution');
+    veda.Codelet.change_document_status(process, 'v-s:StatusExecution');
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -49,7 +49,7 @@ s-wf:codelet_add_status_executed
   rdf:type v-s:Codelet ;
   rdfs:label "Установить статус 'Исполнено'" ;
   v-s:script """
-    change_document_status(process, 'v-s:StatusExecuted');
+    veda.Codelet.change_document_status(process, 'v-s:StatusExecuted');
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -60,7 +60,7 @@ s-wf:codelet_add_value_to_document
   rdf:type v-s:Codelet ;
   rdfs:label "Добавить значение в поле документа (src_uri, name_uri, value)" ;
   v-s:script """
-  add_value_to_document(process, task)
+  veda.Codelet.add_value_to_document(process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -71,7 +71,7 @@ s-wf:codelet_set_value_to_document
   rdf:type v-s:Codelet ;
   rdfs:label "Заменить значение в поле документа (src_uri, name_uri, value)" ;
   v-s:script """
-  set_value_to_document(process, task)
+  veda.Codelet.set_value_to_document(process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -82,7 +82,7 @@ s-wf:codelet_get_type_of_docId
   rdf:type v-s:Codelet ;
   rdfs:label "Взять тип документа в переменной docId" ;
   v-s:script """
-  get_type_of_docId (task)
+  veda.Codelet.get_type_of_docId (task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -92,7 +92,7 @@ s-wf:codelet_is_run
   rdf:type v-s:Codelet ;
   rdfs:label "Запущен ли процесс по документу" ;
   v-s:script """
-  is_in_docflow_and_set_if_true (task)
+  veda.Codelet.is_in_docflow_and_set_if_true (task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -103,8 +103,8 @@ s-wf:codelet_down_right
   rdfs:label "Понизить права" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'actor') :
-  down_right_and_store (process, task)
+  veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'actor') :
+  veda.Codelet.down_right_and_store (process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -114,8 +114,8 @@ s-wf:codelet_change_controller_right
   rdfs:label "Выдать права контролирующему" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'controller') :
-  change_rights_actor (process, task, newStr ('-r--'), 'controller')
+  veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'controller') :
+  veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'controller')
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -125,8 +125,8 @@ s-wf:codelet_change_responsible_right
   rdfs:label "Выдать права ответственному" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'responsible') :
-  change_rights_actor (process, task, newStr ('-r--'), 'responsible')
+  veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'responsible') :
+  veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'responsible')
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -136,8 +136,8 @@ s-wf:codelet_change_to_informing_right
   rdfs:label "Выдать права информируемому" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'to') :
-  change_rights_actor (process, task, newStr ('-r--'), 'to')
+  veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'to') :
+  veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'to')
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -147,8 +147,8 @@ s-wf:codelet_change_projectManager_right
   rdfs:label "Выдать права руководителю проекта" ;
   v-s:script """
   process.getInputVariable ('rightset')?
-  change_rights_actor (process, task, process.getInputVariable ('rightset'), 'projectManager') :
-  change_rights_actor (process, task, newStr ('-ru-'), 'projectManager')
+  veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'projectManager') :
+  veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-ru-'), 'projectManager')
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -158,7 +158,7 @@ s-wf:codelet_restore_right
   rdf:type v-s:Codelet ;
   rdfs:label "Восстановить права" ;
   v-s:script """
-  restore_right (task)
+  veda.Codelet.restore_right (task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -168,7 +168,7 @@ s-wf:codelet_interrupt_process
   rdf:type v-s:Codelet ;
   rdfs:label "Вывести из документооборота" ;
   v-s:script """
-  interrupt_process (process.ticket, process, "")
+  veda.Codelet.interrupt_process (process.ticket, process, "")
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
@@ -178,7 +178,7 @@ s-wf:codelet_distribution
   rdf:type v-s:Codelet ;
   rdfs:label "Рассылка" ;
   v-s:script """
-  distribution (process, task)
+  veda.Codelet.distribution (process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
