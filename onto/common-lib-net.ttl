@@ -1083,66 +1083,38 @@ s-wf:UserTaskFormTemplate
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
-  $(".possible-decisions input", template).on("change", function (e) {
-    var input = $(this);
-    var hoder = $(".new-decision", template).empty();
-    var decisionClassId = input.closest("[resource]").attr("resource");
-    var decisionClass = new veda.IndividualModel( decisionClassId );
-    decision["rdf:type"] = [ decisionClass ];
-    decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
-    decision.present(hoder, undefined, "edit");
-  });
-
-  function completedHandler() {
-    if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
+  individual.rights.then(function (rights) {
+    if ( individual.hasValue("v-wf:takenDecision") || !rights.hasValue("v-s:canUpdate", true) ) {
       $(".possible-decisions, .new-decision", template).remove();
+    } else {
+      $(".possible-decisions input", template).on("change", function (e) {
+        var input = $(this);
+        var hoder = $(".new-decision", template).empty();
+        var decisionClassId = input.closest("[resource]").attr("resource");
+        var decisionClass = new veda.IndividualModel( decisionClassId );
+        decision["rdf:type"] = [ decisionClass ];
+        decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
+        decision.present(hoder, undefined, "edit");
+      });
+
+      function completedHandler() {
+        if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
+          $(".possible-decisions, .new-decision", template).remove();
+        }
+      }
+      individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+
+      template.one("remove", function () {
+        individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+      });
+      var decision = new veda.IndividualModel();
+      decision["v-s:backwardTarget"] = [ individual ];
+      decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+      decision["v-s:canRead"] = [ true ];
+      $(".possible-decisions input", template).first().prop("checked", "checked").change();
     }
-  }
-  individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
-
-  // var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
-  // function isOverloadQueue(){
-  //   var count = 0;
-  //   try {
-  //     scriptMainQueue.reset();
-  //     var total = scriptMainQueue.properties['srv:total_count'][0].data;
-  //     var current = scriptMainQueue.properties['srv:current_count'][0].data;
-  //     count = total - current;
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-
-  //   // console.log('total count: '+ total);
-  //   // console.log('current queue: '+ count);
-  //   if (count > 1000) {
-  //     $('.well.new-decision', template).hide();
-  //     $('.action #task-button', template).hide();
-  //     $('#show-OverloadNotification').removeClass('hidden');
-  //   } else {
-  //     $('.well.new-decision', template).show();
-  //     $('.action #task-button', template).show();
-  //     $('#show-OverloadNotification').addClass('hidden');
-  //   }
-  // }
-  // isOverloadQueue();
-  // var intervalId = setInterval(isOverloadQueue, 30000);
-
-  template.one("remove", function () {
-    individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
-    //clearInterval(intervalId);
   });
 
-
-
-  if ( individual.hasValue("v-wf:takenDecision") || !individual.rights.hasValue("v-s:canUpdate", true) ) {
-    $(".possible-decisions, .new-decision", template).remove();
-  } else {
-    var decision = new veda.IndividualModel();
-    decision["v-s:backwardTarget"] = [ individual ];
-    decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
-    decision["v-s:canRead"] = [ true ];
-    $(".possible-decisions input", template).first().prop("checked", "checked").change();
-  }
 //# sourceURL=s-wf:UserTaskFormTemplate_post
 </script>
   """ ;
