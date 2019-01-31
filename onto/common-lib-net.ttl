@@ -988,7 +988,8 @@ s-wf:UserTaskFormTemplate
         label.toggleClass("label-default label-danger");
       }
     }
-  };
+  }
+
   try {
     var isReworkTask = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
     if (isReworkTask) {
@@ -1002,19 +1003,20 @@ s-wf:UserTaskFormTemplate
           return vrbl.hasValue("v-wf:variableName",  "startForm_id");
         });
         startForm = startFormVar[0]["v-wf:variableValue"][0].id;
-      };
+      }
       if (startForm) {
-        $("#edit-StartForm", template).click(function(){
+        $("#edit-StartForm", template).click(function () {
           var modal = veda.Util.showModal(new veda.IndividualModel(startForm), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
         });
       }
     } else {
       $("#edit-StartForm", template).remove();
-    };
+    }
   } catch (error) {
     $("#edit-StartForm", template).remove();
     console.log("Unexpected behaviour", error);
-  };
+  }
+
 //# sourceURL=s-wf:UserTaskFormTemplate_pre
 </script>
 <div>
@@ -1103,10 +1105,10 @@ s-wf:UserTaskFormTemplate
         }
       }
       individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
-
       template.one("remove", function () {
         individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
       });
+
       var decision = new veda.IndividualModel();
       decision["v-s:backwardTarget"] = [ individual ];
       decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
