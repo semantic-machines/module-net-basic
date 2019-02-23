@@ -584,7 +584,7 @@ s-wf:SimpleRouteStartFormMinimal_Template
     </label>
   </div>
 </div>
-<script>
+<script><!--async-->
   $('.sign .checkbox').show();
 </script>
   """ ;
@@ -961,7 +961,7 @@ s-wf:UserTaskFormTemplate
   rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
   v-ui:forClass s-wf:UserTaskForm ;
   v-ui:template """
-<script>
+<script><!--async-->
   if ( individual.hasValue("v-wf:dateGiven") ) {
     var label = $(".date-given", template);
     var now = new Date();
@@ -1062,7 +1062,7 @@ s-wf:UserTaskFormTemplate
         <em about="v-wf:to" property="rdfs:label"></em>
         <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
         <div about="@" rel="v-wf:redirect_from_task">
-          <script>
+          <script><!--async-->
             if ( !individual.hasValue("v-wf:to") ) {
               template.empty();
             }
@@ -1084,7 +1084,7 @@ s-wf:UserTaskFormTemplate
   <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
-<script>
+<script><!--async-->
   individual.rights.then(function (rights) {
     if ( individual.hasValue("v-wf:takenDecision") || !rights.hasValue("v-s:canUpdate", true) ) {
       $(".possible-decisions, .new-decision", template).remove();
