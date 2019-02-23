@@ -336,11 +336,14 @@ v-df:SignRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи подписание"@ru ;
   rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -348,8 +351,6 @@ v-df:SignRouteStartFormTemplate
     <span about="v-df:SignRouteStartForm" property="rdfs:label"></span><br>
     <small about="@" property="rdfs:label"></small>
   </h3>
-  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -384,7 +385,7 @@ v-df:SignRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -408,11 +409,14 @@ v-df:ConfirmationRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи утвреждение"@ru ;
   rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -456,7 +460,7 @@ v-df:ConfirmationRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -519,7 +523,7 @@ v-df:QuestionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -543,11 +547,14 @@ v-df:InstructionRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи исполнить поручение"@ru ;
   rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -597,7 +604,7 @@ v-df:InstructionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -621,11 +628,14 @@ v-df:SpecialInstructionRouteStartFormTemplate
   rdfs:label "Спец шаблон формы задачи исполнить поручение"@ru ;
   rdfs:label "Special InstructionRouteStartForm template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -673,7 +683,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -697,11 +707,14 @@ v-df:TaskRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи ознакомиться"@ru ;
   rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -742,7 +755,7 @@ v-df:TaskRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -763,11 +776,14 @@ v-df:DistributionRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи рассылки"@ru ;
   rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -808,7 +824,7 @@ v-df:DistributionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -829,11 +845,14 @@ v-df:CoordinationRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи согласования"@ru ;
   rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
-<script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+<script><!--async-->
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -872,7 +891,7 @@ v-df:CoordinationRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script>
+<script><!--async-->
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -1592,7 +1611,7 @@ v-df:DecisionTemplate2
   rdfs:label "Template for -Decision- class "@en ;
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:template """
-<script>
+<script><!--async-->
   template.on("click", "#cancel.action", function () {
     window.history.back();
   });
@@ -1959,7 +1978,7 @@ v-wf:DecisionRedirectTemplate
   rdfs:label "Template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
-<script>
+<script><!--async-->
   template.on("click", "#cancel.action", function () {
     window.history.back();
   });
@@ -2026,7 +2045,7 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
   v-ui:forClass v-wf:DecisionRevokeTask ;
   v-ui:template """
-<script>
+<script><!--async-->
   template.on("click", "#cancel.action", function () {
     window.history.back();
   });
@@ -2064,7 +2083,7 @@ v-wf:DecisionTemplateForRemake
   rdfs:label "Template for -Decision- Remake class"@en ;
   v-ui:forClass v-wf:DecisionRemake ;
   v-ui:template """
-<script>
+<script><!--async-->
   template.on("click", "#cancel.action", function () {
     window.history.back();
   });
