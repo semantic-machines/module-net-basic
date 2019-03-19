@@ -1951,22 +1951,6 @@ v-wf:DecisionAcceptMotivatedRefusal
   rdfs:label "Accept a motivated refusal"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
-v-wf:DecisionDelegateDecisionMaking
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Делегировать принятие решения"@ru ;
-  rdfs:label "Delegate decision making"@en ;
-  v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
-.
-v-wf:DecisionIssueTaskToAnother
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Выдать задачу другому"@ru ;
-  rdfs:label "Issue task to another"@en ;
-  v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
-.
 
 v-wf:DecisionRedirectTemplate
   rdf:type v-ui:ClassTemplate ;
