@@ -1054,6 +1054,7 @@ s-wf:UserTaskFormTemplate
           </div>
           <div style="position:absolute; bottom:15px; right:0;">
             <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
+            <button type="button" class="btn btn-default view -edit -search" id="decisionRedirect" about="v-wf:DecisionDelegate_Bundle" property="rdfs:label"/>
             <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
           </div>
         </div>
@@ -1103,7 +1104,33 @@ s-wf:UserTaskFormTemplate
     decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
     decision.present(hoder, undefined, "edit");
   });
+  $("#decisionRedirect", template).click(function() {
+    var modal = $("#notification-modal-template").html();
+    modal = $(modal);
+    modal.modal({"show": false});
+    $("body").append(modal);
+    modal.modal("show");
+    template.one("remove", function () {
+      modal.modal("hide").remove();
+    });
+    var cntr = $(".modal-body", modal);
+    var decisionClass = new veda.IndividualModel( "v-wf:DecisionRedirect" );
+    var decision = new veda.IndividualModel();
+    var delegatedBundle = new veda.IndividualModel( "v-wf:DecisionDelegated_Bundle" );
+    decision["rdf:type"] = [ decisionClass ];
+    decision["v-s:backwardTarget"] = [ individual ];
+    decision["rdfs:label"] = delegatedBundle["rdfs:label"];
+    decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+    decision["v-s:canRead"] = [ true ];
+    decision.present(cntr, undefined, "edit");
 
+    decision.one("afterReset", function () {
+      modal.modal("hide").remove();
+    });
+    decision.one("afterSave", function () {
+      modal.modal("hide").remove();
+    });
+  })
   function completedHandler() {
     if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
       $(".possible-decisions, .new-decision", template).remove();
@@ -1142,8 +1169,6 @@ s-wf:UserTaskFormTemplate
     individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
     //clearInterval(intervalId);
   });
-
-
 
   if ( individual.hasValue("v-wf:takenDecision") || !individual.rights.hasValue("v-s:canUpdate", true) ) {
     $(".possible-decisions, .new-decision", template).remove();
