@@ -1853,12 +1853,21 @@ v-wf:DecisionNotForMe
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
-v-wf:DecisionRevokeTask
+v-wf:DecisionRevoke_Bundle
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Отозвать задачу"@ru ;
   rdfs:label "Revoke task"@en ;
+  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
+.
+
+v-wf:DecisionRevokeTask
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Задача отозвана"@ru ;
+  rdfs:label "TaskRevoked"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
@@ -1950,12 +1959,28 @@ v-wf:DecisionConfirm
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
+v-wf:DecisionDelegate_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Делегировать принятие решения"@ru ;
+  rdfs:label "Delegate decision making"@en ;
+.
+v-wf:DecisionRedirect_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Перенаправить задачу"@ru ;
+  rdfs:label "Redirect task"@en ;
+.
+v-wf:DecisionDelegated_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Делегировано"@ru ;
+  rdfs:label "Delegated"@en ;
+.
+
 v-wf:DecisionRedirect
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Делегировать принятие решения"@ru ;
-  rdfs:label "Delegate decision making"@en ;
+  rdfs:label "Перенаправлено"@ru ;
+  rdfs:label "Redirected"@en ;
   v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
 
