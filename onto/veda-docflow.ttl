@@ -328,6 +328,12 @@ v-df:PsStartForm_comment
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
 .
+v-df:NotifyUponTermination_Bundle
+  rdf:type v-s:Bundle ;
+  rdfs:label "Уведомить по окончании"@ru ;
+  rdfs:label "Notify upon termination"@en ;
+.
+
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ --
 v-df:SignRouteStartFormTemplate
@@ -376,7 +382,7 @@ v-df:SignRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-s:controller" property="rdfs:label"></em>
+  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -385,9 +391,9 @@ v-df:SignRouteStartFormTemplate
   </div>
 </div>
 <script>
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-  }
+//  if ( mode === "edit" && this.isNew() ) {
+//    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+//  }
   template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -448,7 +454,7 @@ v-df:ConfirmationRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-s:controller" property="rdfs:label"></em>
+  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -457,9 +463,9 @@ v-df:ConfirmationRouteStartFormTemplate
   </div>
 </div>
 <script>
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-  }
+//  if ( mode === "edit" && this.isNew() ) {
+//    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+//  }
   template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -863,8 +869,8 @@ v-df:CoordinationRouteStartFormTemplate
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
-  </div>
-  <em about="v-s:controller" property="rdfs:label"></em>
+  </div>  
+  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -873,9 +879,10 @@ v-df:CoordinationRouteStartFormTemplate
   </div>
 </div>
 <script>
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-  }
+//  if ( mode === "edit" && this.isNew() ) {
+//    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+//  }
+  
   template.on("click", "#cancel.action", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -1699,6 +1706,7 @@ v-wf:permission_c_on_decision
   v-s:permissionObject v-wf:DecisionConfirm ;
   v-s:permissionObject v-wf:DecisionRedirect ;
   v-s:permissionObject v-wf:DecisionCalculationsPerformed ;
+  v-s:permissionObject v-wf:DecisionIssueTaskToAnother ;
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
 
@@ -1812,8 +1820,8 @@ v-wf:DecisionDeclined
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Отклонено"@ru ;
-  rdfs:label "Declined"@en ;
+  rdfs:label "Отклонено. На доработку"@ru ;
+  rdfs:label "Declined. To remake"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
@@ -1908,6 +1916,31 @@ v-wf:DecisionNotPerformed
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
+v-wf:DecisionNotPerformed_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Не выполнено. Примите решение"@ru ;
+  rdfs:label "Not completed. Make a decision"@en ;
+.
+v-wf:DecisionNotForMe_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Ошибочный исполнитель. Примите решение"@ru ;
+  rdfs:label "Erroneous performer. Make a decision"@en ;
+.
+v-wf:DecisionRejected_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Отклонено. Примите решение"@ru ;
+  rdfs:label "Rejected. Make a decision"@en ;
+.
+v-wf:DecisionProlongate_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Продлить срок"@ru ;
+  rdfs:label "Prolongate task"@en ;
+.
+v-wf:DecisionRemake_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Доработать"@ru ;
+  rdfs:label "Remake"@en ;
+.
 v-wf:DecisionConfirm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
@@ -1921,8 +1954,8 @@ v-wf:DecisionRedirect
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Перенаправить"@ru ;
-  rdfs:label "Redirect"@en ;
+  rdfs:label "Делегировать принятие решения"@ru ;
+  rdfs:label "Delegate decision making"@en ;
   v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
 
@@ -1950,6 +1983,14 @@ v-wf:DecisionAcceptMotivatedRefusal
   rdfs:label "Принять мотивированный отказ"@ru ;
   rdfs:label "Accept a motivated refusal"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
+.
+v-wf:DecisionIssueTaskToAnother
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Выдать задачу другому"@ru ;
+  rdfs:label "Issue task to another"@en ;
+  v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
 
 v-wf:DecisionRedirectTemplate
@@ -2173,6 +2214,7 @@ v-wf:DecisionRedirectTemplateSpec3
   rdfs:label "Spec for template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
   v-ui:forProperty v-wf:to ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
