@@ -1061,7 +1061,6 @@ v-df:rul_ConfirmationTransform6_0
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionApprove')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
 v-df:rul_ConfirmationTransform6_3
@@ -1160,7 +1159,6 @@ v-df:rul_QuestionTransform6_0
   v-wf:segregateElement "contentName('@')" ;
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionAchieved')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
 v-df:rul_QuestionTransform6_3
@@ -1253,7 +1251,6 @@ v-df:rul_InstructionTransform6_0
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionAchieved')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotPerformed')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionProlongate')";
@@ -1537,7 +1534,6 @@ v-df:rul_CoordinationTransform6_0
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
 # v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotPerformed')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNoAgreed')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .

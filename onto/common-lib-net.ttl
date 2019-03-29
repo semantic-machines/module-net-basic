@@ -249,12 +249,12 @@ s-wf:map_possible_decision
 s-wf:possible_decision_after_return
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionAcceptMotivatedRefusal'), veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother'), veda.Util.newUri('v-wf:DecisionRedirect')]" ;
+  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionAcceptMotivatedRefusal'), veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother')]" ;
 .
 s-wf:possible_decision_for_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionConfirm'), veda.Util.newUri ('v-wf:DecisionRemake'), veda.Util.newUri('v-wf:DecisionRedirect')]" ;
+  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionConfirm'), veda.Util.newUri ('v-wf:DecisionRemake')]" ;
 .
 s-wf:map_decision_route_to_add_reaction
   rdf:type v-wf:Mapping ;
@@ -1709,7 +1709,7 @@ s-wf:def_exec_initiator
 
 s-wf:def_exec_responsible
   rdf:type v-wf:ExecutorDefinition ;
-  v-wf:executorExpression "process.getLocalVariable ('responsible') ? process.getLocalVariable ('responsible') : (process.getLocalVariable ('controller') ? process.getLocalVariable ('controller') : process.getLocalVariable ('initiator'))" ;
+  v-wf:executorExpression "process.getLocalVariable ('responsible') ? process.getLocalVariable ('responsible') : (process.getLocalVariable ('controller') ? process.getLocalVariable ('controller') : (process.getLocalVariable ('initiator') ? process.getLocalVariable ('initiator') : process.getLocalVariable ('actor')))" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
