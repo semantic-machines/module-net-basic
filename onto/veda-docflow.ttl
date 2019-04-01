@@ -391,10 +391,7 @@ v-df:SignRouteStartFormTemplate
   </div>
 </div>
 <script>
-//  if ( mode === "edit" && this.isNew() ) {
-//    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-//  }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -463,10 +460,7 @@ v-df:ConfirmationRouteStartFormTemplate
   </div>
 </div>
 <script>
-//  if ( mode === "edit" && this.isNew() ) {
-//    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-//  }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -529,7 +523,7 @@ v-df:QuestionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -607,7 +601,7 @@ v-df:InstructionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -683,8 +677,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -749,7 +742,7 @@ v-df:TaskRouteStartFormTemplate
   </div>
 </div>
 <script>
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -815,7 +808,7 @@ v-df:DistributionRouteStartFormTemplate
   </div>
 </div>
 <script>
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -869,7 +862,7 @@ v-df:CoordinationRouteStartFormTemplate
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
-  </div>  
+  </div>
   <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
@@ -879,11 +872,7 @@ v-df:CoordinationRouteStartFormTemplate
   </div>
 </div>
 <script>
-//  if ( mode === "edit" && this.isNew() ) {
-//    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-//  }
-  
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -1596,9 +1585,10 @@ v-df:DecisionTemplate2
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:template """
 <script>
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-df:DecisionTemplate2_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -2022,9 +2012,10 @@ v-wf:DecisionRedirectTemplate
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
 <script>
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-wf:DecisionRedirectTemplate_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -2089,9 +2080,10 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionRevokeTask ;
   v-ui:template """
 <script>
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-wf:DecisionTemplate1_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -2127,9 +2119,10 @@ v-wf:DecisionTemplateForRemake
   v-ui:forClass v-wf:DecisionRemake ;
   v-ui:template """
 <script>
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-wf:DecisionTemplateForRemake_pre
 </script>
 <div>
   <div class="view -edit -search">
