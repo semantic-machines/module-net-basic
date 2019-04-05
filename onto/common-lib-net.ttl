@@ -1645,18 +1645,22 @@ s-wf:map_from_2_result_decision_author
   rdfs:label "Автор задачи из формы решения пользователя"@ru ;
 .
 
+# Не нашел упоминания в процессах
 s-wf:map_from_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
-  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+#  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+  v-wf:mappingExpression "";
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "Автор задачи - система"@ru ;
 .
 
+# Используется в комплексном процесса в задаче Доработать
 s-wf:map_wf_from_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
+#  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
+  v-wf:mappingExpression "";  
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "Автор письма - система"@ru ;
 .
@@ -2129,10 +2133,12 @@ s-wf:map_from_4_TIV_from
   rdfs:isDefinedBy s-wf: ;
 .
 
+#Используется в Комплексном процессе в уведомлениях о завершении этапов
 s-wf:map_wf_from_4_TIV_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+#  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+   v-wf:mappingExpression "";
   rdfs:isDefinedBy s-wf: ;
 .
 
