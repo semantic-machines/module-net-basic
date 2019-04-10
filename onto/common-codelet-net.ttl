@@ -153,6 +153,19 @@ s-wf:codelet_change_projectManager_right
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:codelet_change_rigths_executor
+  rdf:type v-s:Codelet ;
+  rdfs:label "Выдать права исполнителю задачи" ;
+  v-s:script """
+  process.getLocalVariable ('responsible')? 
+    (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'responsible') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'responsible')) : 
+    (process.getLocalVariable ('controller')? 
+      (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'controller') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'controller')) : 
+      (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'initiator') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'initiator')));
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 # ------------------------------ CODELET : "восстановить права" ----------------------------- #
 s-wf:codelet_restore_right
   rdf:type v-s:Codelet ;

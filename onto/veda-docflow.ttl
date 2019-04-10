@@ -328,6 +328,12 @@ v-df:PsStartForm_comment
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
 .
+v-df:NotifyUponTermination_Bundle
+  rdf:type v-s:Bundle ;
+  rdfs:label "Уведомить по окончании"@ru ;
+  rdfs:label "Notify upon termination"@en ;
+.
+
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ --
 v-df:SignRouteStartFormTemplate
@@ -377,7 +383,7 @@ v-df:SignRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-s:controller" property="rdfs:label"></em>
+  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -386,10 +392,7 @@ v-df:SignRouteStartFormTemplate
   </div>
 </div>
 <script><!--async-->
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-  }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -452,7 +455,7 @@ v-df:ConfirmationRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-s:controller" property="rdfs:label"></em>
+  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -461,10 +464,7 @@ v-df:ConfirmationRouteStartFormTemplate
   </div>
 </div>
 <script><!--async-->
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-  }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -527,7 +527,7 @@ v-df:QuestionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -608,7 +608,7 @@ v-df:InstructionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -687,8 +687,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
-
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -756,7 +755,7 @@ v-df:TaskRouteStartFormTemplate
   </div>
 </div>
 <script><!--async-->
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -825,7 +824,7 @@ v-df:DistributionRouteStartFormTemplate
   </div>
 </div>
 <script><!--async-->
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -883,7 +882,7 @@ v-df:CoordinationRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-s:controller" property="rdfs:label"></em>
+  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -892,10 +891,7 @@ v-df:CoordinationRouteStartFormTemplate
   </div>
 </div>
 <script><!--async-->
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
-  }
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
       modal.modal("hide");
@@ -1073,7 +1069,6 @@ v-df:rul_ConfirmationTransform6_0
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionApprove')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
 v-df:rul_ConfirmationTransform6_3
@@ -1172,7 +1167,6 @@ v-df:rul_QuestionTransform6_0
   v-wf:segregateElement "contentName('@')" ;
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionAchieved')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
 v-df:rul_QuestionTransform6_3
@@ -1265,7 +1259,6 @@ v-df:rul_InstructionTransform6_0
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionAchieved')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotPerformed')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionProlongate')";
@@ -1282,7 +1275,7 @@ v-df:rul_InstructionTransform7
   rdf:type v-wf:Rule ;
   v-wf:segregateElement "contentName('@')" ;
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putString ('v-wf:variableValue', 'Выполнить поручение')";
+  v-wf:aggregate  "putString ('v-wf:variableValue', 'Исполнить поручение')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_action')";
 .
 v-df:rul_InstructionTransform8
@@ -1549,7 +1542,6 @@ v-df:rul_CoordinationTransform6_0
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
 # v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotPerformed')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNoAgreed')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRedirect')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
@@ -1612,9 +1604,10 @@ v-df:DecisionTemplate2
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:template """
 <script><!--async-->
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-df:DecisionTemplate2_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -1718,6 +1711,7 @@ v-wf:permission_c_on_decision
   v-s:permissionObject v-wf:DecisionConfirm ;
   v-s:permissionObject v-wf:DecisionRedirect ;
   v-s:permissionObject v-wf:DecisionCalculationsPerformed ;
+  v-s:permissionObject v-wf:DecisionIssueTaskToAnother ;
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
 
@@ -1831,8 +1825,8 @@ v-wf:DecisionDeclined
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Отклонено"@ru ;
-  rdfs:label "Declined"@en ;
+  rdfs:label "Отклонено. На доработку"@ru ;
+  rdfs:label "Declined. To remake"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
@@ -1864,12 +1858,21 @@ v-wf:DecisionNotForMe
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
-v-wf:DecisionRevokeTask
+v-wf:DecisionRevoke_Bundle
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Отозвать задачу"@ru ;
   rdfs:label "Revoke task"@en ;
+  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
+.
+
+v-wf:DecisionRevokeTask
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Задача отозвана"@ru ;
+  rdfs:label "TaskRevoked"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
@@ -1886,9 +1889,14 @@ v-wf:DecisionBreak
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Прервать маршрут"@ru ;
+  rdfs:label "Прервать процесс"@ru ;
   rdfs:label "Cancel route"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
+.
+v-wf:DecisionBreaked_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Процесс прерван"@ru ;
+  rdfs:label "Process is interrupted"@en ;
 .
 
 v-wf:DecisionExamined
@@ -1927,6 +1935,31 @@ v-wf:DecisionNotPerformed
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
+v-wf:DecisionNotPerformed_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Не выполнено. Примите решение"@ru ;
+  rdfs:label "Not completed. Make a decision"@en ;
+.
+v-wf:DecisionNotForMe_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Ошибочный исполнитель. Примите решение"@ru ;
+  rdfs:label "Erroneous performer. Make a decision"@en ;
+.
+v-wf:DecisionRejected_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Отклонено. Примите решение"@ru ;
+  rdfs:label "Rejected. Make a decision"@en ;
+.
+v-wf:DecisionProlongate_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Продлить срок"@ru ;
+  rdfs:label "Prolongate task"@en ;
+.
+v-wf:DecisionRemake_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Доработать"@ru ;
+  rdfs:label "Remake"@en ;
+.
 v-wf:DecisionConfirm
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
@@ -1936,12 +1969,28 @@ v-wf:DecisionConfirm
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
+v-wf:DecisionDelegate_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Делегировать принятие решения"@ru ;
+  rdfs:label "Delegate decision making"@en ;
+.
+v-wf:DecisionRedirect_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Перенаправить задачу"@ru ;
+  rdfs:label "Redirect task"@en ;
+.
+v-wf:DecisionDelegated_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Делегировано"@ru ;
+  rdfs:label "Delegated"@en ;
+.
+
 v-wf:DecisionRedirect
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Перенаправить"@ru ;
-  rdfs:label "Redirect"@en ;
+  rdfs:label "Перенаправлено"@ru ;
+  rdfs:label "Redirected"@en ;
   v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
 
@@ -1970,6 +2019,14 @@ v-wf:DecisionAcceptMotivatedRefusal
   rdfs:label "Accept a motivated refusal"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
+v-wf:DecisionIssueTaskToAnother
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Выдать задачу другому"@ru ;
+  rdfs:label "Issue task to another"@en ;
+  v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
+.
 
 v-wf:DecisionRedirectTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -1979,9 +2036,10 @@ v-wf:DecisionRedirectTemplate
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
 <script><!--async-->
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-wf:DecisionRedirectTemplate_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -2046,9 +2104,10 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionRevokeTask ;
   v-ui:template """
 <script><!--async-->
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-wf:DecisionTemplate1_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -2084,9 +2143,10 @@ v-wf:DecisionTemplateForRemake
   v-ui:forClass v-wf:DecisionRemake ;
   v-ui:template """
 <script><!--async-->
-  template.on("click", "#cancel.action", function () {
+  template.on("cancel", function () {
     window.history.back();
   });
+//# sourceURL=v-wf:DecisionTemplateForRemake_pre
 </script>
 <div>
   <div class="view -edit -search">
@@ -2192,6 +2252,7 @@ v-wf:DecisionRedirectTemplateSpec3
   rdfs:label "Spec for template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
   v-ui:forProperty v-wf:to ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;

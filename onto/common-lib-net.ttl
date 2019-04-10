@@ -33,6 +33,12 @@ v-s:OverloadNotificationMessage
   rdfs:label "В связи с загруженностью системы, функция ответа на задачу времено недоступна. Попробуйте позже."@ru ;
   rdfs:label "Task was redirected by"@en ;
 .
+v-s:AcceptTaskResults
+  rdf:type v-s:Bundle ;
+  rdfs:label "Принять результаты задачи"@ru ;
+  rdfs:label "Accept task results"@en ;
+.
+
 # -----------------------------------------------
 
 s-wf:EmptyTask
@@ -232,6 +238,13 @@ s-wf:possible_decision_for_add_reaction
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:var_origin_task_for_rework
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineScope v-wf:Net ;
+  v-wf:varDefineName "origin_task" ;
+  rdfs:label "Задача-источник для доработки"@ru ;
+  rdfs:isDefinedBy s-wf: ;
+.
 # --------------------------------
 
 s-wf:map_possible_decision
@@ -243,17 +256,22 @@ s-wf:map_possible_decision
 s-wf:possible_decision_after_return
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionAcceptMotivatedRefusal'), veda.Util.newUri ('v-wf:DecisionRemake'), veda.Util.newUri('v-wf:DecisionRedirect')]" ;
+  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionAcceptMotivatedRefusal'), veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother')]" ;
 .
 s-wf:possible_decision_for_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
-  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionConfirm'), veda.Util.newUri ('v-wf:DecisionRemake'), veda.Util.newUri('v-wf:DecisionRedirect')]" ;
+  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionConfirm'), veda.Util.newUri ('v-wf:DecisionRemake')]" ;
 .
 s-wf:map_decision_route_to_add_reaction
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:decision_route_to_add_reaction ;
   v-wf:mappingExpression "process.getInputVariable ('decision_route_to_add_reaction')" ;
+.
+s-wf:possible_decision_for_remake
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:possible_decision ;
+  v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionRemaked'), veda.Util.newUri ('v-wf:DecisionBreak')]" ;
 .
 
 s-wf:map_possible_decision_for_add_reaction
@@ -325,6 +343,39 @@ s-wf:map_responsible
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_responsible ;
   v-wf:mappingExpression "process.getInputVariable ('initiator')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_responsible_for_rework
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_responsible ;
+  v-wf:mappingExpression "process.getLocalVariable ('responsible')? process.getLocalVariable ('responsible') : process.getInputVariable ('initiator') " ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_cleaning_responsible
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_responsible ;
+  v-wf:mappingExpression """
+    process.getLocalVariable ('responsible')? [] : undefined;
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_get_origin_task
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_origin_task_for_rework ;
+  v-wf:mappingExpression """
+    process.getLocalVariable('origin_task');
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_set_origin_task
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_origin_task_for_rework ;
+  v-wf:mappingExpression """
+    var forNetElement = task.src_data['v-wf:forNetElement'];
+    forNetElement? veda.Util.newStr(forNetElement[0].data) : undefined;
+  """;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -432,6 +483,11 @@ s-wf:executor_reviewer
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:executor_responsible
+  rdf:type v-wf:ExecutorDefinition ;
+  v-wf:executorExpression "process.getLocalVariable('responsible')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
 # ------------------------------- var + map : "Проверить, запущен ли?" ---------------- #
 
 s-wf:var_result_t1
@@ -993,6 +1049,24 @@ s-wf:UserTaskFormTemplate
   try {
     var isReworkTask = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
     if (isReworkTask) {
+      $("#decisionBreak", template).click(function() {
+        var decisionClass = new veda.IndividualModel( "v-wf:DecisionBreak" );
+        var decision = new veda.IndividualModel();
+        var breakedBundle = new veda.IndividualModel( "v-wf:DecisionBreaked_Bundle" );
+        decision["rdf:type"] = [ decisionClass ];
+        decision["v-s:backwardTarget"] = [ individual ];
+        decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+        decision["rdfs:label"] = breakedBundle["rdfs:label"];
+        decision["v-s:canRead"] = [ true ];
+        var modal = veda.Util.showModal(decision, undefined, "edit");
+        decision.one("afterReset", function () {
+          modal.modal("hide").remove();
+        });
+        decision.one("afterSave", function () {
+          modal.modal("hide").remove();
+        });
+      })
+
       var forProcess = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forProcess"][0];
       var startForm = forProcess.properties["v-wf:hasStartForm"];
       if (startForm) {
@@ -1011,6 +1085,7 @@ s-wf:UserTaskFormTemplate
       }
     } else {
       $("#edit-StartForm", template).remove();
+      $("#decisionBreak", template).remove();
     }
   } catch (error) {
     $("#edit-StartForm", template).remove();
@@ -1043,8 +1118,12 @@ s-wf:UserTaskFormTemplate
               </label>
             </div>
           </div>
-          <div style="position:absolute; bottom:15px; right:0;">
+          <div class="margin-sm">
+            <button type="button" class="btn btn-default view -edit -search" id="decisionRedirect" about="v-wf:DecisionDelegate_Bundle" property="rdfs:label"/>
             <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
+            <button type="button" class="btn btn-danger view -edit -search" id="decisionBreak" about="v-wf:DecisionBreak" property="rdfs:label"/>
+          </div>
+          <div style="position:absolute; bottom:5px; right:0;">
             <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
           </div>
         </div>
@@ -1116,6 +1195,26 @@ s-wf:UserTaskFormTemplate
       $(".possible-decisions input", template).first().prop("checked", "checked").change();
     }
   });
+
+  $("#decisionRedirect", template).click(function() {
+    var decisionClass = new veda.IndividualModel( "v-wf:DecisionRedirect" );
+    var decision = new veda.IndividualModel();
+    var delegatedBundle = new veda.IndividualModel( "v-wf:DecisionDelegated_Bundle" );
+    decision["rdf:type"] = [ decisionClass ];
+    decision["v-s:backwardTarget"] = [ individual ];
+    decision["rdfs:label"] = delegatedBundle["rdfs:label"];
+    decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+    decision["v-s:canRead"] = [ true ];
+    var modal = veda.Util.showModal(decision, undefined, "edit");
+    // decision.present(cntr, undefined, "edit");
+
+    decision.one("afterReset", function () {
+      modal.modal("hide").remove();
+    });
+    decision.one("afterSave", function () {
+      modal.modal("hide").remove();
+    });
+  })
 
 //# sourceURL=s-wf:UserTaskFormTemplate_post
 </script>
@@ -1437,12 +1536,22 @@ s-wf:map_actor_task_action_4LV_result_decision
   rdfs:label "Описание задачи из формы решения пользователя [result_decision]"@ru ;
 .
 
+s-wf:map_actor_task_action_4LV_result_decision_to_controller
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_actor_task_action ;
+  v-wf:mappingExpression """
+			veda.Util.newStr ("Принять результаты задачи" + " " + veda.Util.getFirstValue(veda.Workflow.get_properties_chain (process.getLocalVariable('result_decision_nct2'),
+                            [{$go:'rdf:type'}, {$get:'rdfs:label'}] )))  """;
+  rdfs:label "Описание задачи из формы решения пользователя [result_decision_nct2]"@ru ;
+.
+
 s-wf:map_actor_task_action_4LV_result_decision_nct2
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_action ;
   v-wf:mappingExpression """
-  veda.Workflow.get_properties_chain (process.getLocalVariable('result_decision_nct2'),
+		veda.Workflow.get_properties_chain (process.getLocalVariable('result_decision_nct2'),
                             [{$go:'rdf:type'}, {$get:'rdfs:label'}] )
+                            
   """;
   rdfs:label "Описание задачи из формы решения пользователя [result_decision_nct2]"@ru ;
 .
@@ -1573,18 +1682,22 @@ s-wf:map_from_2_result_decision_author
   rdfs:label "Автор задачи из формы решения пользователя"@ru ;
 .
 
+# Не нашел упоминания в процессах
 s-wf:map_from_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
-  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+#  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+  v-wf:mappingExpression "";
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "Автор задачи - система"@ru ;
 .
 
+# Используется в комплексном процесса в задаче Доработать
 s-wf:map_wf_from_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
+#  v-wf:mappingExpression "newUri ('cfg:VedaSystemAppointment')";
+  v-wf:mappingExpression "";  
   rdfs:isDefinedBy s-wf: ;
   rdfs:label "Автор письма - система"@ru ;
 .
@@ -1637,7 +1750,7 @@ s-wf:def_exec_initiator
 
 s-wf:def_exec_responsible
   rdf:type v-wf:ExecutorDefinition ;
-  v-wf:executorExpression "process.getLocalVariable ('responsible') ? process.getLocalVariable ('responsible') : (process.getLocalVariable ('controller') ? process.getLocalVariable ('controller') : process.getLocalVariable ('initiator'))" ;
+  v-wf:executorExpression "process.getLocalVariable ('responsible') ? process.getLocalVariable ('responsible') : (process.getLocalVariable ('controller') ? process.getLocalVariable ('controller') : (process.getLocalVariable ('initiator') ? process.getLocalVariable ('initiator') : process.getLocalVariable ('actor')))" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1705,6 +1818,12 @@ s-wf:map_jrn_msg_nc_t2_b
   rdfs:isDefinedBy s-wf: ;
   v-wf:mapToVariable s-wf:var_journal_msg ;
   v-wf:mappingExpression "veda.Util.newStr (process.getLocalVariable ('actor_task_action')[0].data)" ;
+.
+s-wf:map_jrn_msg_nc_t2_b____1
+  rdf:type v-wf:Mapping ;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:mapToVariable s-wf:var_journal_msg ;
+  v-wf:mappingExpression "process.getLocalVariable ('actor_task_action')" ;
 .
 
 s-wf:map_jrn_msg_nc_t2_b_remake
@@ -1822,7 +1941,7 @@ s-wf:map_now_plus_30_4_actor_task_date_to
 
 d:aec10d9da-789d-fd65-a094-bd4ed7b14822 a v-wf:Flow;
   v-s:author cfg:AdministratorAppointment;
-  v-s:created "2015-11-17T11:54:51.991Z"^^xsd:dateTime;
+  v-s:created "2017-11-17T11:54:51.991Z"^^xsd:dateTime;
   v-wf:predicate "process.getInputVariable ('actor_task') != undefined"^^xsd:string;
   v-wf:flowsInto d:a16bb1fd3-64eb-a7bb-501d-889b2aa4500d.
 
@@ -1833,13 +1952,18 @@ s-wf:nc_f_t3_t1 a v-wf:Flow;
   v-wf:flowsInto s-wf:c1;
 .
 
-
-
 s-wf:nc_r_to_i_return a v-wf:Flow;
   rdfs:isDefinedBy s-wf:;
   v-wf:predicate "task_result.is_all_executors_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionRemake')) == true"^^xsd:string;
   v-wf:belongsTo s-wf:net_coordination;
   v-wf:flowsInto s-wf:nc_t2;
+.
+
+s-wf:nc_r_to_i_return_another a v-wf:Flow;
+  rdfs:isDefinedBy s-wf:;
+  v-wf:predicate "task_result.is_all_executors_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother')) == true"^^xsd:string;
+  v-wf:belongsTo s-wf:net_coordination;
+  v-wf:flowsInto d:abc5142af-b501-1ec6-8ee0-acb767f078a4_another;
 .
 
 s-wf:nc_r_to_i_finish a v-wf:Flow;
@@ -1894,7 +2018,7 @@ s-wf:map_t2_sm1
 s-wf:map_t2_sm2
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_action ;
-  v-wf:mappingExpression "process.getLocalVariable ('actor_task_action')";
+  v-wf:mappingExpression "process.getInputVariable ('actor_task_action')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -1957,6 +2081,12 @@ s-wf:nc_f_t1_rti a v-wf:Flow;
   v-wf:belongsTo s-wf:net_coordination;
   v-wf:flowsInto s-wf:nc_return_to_initiator.
 
+s-wf:nc_f_t1_another a v-wf:Flow;
+  rdfs:isDefinedBy s-wf: ;
+  v-wf:predicate "true"^^xsd:string;
+  v-wf:belongsTo s-wf:net_coordination;
+  v-wf:flowsInto s-wf:nc_t2.
+
 s-wf:nc_f_t2_oc a v-wf:Flow;
   rdfs:isDefinedBy s-wf: ;
   v-wf:flowsInto s-wf:nc_oc_rights;
@@ -1985,6 +2115,11 @@ d:a2dcf4fb5-ca60-4b2d-d303-91f8c29db59e_rti a v-wf:Flow;
   v-s:created "2015-11-10T18:08:39.178Z"^^xsd:dateTime;
   v-wf:flowsInto s-wf:nc_rti_rights.
 
+d:a2dcf4fb5-ca60-4b2d-d303-91f8c29db59e_another a v-wf:Flow;
+  v-s:author cfg:AdministratorAppointment;
+  v-wf:predicate "true"^^xsd:string;
+  v-s:created "2015-11-10T18:08:39.178Z"^^xsd:dateTime;
+  v-wf:flowsInto s-wf:nc_another_rights.
 
 d:a8b89a22d-23b9-1c1c-c5dc-3443fd3972de a v-wf:Flow;
   v-s:author cfg:AdministratorAppointment;
@@ -2035,10 +2170,12 @@ s-wf:map_from_4_TIV_from
   rdfs:isDefinedBy s-wf: ;
 .
 
+#Используется в Комплексном процессе в уведомлениях о завершении этапов
 s-wf:map_wf_from_4_TIV_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+#  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
+   v-wf:mappingExpression "";
   rdfs:isDefinedBy s-wf: ;
 .
 

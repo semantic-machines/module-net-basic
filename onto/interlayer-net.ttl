@@ -78,7 +78,8 @@ s-wf:InterlayerNet_oc
 
 s-wf:InterlayerNet_t
   a v-wf:Task;
-  v-wf:subNet s-wf:net_coordination;
+  #v-wf:subNet s-wf:net_coordination;
+	v-wf:subNet s-wf:UniversalNet;  
   v-wf:split v-wf:None;
   v-wf:startingMapping s-wf:map_doc_id, s-wf:map_initiator, s-wf:InterlayerNet_task_action, s-wf:InterlayerNet_task_form_type, s-wf:InterlayerNet_rightset, s-wf:InterlayerNet_set_status, s-wf:InterlayerNet_task_comment, s-wf:InterlayerNet_task_date_to, s-wf:InterlayerNet_task_controller, s-wf:InterlayerNet_task_possible_decisions;
   v-wf:join v-wf:None;
