@@ -1870,9 +1870,14 @@ v-wf:DecisionBreak
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Прервать маршрут"@ru ;
+  rdfs:label "Прервать процесс"@ru ;
   rdfs:label "Cancel route"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplate1 ;
+.
+v-wf:DecisionBreaked_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Процесс прерван"@ru ;
+  rdfs:label "Process is interrupted"@en ;
 .
 
 v-wf:DecisionExamined
