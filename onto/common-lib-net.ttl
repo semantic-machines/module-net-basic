@@ -238,6 +238,13 @@ s-wf:possible_decision_for_add_reaction
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:var_origin_task_for_rework
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineScope v-wf:Net ;
+  v-wf:varDefineName "origin_task" ;
+  rdfs:label "Задача-источник для доработки"@ru ;
+  rdfs:isDefinedBy s-wf: ;
+.
 # --------------------------------
 
 s-wf:map_possible_decision
@@ -336,6 +343,39 @@ s-wf:map_responsible
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_responsible ;
   v-wf:mappingExpression "process.getInputVariable ('initiator')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_responsible_for_rework
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_responsible ;
+  v-wf:mappingExpression "process.getLocalVariable ('responsible')? process.getLocalVariable ('responsible') : process.getInputVariable ('initiator') " ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_cleaning_responsible
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_responsible ;
+  v-wf:mappingExpression """
+    process.getLocalVariable ('responsible')? [] : undefined;
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_get_origin_task
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_origin_task_for_rework ;
+  v-wf:mappingExpression """
+    process.getLocalVariable('origin_task');
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_set_origin_task
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_origin_task_for_rework ;
+  v-wf:mappingExpression """
+    var forNetElement = task.src_data['v-wf:forNetElement'];
+    forNetElement? veda.Util.newStr(forNetElement[0].data) : undefined;
+  """;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -443,6 +483,11 @@ s-wf:executor_reviewer
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:executor_responsible
+  rdf:type v-wf:ExecutorDefinition ;
+  v-wf:executorExpression "process.getLocalVariable('responsible')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
 # ------------------------------- var + map : "Проверить, запущен ли?" ---------------- #
 
 s-wf:var_result_t1
@@ -1052,9 +1097,11 @@ s-wf:UserTaskFormTemplate
               </label>
             </div>
           </div>
-          <div style="position:absolute; bottom:15px; right:0;">
-            <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
+          <div class="margin-sm">
             <button type="button" class="btn btn-default view -edit -search" id="decisionRedirect" about="v-wf:DecisionDelegate_Bundle" property="rdfs:label"/>
+            <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
+          </div>
+          <div style="position:absolute; bottom:5px; right:0;">
             <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
           </div>
         </div>
@@ -1105,15 +1152,6 @@ s-wf:UserTaskFormTemplate
     decision.present(hoder, undefined, "edit");
   });
   $("#decisionRedirect", template).click(function() {
-    var modal = $("#notification-modal-template").html();
-    modal = $(modal);
-    modal.modal({"show": false});
-    $("body").append(modal);
-    modal.modal("show");
-    template.one("remove", function () {
-      modal.modal("hide").remove();
-    });
-    var cntr = $(".modal-body", modal);
     var decisionClass = new veda.IndividualModel( "v-wf:DecisionRedirect" );
     var decision = new veda.IndividualModel();
     var delegatedBundle = new veda.IndividualModel( "v-wf:DecisionDelegated_Bundle" );
@@ -1122,7 +1160,8 @@ s-wf:UserTaskFormTemplate
     decision["rdfs:label"] = delegatedBundle["rdfs:label"];
     decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
     decision["v-s:canRead"] = [ true ];
-    decision.present(cntr, undefined, "edit");
+    var modal = veda.Util.showModal(decision, undefined, "edit");
+    // decision.present(cntr, undefined, "edit");
 
     decision.one("afterReset", function () {
       modal.modal("hide").remove();
@@ -1131,6 +1170,7 @@ s-wf:UserTaskFormTemplate
       modal.modal("hide").remove();
     });
   })
+
   function completedHandler() {
     if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
       $(".possible-decisions, .new-decision", template).remove();
