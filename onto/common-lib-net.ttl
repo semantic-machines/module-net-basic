@@ -1048,6 +1048,24 @@ s-wf:UserTaskFormTemplate
   try {
     var isReworkTask = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
     if (isReworkTask) {
+      $("#decisionBreak", template).click(function() {
+        var decisionClass = new veda.IndividualModel( "v-wf:DecisionBreak" );
+        var decision = new veda.IndividualModel();
+        var breakedBundle = new veda.IndividualModel( "v-wf:DecisionBreaked_Bundle" );
+        decision["rdf:type"] = [ decisionClass ];
+        decision["v-s:backwardTarget"] = [ individual ];
+        decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+        decision["rdfs:label"] = breakedBundle["rdfs:label"];
+        decision["v-s:canRead"] = [ true ];
+        var modal = veda.Util.showModal(decision, undefined, "edit");
+        decision.one("afterReset", function () {
+          modal.modal("hide").remove();
+        });
+        decision.one("afterSave", function () {
+          modal.modal("hide").remove();
+        });
+      })
+
       var forProcess = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forProcess"][0];
       var startForm = forProcess.properties["v-wf:hasStartForm"];
       if (startForm) {
@@ -1066,6 +1084,7 @@ s-wf:UserTaskFormTemplate
       }
     } else {
       $("#edit-StartForm", template).remove();
+      $("#decisionBreak", template).remove();
     };
   } catch (error) {
     $("#edit-StartForm", template).remove();
@@ -1100,6 +1119,7 @@ s-wf:UserTaskFormTemplate
           <div class="margin-sm">
             <button type="button" class="btn btn-default view -edit -search" id="decisionRedirect" about="v-wf:DecisionDelegate_Bundle" property="rdfs:label"/>
             <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
+            <button type="button" class="btn btn-danger view -edit -search" id="decisionBreak" about="v-wf:DecisionBreak" property="rdfs:label"/>
           </div>
           <div style="position:absolute; bottom:5px; right:0;">
             <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
