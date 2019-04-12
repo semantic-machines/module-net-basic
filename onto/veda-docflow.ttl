@@ -342,7 +342,7 @@ v-df:SignRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи подписание"@ru ;
   rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -391,7 +391,7 @@ v-df:SignRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -412,7 +412,7 @@ v-df:ConfirmationRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи утвреждение"@ru ;
   rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -463,7 +463,7 @@ v-df:ConfirmationRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -523,7 +523,7 @@ v-df:QuestionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -547,7 +547,7 @@ v-df:InstructionRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи исполнить поручение"@ru ;
   rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -604,7 +604,7 @@ v-df:InstructionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -628,7 +628,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
   rdfs:label "Спец шаблон формы задачи исполнить поручение"@ru ;
   rdfs:label "Special InstructionRouteStartForm template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -683,7 +683,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   if ( mode === "edit" && this.isNew() ) {
     this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
   }
@@ -706,7 +706,7 @@ v-df:TaskRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи ознакомиться"@ru ;
   rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -754,7 +754,7 @@ v-df:TaskRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -775,7 +775,7 @@ v-df:DistributionRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи рассылки"@ru ;
   rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -823,7 +823,7 @@ v-df:DistributionRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -844,7 +844,7 @@ v-df:CoordinationRouteStartFormTemplate
   rdfs:label "Шаблон формы задачи согласования"@ru ;
   rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
-<script><!--async-->
+<script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -890,7 +890,7 @@ v-df:CoordinationRouteStartFormTemplate
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
 </div>
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     var modal = template.closest(".modal");
     if (modal.length) {
@@ -1603,7 +1603,7 @@ v-df:DecisionTemplate2
   rdfs:label "Template for -Decision- class "@en ;
   v-ui:forClass v-wf:DecisionAgreedToExecute ;
   v-ui:template """
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     window.history.back();
   });
@@ -2035,7 +2035,7 @@ v-wf:DecisionRedirectTemplate
   rdfs:label "Template for -Decision Redirect- class"@en ;
   v-ui:forClass v-wf:DecisionRedirect ;
   v-ui:template """
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     window.history.back();
   });
@@ -2103,7 +2103,7 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
   v-ui:forClass v-wf:DecisionRevokeTask ;
   v-ui:template """
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     window.history.back();
   });
@@ -2142,7 +2142,7 @@ v-wf:DecisionTemplateForRemake
   rdfs:label "Template for -Decision- Remake class"@en ;
   v-ui:forClass v-wf:DecisionRemake ;
   v-ui:template """
-<script><!--async-->
+<script>
   template.on("cancel", function () {
     window.history.back();
   });
