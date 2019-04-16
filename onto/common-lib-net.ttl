@@ -1044,8 +1044,7 @@ s-wf:UserTaskFormTemplate
         label.toggleClass("label-default label-danger");
       }
     }
-  }
-
+  };
   try {
     individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
       //is rework task
@@ -1095,7 +1094,14 @@ s-wf:UserTaskFormTemplate
         $("#edit-StartForm", template).remove();
         $("#stopProcess", template).remove();
       }
-    });
+        $("#edit-StartForm", template).click(function(){
+          var modal = veda.Util.showModal(new veda.IndividualModel(startForm), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
+        });
+      }
+    } else {
+      $("#edit-StartForm", template).remove();
+      $("#stopProcess", template).remove();
+    };
   } catch (error) {
     $("#edit-StartForm", template).remove();
     $("#stopProcess", template).remove();
