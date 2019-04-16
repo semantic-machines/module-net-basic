@@ -1090,10 +1090,11 @@ s-wf:UserTaskFormTemplate
       }
     } else {
       $("#edit-StartForm", template).remove();
-      $("#decisionBreak", template).remove();
+      $("#stopProcess", template).remove();
     };
   } catch (error) {
     $("#edit-StartForm", template).remove();
+    $("#stopProcess", template).remove();
     console.log("Unexpected behaviour", error);
   };
 //# sourceURL=s-wf:UserTaskFormTemplate_pre
