@@ -1055,6 +1055,8 @@ s-wf:UserTaskFormTemplate
         if ( confirm(warn) ) {
           forProcess['v-wf:isStopped'] = [ true ];
           forProcess.save();
+          riot.route( ["#", individual["v-wf:onDocument"][0].id].join("/") );
+          
           //$(this).remove();
         }
         // var decisionClass = new veda.IndividualModel( "v-wf:DecisionBreak" );
