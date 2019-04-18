@@ -2237,7 +2237,7 @@ v-wf:DecisionRedirectTemplateSpec3
   v-ui:forProperty v-wf:to ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' )&& ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
 .
 
 v-wf:signRouteStartFormLinkRule
