@@ -1605,7 +1605,12 @@ v-df:DecisionTemplate2
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-df:DecisionTemplate2_pre
 </script>
@@ -2037,7 +2042,12 @@ v-wf:DecisionRedirectTemplate
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-wf:DecisionRedirectTemplate_pre
 </script>
@@ -2105,7 +2115,12 @@ v-wf:DecisionTemplate1
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-wf:DecisionTemplate1_pre
 </script>
@@ -2144,7 +2159,12 @@ v-wf:DecisionTemplateForRemake
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-wf:DecisionTemplateForRemake_pre
 </script>

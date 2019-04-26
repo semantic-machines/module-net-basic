@@ -1218,8 +1218,6 @@ s-wf:UserTaskFormTemplate
     decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
     decision["v-s:canRead"] = [ true ];
     var modal = veda.Util.showModal(decision, undefined, "edit");
-    // decision.present(cntr, undefined, "edit");
-
     decision.one("afterReset", function () {
       modal.modal("hide").remove();
     });
