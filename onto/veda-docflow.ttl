@@ -222,7 +222,7 @@ v-df:PsStartForm_responsible
   v-ui:forProperty v-s:responsible ;
   v-ui:maxCardinality 400 ;
   v-ui:minCardinality 1 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
   rdfs:label "Task sender property specification for Question task class"@en ;
 .
@@ -238,7 +238,7 @@ v-df:PsStartForm_v-s:controller
   v-ui:forProperty v-s:controller ;
   v-ui:maxCardinality 1 ;
   v-ui:minCardinality 0 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' ) && ('v-s:employee.v-s:hasAccount.isExists'=='true') && ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
   rdfs:label "Спецификация Контролирующего задачи для класса Стартовая форма задачи"@ru ;
   rdfs:label "Task controller property specification for task class"@en ;
 .
@@ -2028,9 +2028,9 @@ v-wf:DecisionIssueTaskToAnother
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Выдать задачу другому"@ru ;
-  rdfs:label "Issue task to another"@en ;
-  v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
+  rdfs:label "Выдать задачу повторно"@ru ;
+  rdfs:label "Re-issue the task"@en ;
+  v-ui:hasTemplate v-wf:DecisionTemplateForTaskToAnother ;
 .
 
 v-wf:DecisionRedirectTemplate
@@ -2276,7 +2276,7 @@ v-wf:DecisionRedirectTemplateSpec3
   v-ui:forProperty v-wf:to ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' )&& ('v-s:origin'=='sap hr' || 'v-s:origin'=='Internal' || 'v-s:origin'=='Group' || 'v-s:origin'=='External') || ('rdf:type'=='v-s:Position') && ( 'v-s:origin'=='Role')"^^xsd:string ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
 .
 
 v-wf:signRouteStartFormLinkRule
@@ -2573,4 +2573,60 @@ v-wf:rule3coordination
   v-wf:segregateElement "contentName('@')" ;
   rdfs:isDefinedBy v-wf: ;
   v-wf:grouping "1";
+.
+
+
+v-wf:DecisionTemplateForTaskToAnother
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение- Задача повторно (другому) со сроком"@ru ;
+  rdfs:label "Template for -Decision- IssueTaskToAnother class"@en ;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    window.history.back();
+  });
+//# sourceURL=v-wf:DecisionTemplateForTaskToAnother_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div class="row">
+    <div class="col-md-9">
+			<em about="v-wf:to" property="rdfs:label"></em>
+			<div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+			<veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-3">
+      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <em about="rdfs:comment" property="rdfs:label"></em>
+      <div property="rdfs:comment" class="view -edit -search"></div>
+      <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
 .
