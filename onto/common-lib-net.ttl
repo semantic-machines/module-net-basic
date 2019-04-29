@@ -1114,7 +1114,7 @@ s-wf:UserTaskFormTemplate
       }
     </style>
     <div class="row">
-      <div class="col-xs-7 col-md-9" style="border-right: 1px dotted #ccc;">
+      <div class="col-sm-7 col-md-9" style="border-right: 1px dotted #ccc;">
         <h2>
           <span about="@" property="rdfs:label"></span><br/>
           <small about="@" property="v-s:description"></small>
@@ -1134,8 +1134,6 @@ s-wf:UserTaskFormTemplate
             <button type="button" class="btn btn-default view -edit -search" id="decisionRedirect" about="v-wf:DecisionDelegate_Bundle" property="rdfs:label"/>
             <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"/>
             <button type="button" class="btn btn-danger view -edit -search" id="stopProcess" about="v-wf:DecisionBreak" property="rdfs:label"/>
-          </div>
-          <div style="position:absolute; bottom:5px; right:0;">
             <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
           </div>
         </div>
@@ -1146,7 +1144,7 @@ s-wf:UserTaskFormTemplate
         </div>
         <div class="well taken-decision" about="@" rel="v-wf:takenDecision"></div>
       </div>
-      <div class="col-xs-5 col-md-3">
+      <div class="col-sm-5 col-md-3">
         <h3><span about="@" property="v-wf:dateGiven" class="date-given label label-default"></span></h3>
         <em about="v-wf:from" property="rdfs:label"></em>
         <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
