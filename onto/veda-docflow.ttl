@@ -1624,7 +1624,7 @@ v-df:DecisionTemplate2
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2061,7 +2061,7 @@ v-wf:DecisionRedirectTemplate
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2134,7 +2134,7 @@ v-wf:DecisionTemplate1
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2178,7 +2178,7 @@ v-wf:DecisionTemplateForRemake
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2599,7 +2599,7 @@ v-wf:DecisionTemplateForTaskToAnother
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
