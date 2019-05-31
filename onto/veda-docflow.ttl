@@ -1976,7 +1976,8 @@ v-wf:DecisionConfirm
 
 v-wf:DecisionDelegate_Bundle
   rdf:type v-s:Bundle;
-  rdfs:label "Делегировать принятие решения"@ru ;
+#  rdfs:label "Делегировать принятие решения"@ru ;
+  rdfs:label "Делегировать"@ru ;
   rdfs:label "Delegate decision making"@en ;
 .
 v-wf:DecisionRedirect_Bundle
