@@ -343,10 +343,13 @@ v-df:SignRouteStartFormTemplate
   rdfs:label "SignRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -354,8 +357,6 @@ v-df:SignRouteStartFormTemplate
     <span about="v-df:SignRouteStartForm" property="rdfs:label"></span><br>
     <small about="@" property="rdfs:label"></small>
   </h3>
-  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
-  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
   <div class="row">
     <div class="col-md-6">
       <em about="v-s:responsible" property="rdfs:label"></em>
@@ -412,10 +413,13 @@ v-df:ConfirmationRouteStartFormTemplate
   rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -544,10 +548,13 @@ v-df:InstructionRouteStartFormTemplate
   rdfs:label "InstructionRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -622,10 +629,13 @@ v-df:SpecialInstructionRouteStartFormTemplate
   rdfs:label "Special InstructionRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -697,10 +707,13 @@ v-df:TaskRouteStartFormTemplate
   rdfs:label "TaskRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -763,10 +776,13 @@ v-df:DistributionRouteStartFormTemplate
   rdfs:label "DistributionRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -829,10 +845,13 @@ v-df:CoordinationRouteStartFormTemplate
   rdfs:label "CoordinationRouteStartForm template"@en ;
   v-ui:template """
 <script>
-  var doc = individual['v-wf:processedDocument'][0];
-  if (!doc) { return; }
-  if ( !doc.rights.hasValue('v-s:canUpdate', true)) {
-    $('#set-canEdit', template).hide();
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
   }
 </script>
 <div class="container sheet">
@@ -1586,7 +1605,12 @@ v-df:DecisionTemplate2
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-df:DecisionTemplate2_pre
 </script>
@@ -1600,7 +1624,7 @@ v-df:DecisionTemplate2
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2018,7 +2042,12 @@ v-wf:DecisionRedirectTemplate
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-wf:DecisionRedirectTemplate_pre
 </script>
@@ -2032,7 +2061,7 @@ v-wf:DecisionRedirectTemplate
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2086,7 +2115,12 @@ v-wf:DecisionTemplate1
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-wf:DecisionTemplate1_pre
 </script>
@@ -2100,7 +2134,7 @@ v-wf:DecisionTemplate1
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2125,7 +2159,12 @@ v-wf:DecisionTemplateForRemake
   v-ui:template """
 <script>
   template.on("cancel", function () {
-    window.history.back();
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
   });
 //# sourceURL=v-wf:DecisionTemplateForRemake_pre
 </script>
@@ -2139,7 +2178,7 @@ v-wf:DecisionTemplateForRemake
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
@@ -2560,16 +2599,16 @@ v-wf:DecisionTemplateForTaskToAnother
     </span>
     <small>
       <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created" data-template="v-ui:LabelTemplate"></span>
+      <span property="v-s:created"></span>
     </small>
     <hr class="margin-sm"/>
   </div>
   <h4 class="decision" about="@" property="rdfs:label"></h4>
   <div class="row">
     <div class="col-md-9">
-			<em about="v-wf:to" property="rdfs:label"></em>
-			<div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
-			<veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
+      <em about="v-wf:to" property="rdfs:label"></em>
+      <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+      <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-3">
       <em about="v-wf:dateGiven" property="rdfs:label"></em>
@@ -2577,13 +2616,9 @@ v-wf:DecisionTemplateForTaskToAnother
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <em about="rdfs:comment" property="rdfs:label"></em>
-      <div property="rdfs:comment" class="view -edit -search"></div>
-      <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-    </div>
-  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br class="-view edit -search">
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>

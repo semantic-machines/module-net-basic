@@ -1045,60 +1045,65 @@ s-wf:UserTaskFormTemplate
       }
     }
   };
-  try {
-    var isReworkTask = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forNetElement"][0].id == "s-wf:cr_rework";
-    if (isReworkTask) {
-      var forProcess = individual["v-wf:onWorkOrder"][0]["v-wf:forWorkItem"][0]["v-wf:forProcess"][0];
-
-      $("#stopProcess", template).click(function() {
-        var warn = new veda.IndividualModel("v-s:AreYouSure")["rdfs:label"].join(" ");
-        if ( confirm(warn) ) {
-          forProcess['v-wf:isStopped'] = [ true ];
-          forProcess.save();
-          riot.route( ["#", individual["v-wf:onDocument"][0].id].join("/") );
-
-          //$(this).remove();
-        }
-        // var decisionClass = new veda.IndividualModel( "v-wf:DecisionBreak" );
-        // var decision = new veda.IndividualModel();
-        // var breakedBundle = new veda.IndividualModel( "v-wf:DecisionBreaked_Bundle" );
-        // decision["rdf:type"] = [ decisionClass ];
-        // decision["v-s:backwardTarget"] = [ individual ];
-        // decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
-        // decision["rdfs:label"] = breakedBundle["rdfs:label"];
-        // decision["v-s:canRead"] = [ true ];
-        // var modal = veda.Util.showModal(decision, undefined, "edit");
-        // decision.one("afterReset", function () {
-        //   modal.modal("hide").remove();
-        // });
-        // decision.one("afterSave", function () {
-        //   modal.modal("hide").remove();
-        // });
-      })
-      var startForm = forProcess.properties["v-wf:hasStartForm"];
-      if (startForm) {
-        startForm = startForm[0].data;
-      } else {
-        //Устаревший вариант
-        var startFormVar = forProcess["v-wf:inVars"].filter(function (vrbl) {
-          return vrbl.hasValue("v-wf:variableName",  "startForm_id");
+  individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
+    //is rework task
+    if (forNetElementArr.length > 0 && forNetElementArr[0].id === "s-wf:cr_rework") {
+      individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forProcess").then(function(forProcessArr) {
+        forProcessArr[0].load().then(function(forProcess) {
+          $("#stopProcess", template).click(function() {
+            var warn = new veda.IndividualModel("v-s:AreYouSure")["rdfs:label"].join(" ");
+            if ( confirm(warn) ) {
+              forProcess['v-wf:isStopped'] = [ true ];
+              forProcess.save();
+            }
+            // var decisionClass = new veda.IndividualModel( "v-wf:DecisionBreak" );
+            // var decision = new veda.IndividualModel();
+            // var breakedBundle = new veda.IndividualModel( "v-wf:DecisionBreaked_Bundle" );
+            // decision["rdf:type"] = [ decisionClass ];
+            // decision["v-s:backwardTarget"] = [ individual ];
+            // decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+            // decision["rdfs:label"] = breakedBundle["rdfs:label"];
+            // decision["v-s:canRead"] = [ true ];
+            // var modal = veda.Util.showModal(decision, undefined, "edit");
+            // decision.one("afterReset", function () {
+            //   modal.modal("hide").remove();
+            // });
+            // decision.one("afterSave", function () {
+            //   modal.modal("hide").remove();
+            // });
+          })
+          var startForm = forProcess.properties["v-wf:hasStartForm"];
+          if (startForm) {
+            startForm = startForm[0].data;
+          } else {
+            //Устаревший вариант (но почему то не такой уж и устаревший)
+            console.log("not found hasStartForm, use variables");
+            var promises = forProcess["v-wf:inVars"].map(function(vrbl) {
+              return vrbl.load();
+            });
+            Promise.all(promises).then(function(variables) {
+              var startFormVar = variables.filter(function (vrbl) {
+                return vrbl.hasValue("v-wf:variableName",  "startForm_id");
+              });
+              startForm = startFormVar[0]["v-wf:variableValue"][0].id;  
+            })
+          }
+          if (startForm) {
+            $("#edit-StartForm", template).click(function () {
+              var modal = veda.Util.showModal(new veda.IndividualModel(startForm), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
+            });
+          }
         });
-        startForm = startFormVar[0]["v-wf:variableValue"][0].id;
-      };
-      if (startForm) {
-        $("#edit-StartForm", template).click(function(){
-          var modal = veda.Util.showModal(new veda.IndividualModel(startForm), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
-        });
-      }
+      });
     } else {
       $("#edit-StartForm", template).remove();
       $("#stopProcess", template).remove();
-    };
-  } catch (error) {
+    }
+  }).catch(function(error) {
     $("#edit-StartForm", template).remove();
     $("#stopProcess", template).remove();
     console.log("Unexpected behaviour", error);
-  };
+  });
 //# sourceURL=s-wf:UserTaskFormTemplate_pre
 </script>
 <div>
@@ -1169,15 +1174,38 @@ s-wf:UserTaskFormTemplate
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
-  $(".possible-decisions input", template).on("change", function (e) {
-    var input = $(this);
-    var hoder = $(".new-decision", template).empty();
-    var decisionClassId = input.closest("[resource]").attr("resource");
-    var decisionClass = new veda.IndividualModel( decisionClassId );
-    decision["rdf:type"] = [ decisionClass ];
-    decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
-    decision.present(hoder, undefined, "edit");
+  individual.rights.then(function (rights) {
+    if ( individual.hasValue("v-wf:takenDecision") || !rights.hasValue("v-s:canUpdate", true) ) {
+      $(".possible-decisions, .new-decision", template).remove();
+    } else {
+      $(".possible-decisions input", template).on("change", function (e) {
+        var input = $(this);
+        var hoder = $(".new-decision", template).empty();
+        var decisionClassId = input.closest("[resource]").attr("resource");
+        var decisionClass = new veda.IndividualModel( decisionClassId );
+        decision["rdf:type"] = [ decisionClass ];
+        decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
+        decision.present(hoder, undefined, "edit");
+      });
+
+      function completedHandler() {
+        if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
+          $(".possible-decisions, .new-decision", template).remove();
+        }
+      }
+      individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+      template.one("remove", function () {
+        individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+      });
+
+      var decision = new veda.IndividualModel();
+      decision["v-s:backwardTarget"] = [ individual ];
+      decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+      decision["v-s:canRead"] = [ true ];
+      $(".possible-decisions input", template).first().prop("checked", "checked").change();
+    }
   });
+
   $("#decisionRedirect", template).click(function() {
     var decisionClass = new veda.IndividualModel( "v-wf:DecisionRedirect" );
     var decision = new veda.IndividualModel();
@@ -1188,8 +1216,6 @@ s-wf:UserTaskFormTemplate
     decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
     decision["v-s:canRead"] = [ true ];
     var modal = veda.Util.showModal(decision, undefined, "edit");
-    // decision.present(cntr, undefined, "edit");
-
     decision.one("afterReset", function () {
       modal.modal("hide").remove();
     });
@@ -1198,54 +1224,6 @@ s-wf:UserTaskFormTemplate
     });
   })
 
-  function completedHandler() {
-    if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
-      $(".possible-decisions, .new-decision", template).remove();
-    }
-  }
-  individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
-
-  // var scriptMainQueue = new veda.IndividualModel('srv:queue-state-scripts_main0');
-  // function isOverloadQueue(){
-  //   var count = 0;
-  //   try {
-  //     scriptMainQueue.reset();
-  //     var total = scriptMainQueue.properties['srv:total_count'][0].data;
-  //     var current = scriptMainQueue.properties['srv:current_count'][0].data;
-  //     count = total - current;
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-
-  //   // console.log('total count: '+ total);
-  //   // console.log('current queue: '+ count);
-  //   if (count > 1000) {
-  //     $('.well.new-decision', template).hide();
-  //     $('.action #task-button', template).hide();
-  //     $('#show-OverloadNotification').removeClass('hidden');
-  //   } else {
-  //     $('.well.new-decision', template).show();
-  //     $('.action #task-button', template).show();
-  //     $('#show-OverloadNotification').addClass('hidden');
-  //   }
-  // }
-  // isOverloadQueue();
-  // var intervalId = setInterval(isOverloadQueue, 30000);
-
-  template.one("remove", function () {
-    individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
-    //clearInterval(intervalId);
-  });
-
-  if ( individual.hasValue("v-wf:takenDecision") || !individual.rights.hasValue("v-s:canUpdate", true) ) {
-    $(".possible-decisions, .new-decision", template).remove();
-  } else {
-    var decision = new veda.IndividualModel();
-    decision["v-s:backwardTarget"] = [ individual ];
-    decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
-    decision["v-s:canRead"] = [ true ];
-    $(".possible-decisions input", template).first().prop("checked", "checked").change();
-  }
 //# sourceURL=s-wf:UserTaskFormTemplate_post
 </script>
   """ ;
