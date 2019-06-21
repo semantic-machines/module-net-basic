@@ -39,6 +39,12 @@ v-s:AcceptTaskResults
   rdfs:label "Accept task results"@en ;
 .
 
+v-s:NotRightsForDocumentBundle
+  rdf:type v-s:Bundle ;
+  rdfs:label "Вы получили задачу по виду документа, который вам недоступен. Для корректного завершения процесса и информирования отправителя неоходимо выбрать вариант 'Отклонить' и отправить задачу, тем самым вернув ее инициатору."@ru ;
+  rdfs:label "1231"@en ;
+.
+
 # -----------------------------------------------
 
 s-wf:EmptyTask
@@ -1119,8 +1125,12 @@ s-wf:UserTaskFormTemplate
           <span about="@" property="rdfs:label"></span><br/>
           <small about="@" property="v-s:description"></small>
         </h2>
+
         <div class="possible-decisions clearfix" style="position:relative">
           <hr />
+          <div id="NotRightsAlert" class="alert alert-warning hidden" role="alert">
+            <span about="v-s:NotRightsForDocumentBundle" property="rdfs:label"></span>
+          </div>
           <h4 about="v-wf:takenDecision" property="rdfs:label"></h4>
           <div about="@" rel="v-wf:possibleDecisionClass">
             <div class="radio">
@@ -1174,7 +1184,12 @@ s-wf:UserTaskFormTemplate
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
+  var isHaveRights = true;
   individual.rights.then(function (rights) {
+    if (!rights.hasValue("v-s:canRead", true)) {
+      $("#NotRightsAlert", template).removeClass("hidden");
+      isHaveRights = false;
+    }
     if ( individual.hasValue("v-wf:takenDecision") || !rights.hasValue("v-s:canUpdate", true) ) {
       $(".possible-decisions, .new-decision", template).remove();
     } else {
@@ -1185,6 +1200,11 @@ s-wf:UserTaskFormTemplate
         var decisionClass = new veda.IndividualModel( decisionClassId );
         decision["rdf:type"] = [ decisionClass ];
         decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
+        if (decisionClassId === "v-wf:DecisionDeclined" && !isHaveRights) {
+          decision["rdfs:comment"] = [ "Возможность просмотра документов данного вида недоступна" ];
+        } else {
+          decision["rdfs:comment"] = [];
+        }
         decision.present(hoder, undefined, "edit");
       });
 
