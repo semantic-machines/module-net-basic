@@ -1056,27 +1056,16 @@ s-wf:UserTaskFormTemplate
     if (forNetElementArr.length > 0 && forNetElementArr[0].id === "s-wf:cr_rework") {
       individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forProcess").then(function(forProcessArr) {
         forProcessArr[0].load().then(function(forProcess) {
-          $("#stopProcess", template).click(function() {
-            var warn = new veda.IndividualModel("v-s:AreYouSure")["rdfs:label"].join(" ");
-            if ( confirm(warn) ) {
-              forProcess['v-wf:isStopped'] = [ true ];
-              forProcess.save();
-            }
-            // var decisionClass = new veda.IndividualModel( "v-wf:DecisionBreak" );
-            // var decision = new veda.IndividualModel();
-            // var breakedBundle = new veda.IndividualModel( "v-wf:DecisionBreaked_Bundle" );
-            // decision["rdf:type"] = [ decisionClass ];
-            // decision["v-s:backwardTarget"] = [ individual ];
-            // decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
-            // decision["rdfs:label"] = breakedBundle["rdfs:label"];
-            // decision["v-s:canRead"] = [ true ];
-            // var modal = veda.Util.showModal(decision, undefined, "edit");
-            // decision.one("afterReset", function () {
-            //   modal.modal("hide").remove();
-            // });
-            // decision.one("afterSave", function () {
-            //   modal.modal("hide").remove();
-            // });
+          $("#stopProcess", template).click(function(e) {
+            e.preventDefault();
+            var warn = new veda.IndividualModel("v-s:AreYouSure");
+            warn.load().then(function (warn) {
+              warn = warn["rdfs:label"].join(" ");
+              if ( confirm(warn) ) {
+                forProcess['v-wf:isStopped'] = [ true ];
+                forProcess.save();              
+              }
+            });
           })
           var startForm = forProcess.properties["v-wf:hasStartForm"];
           if (startForm) {
