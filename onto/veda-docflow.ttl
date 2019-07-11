@@ -684,8 +684,10 @@ v-df:SpecialInstructionRouteStartFormTemplate
   </div>
 </div>
 <script>
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+  if ( mode === "edit" && individual.isNew() ) {
+    if (!individual.hasValue("v-s:controller")) {
+      individual["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+    }
   }
   template.on("cancel", function () {
     var modal = template.closest(".modal");
