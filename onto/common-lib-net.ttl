@@ -1218,19 +1218,20 @@ s-wf:UserTaskFormTemplate
   $("#decisionRedirect", template).click(function() {
     var decisionClass = new veda.IndividualModel( "v-wf:DecisionRedirect" );
     var decision = new veda.IndividualModel();
-    var delegatedBundle = new veda.IndividualModel( "v-wf:DecisionDelegated_Bundle" );
-    decision["rdf:type"] = [ decisionClass ];
-    decision["v-s:backwardTarget"] = [ individual ];
-    decision["rdfs:label"] = delegatedBundle["rdfs:label"];
-    decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
-    decision["v-s:canRead"] = [ true ];
-    var modal = veda.Util.showModal(decision, undefined, "edit");
-    decision.one("afterReset", function () {
-      modal.modal("hide").remove();
-    });
-    decision.one("afterSave", function () {
-      modal.modal("hide").remove();
-    });
+    new veda.IndividualModel( "v-wf:DecisionDelegated_Bundle" ).load().then(function(delegatedBundle) {
+      decision["rdf:type"] = [ decisionClass ];
+      decision["v-s:backwardTarget"] = [ individual ];
+      decision["rdfs:label"] = delegatedBundle["rdfs:label"];
+      decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+      decision["v-s:canRead"] = [ true ];
+      var modal = veda.Util.showModal(decision, undefined, "edit");
+      decision.one("afterReset", function () {
+        modal.modal("hide").remove();
+      });
+      decision.one("afterSave", function () {
+        modal.modal("hide").remove();
+      });
+    })
   })
 
 //# sourceURL=s-wf:UserTaskFormTemplate_post
