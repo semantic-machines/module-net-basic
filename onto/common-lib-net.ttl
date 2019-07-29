@@ -2050,7 +2050,7 @@ s-wf:map_t2_sm3
 s-wf:map_t2_sm_control
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_actor_task_comment ;
-  v-wf:mappingExpression "veda.Util.newStr(getFirstValue(process.getLocalVariable ('actor_task_comment')) || '')";
+  v-wf:mappingExpression "veda.Util.newStr(veda.Util.getFirstValue(process.getLocalVariable ('actor_task_comment')) || '')";
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2289,7 +2289,7 @@ s-wf:map_doc_url_4_vedaInfo_appUrl
   rdfs:isDefinedBy s-wf: ;
   v-wf:mappingExpression
   """
-  veda.Util.newStr (getFirstValue (veda.Workflow.get_properties_chain (veda.Util.newUri ('v-s:vedaInfo'), [{$get:'v-s:appUrl'}])) + "/" + veda.Util.getFirstValue(task.getInputVariable ('docId')))
+  veda.Util.newStr (veda.Util.getFirstValue (veda.Workflow.get_properties_chain (veda.Util.newUri ('v-s:vedaInfo'), [{$get:'v-s:appUrl'}])) + "/" + veda.Util.getFirstValue(task.getInputVariable ('docId')))
   """;
 .
 
@@ -2370,7 +2370,7 @@ s-wf:map_task_url_4_O_DecisionForms
   v-wf:mapToVariable s-wf:var_task_url;
   v-wf:mappingExpression
   """
-  veda.Util.newStr (getFirstValue (veda.Workflow.get_properties_chain (veda.Util.newUri ('v-s:vedaInfo'), [{$get:'v-s:appUrl'}])) + "/" + veda.Util.getFirstValue(order.getDecisionForms ()))
+  veda.Util.newStr (veda.Util.getFirstValue (veda.Workflow.get_properties_chain (veda.Util.newUri ('v-s:vedaInfo'), [{$get:'v-s:appUrl'}])) + "/" + veda.Util.getFirstValue(order.getDecisionForms ()))
   """;
   rdfs:isDefinedBy s-wf: ;
 .
