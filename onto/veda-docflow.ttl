@@ -383,7 +383,12 @@ v-df:SignRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  <div class="-view edit -search">
+    <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+    <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  </div>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -399,6 +404,9 @@ v-df:SignRouteStartFormTemplate
     } else {
       window.history.back();
     }
+  });
+  $("#add-controller", template).click(function() {
+    individual["v-s:controller"] = [veda.appointment];
   });
   //# sourceURL=v-df:SignRouteStartFormTemplate
 </script>
@@ -455,7 +463,12 @@ v-df:ConfirmationRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  <div class="-view edit -search">
+    <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+    <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  </div>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -471,6 +484,9 @@ v-df:ConfirmationRouteStartFormTemplate
     } else {
       window.history.back();
     }
+  });
+  $("#add-controller", template).click(function() {
+    individual["v-s:controller"] = [veda.appointment];
   });
   //# sourceURL=v-df:ConfirmationRouteStartFormTemplate
 </script>
@@ -884,7 +900,12 @@ v-df:CoordinationRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  <div class="-view edit -search">
+    <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+    <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  </div>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
   <br>
@@ -900,6 +921,10 @@ v-df:CoordinationRouteStartFormTemplate
     } else {
       window.history.back();
     }
+  });
+
+  $("#add-controller", template).click(function() {
+    individual["v-s:controller"] = [veda.appointment];
   });
   //# sourceURL=v-df:CoordinationRouteStartFormTemplate
 </script>
