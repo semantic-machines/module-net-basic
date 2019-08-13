@@ -1184,7 +1184,7 @@ s-wf:UserTaskFormTemplate
     } else {
       $(".possible-decisions input", template).on("change", function (e) {
         var input = $(this);
-        var hoder = $(".new-decision", template).empty();
+        var decisionContainer = $(".new-decision", template);
         var decisionClassId = input.closest("[resource]").attr("resource");
         var decisionClass = new veda.IndividualModel( decisionClassId );
         decision["rdf:type"] = [ decisionClass ];
@@ -1192,9 +1192,13 @@ s-wf:UserTaskFormTemplate
         if (decisionClassId === "v-wf:DecisionDeclined" && !isHaveRights) {
           decision["rdfs:comment"] = [ "Возможность просмотра документов данного вида недоступна" ];
         } else {
-          decision["rdfs:comment"] = [];
+          var prevComment = $("veda-control[property='rdfs:comment'] textarea", decisionContainer).val();
+          if (prevComment) {
+            decision["rdfs:comment"] = [prevComment];
+          }
         }
-        decision.present(hoder, undefined, "edit");
+        decisionContainer.empty();
+        decision.present(decisionContainer, undefined, "edit");
       });
 
       function completedHandler() {
