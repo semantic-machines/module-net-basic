@@ -41,8 +41,8 @@ v-s:AcceptTaskResults
 
 v-s:NotRightsForDocumentBundle
   rdf:type v-s:Bundle ;
-  rdfs:label "Вы получили задачу по виду документа, который вам недоступен. Для корректного завершения процесса и информирования отправителя неоходимо выбрать вариант 'Отклонить' и отправить задачу, тем самым вернув ее инициатору."@ru ;
-  rdfs:label "You were given a task for a document you have no rights to read. To properly complete a process and to inform a task sender you should choose 'Decline' and 'Send' a task back."@en ;
+  rdfs:label "Вы получили задачу по виду документа, который Вам недоступен. Для корректного завершения процесса и информирования отправителя неоходимо выбрать вариант 'Отклонить' и отправить задачу, тем самым вернув ее инициатору. Либо свяжитесь со службой поддержки."@ru ;
+  rdfs:label "You were given a task for a document you have no rights to read. To properly complete a process and to inform a task sender you should choose 'Decline' and 'Send' a task back. Or contact support."@en ;
 .
 
 v-s:NotRightsForDocumentCommentBundle
