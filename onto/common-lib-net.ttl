@@ -42,7 +42,13 @@ v-s:AcceptTaskResults
 v-s:NotRightsForDocumentBundle
   rdf:type v-s:Bundle ;
   rdfs:label "Вы получили задачу по виду документа, который вам недоступен. Для корректного завершения процесса и информирования отправителя неоходимо выбрать вариант 'Отклонить' и отправить задачу, тем самым вернув ее инициатору."@ru ;
-  rdfs:label "1231"@en ;
+  rdfs:label "You were given a task for a document you have no rights to read. To properly complete a process and to inform a task sender you should choose 'Decline' and 'Send' a task back."@en ;
+.
+
+v-s:NotRightsForDocumentCommentBundle
+  rdf:type v-s:Bundle ;
+  rdfs:label "У меня нет прав на просмотр документов этого типа."@ru ;
+  rdfs:label "I have no rights to view documents of this type."@en ;
 .
 
 # -----------------------------------------------
@@ -1050,7 +1056,7 @@ s-wf:UserTaskFormTemplate
         label.toggleClass("label-default label-danger");
       }
     }
-  };
+  }
   individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
     //is rework task
     if (forNetElementArr.length > 0 && forNetElementArr[0].id === "s-wf:cr_rework") {
@@ -1063,7 +1069,7 @@ s-wf:UserTaskFormTemplate
               warn = warn["rdfs:label"].join(" ");
               if ( confirm(warn) ) {
                 forProcess['v-wf:isStopped'] = [ true ];
-                forProcess.save();              
+                forProcess.save();
               }
             });
           })
@@ -1080,7 +1086,7 @@ s-wf:UserTaskFormTemplate
               var startFormVar = variables.filter(function (vrbl) {
                 return vrbl.hasValue("v-wf:variableName",  "startForm_id");
               });
-              startForm = startFormVar[0]["v-wf:variableValue"][0].id;  
+              startForm = startFormVar[0]["v-wf:variableValue"][0].id;
             })
           }
           if (startForm) {
@@ -1173,13 +1179,17 @@ s-wf:UserTaskFormTemplate
   <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
 </div>
 <script>
-  var isHaveRights = true;
-  individual.rights.then(function (rights) {
-    if (!rights.hasValue("v-s:canRead", true)) {
+  var document = individual.hasValue("v-wf:onDocument") && individual["v-wf:onDocument"][0];
+  var taskRights = individual.rights;
+  var documentRights = document && document.rights;
+
+  Promise.all([taskRights, documentRights]).then(function (rights) {
+    var taskRights = rights[0];
+    var canReadDocument = rights[1] && rights[1].hasValue("v-s:canRead", true);
+    if (document && !canReadDocument) {
       $("#NotRightsAlert", template).removeClass("hidden");
-      isHaveRights = false;
     }
-    if ( individual.hasValue("v-wf:takenDecision") || !rights.hasValue("v-s:canUpdate", true) ) {
+    if ( individual.hasValue("v-wf:takenDecision") || !taskRights.hasValue("v-s:canUpdate", true) ) {
       $(".possible-decisions, .new-decision", template).remove();
     } else {
       $(".possible-decisions input", template).on("change", function (e) {
@@ -1189,8 +1199,11 @@ s-wf:UserTaskFormTemplate
         var decisionClass = new veda.IndividualModel( decisionClassId );
         decision["rdf:type"] = [ decisionClass ];
         decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
-        if (decisionClassId === "v-wf:DecisionDeclined" && !isHaveRights) {
-          decision["rdfs:comment"] = [ "Возможность просмотра документов данного вида недоступна" ];
+        if (decisionClassId === "v-wf:DecisionDeclined" && document && !canReadDocument) {
+          var comment = new veda.IndividualModel("v-s:NotRightsForDocumentCommentBundle");
+          comment.load().then(function (comment) {
+            decision["rdfs:comment"] = comment["rdfs:label"];
+          });
         } else {
           var prevComment = $("veda-control[property='rdfs:comment'] textarea", decisionContainer).val();
           if (prevComment) {
