@@ -1069,7 +1069,9 @@ s-wf:UserTaskFormTemplate
               warn = warn["rdfs:label"].join(" ");
               if ( confirm(warn) ) {
                 forProcess['v-wf:isStopped'] = [ true ];
-                forProcess.save();
+                forProcess.save().then(function(saved) {
+                  riot.route("#/" + individual["v-wf:onDocument"][0].id);
+                });
               }
             });
           })
