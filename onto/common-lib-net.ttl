@@ -1,5 +1,4 @@
 @prefix s-wfb: <http://semantic-machines.com/veda/simple-workflow-base/> .
-@prefix : <http://semantic-machines.com/veda/simple-workflow/> .
 @prefix s-wf: <http://semantic-machines.com/veda/simple-workflow/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .

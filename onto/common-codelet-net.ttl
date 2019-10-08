@@ -1,5 +1,4 @@
 @prefix s-wfb: <http://semantic-machines.com/veda/simple-workflow-base/> .
-@prefix : <http://semantic-machines.com/veda/simple-workflow/> .
 @prefix s-wf: <http://semantic-machines.com/veda/simple-workflow/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -168,10 +167,10 @@ s-wf:codelet_change_rigths_executor
   rdf:type v-s:Codelet ;
   rdfs:label "Выдать права исполнителю задачи" ;
   v-s:script """
-  process.getLocalVariable ('responsible')? 
-    (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'responsible') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'responsible')) : 
-    (process.getLocalVariable ('controller')? 
-      (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'controller') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'controller')) : 
+  process.getLocalVariable ('responsible')?
+    (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'responsible') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'responsible')) :
+    (process.getLocalVariable ('controller')?
+      (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'controller') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'controller')) :
       (process.getInputVariable ('rightset')? veda.Codelet.change_rights_actor (process, task, process.getInputVariable ('rightset'), 'initiator') : veda.Codelet.change_rights_actor (process, task, veda.Util.newStr ('-r--'), 'initiator')));
 """ ;
   rdfs:isDefinedBy s-wf: ;
