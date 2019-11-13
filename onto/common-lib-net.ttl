@@ -256,6 +256,13 @@ s-wf:var_origin_task_for_rework
   rdfs:label "Задача-источник для доработки"@ru ;
   rdfs:isDefinedBy s-wf: ;
 .
+
+s-wf:var_workflowStatus
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "workflowStatus" ;
+  rdfs:label "Текущий статус документа в процессе фы"@ru ;
+  rdfs:isDefinedBy s-wf: ;
+.
 # --------------------------------
 
 s-wf:map_possible_decision
