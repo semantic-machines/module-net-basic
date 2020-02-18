@@ -651,7 +651,7 @@ s-wf:SimpleRouteStartFormMinimal_Template
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
   <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
-  <div class="checkbox checkbox_canEdit" style="display:none">
+  <div class="checkbox checkbox_canEdit disabled">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -707,7 +707,7 @@ s-wf:SimpleRouteStartFormShort_Template
   <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
   <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
   <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
-  <div class="checkbox checkbox_canEdit -edit">
+  <div class="checkbox checkbox_canEdit disabled">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
@@ -742,7 +742,7 @@ s-wf:SimpleRouteStartFormFull_Template
       <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
     </div>
   </div>
-  <div class="checkbox checkbox_canEdit -edit">
+  <div class="checkbox checkbox_canEdit disabled">
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
