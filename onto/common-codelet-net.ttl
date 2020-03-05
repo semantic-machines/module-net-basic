@@ -70,8 +70,7 @@ s-wf:codelet_set_value_to_document
   rdf:type v-s:Codelet ;
   rdfs:label "Заменить значение в поле документа (src_uri, name_uri, value)" ;
   v-s:script """
-    process.getInputVariable ('setStatus')?
-  veda.Codelet.set_value_to_document (process, task) : ""
+    veda.Codelet.set_value_to_document (process, task)
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
