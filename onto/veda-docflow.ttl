@@ -73,10 +73,6 @@ v-df:PsApprovalTask_decisionKind
   v-ui:maxCardinality "1"^^xsd:integer ;
 .
 
-v-wf:possibleDecisionClass
-  rdfs:domain v-df:ApprovalTask ;
-.
-
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЯ --
 v-df:ApprovalTaskTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -286,15 +282,6 @@ v-df:PsCountForStartForm
   v-ui:minCardinality 0 ;
   v-ui:tooltip "Необязательно к заполнению, единичное значение. Целое число."@ru ;
   v-ui:tooltip "Required, single value. Integer"@en ;
-.
-v-wf:processedDocument
-  rdfs:domain v-df:QuestionRouteStartForm ;
-  rdfs:domain v-df:InstructionRouteStartForm ;
-  rdfs:domain v-df:TaskRouteStartForm ;
-  rdfs:domain v-df:DistributionRouteStartForm ;
-  rdfs:domain v-df:CoordinationRouteStartForm ;
-  rdfs:domain v-df:SignRouteStartForm;
-  rdfs:domain v-df:ConfirmationRouteStartForm ;
 .
 v-df:PsStartForm_processedDocument
   rdf:type v-ui:ObjectPropertySpecification ;
