@@ -1858,6 +1858,15 @@ v-wf:DecisionRemake
   rdfs:label "Rework"@en ;
   v-ui:hasTemplate v-wf:DecisionTemplateForRemake ;
 .
+
+v-wf:DecisionRemakeDroupAccount
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Доработать"@ru ;
+  rdfs:label "Rework"@en ;
+  v-ui:hasTemplate v-wf:DecisionTemplateForRemake ;
+.
 # v-s:dateTo
 
 v-wf:DecisionRemaked
