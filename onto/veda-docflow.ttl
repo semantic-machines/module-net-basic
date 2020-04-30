@@ -1859,7 +1859,7 @@ v-wf:DecisionRemake
   v-ui:hasTemplate v-wf:DecisionTemplateForRemake ;
 .
 
-v-wf:DecisionRemakeDroupAccount
+v-wf:DecisionRemakeGroupAccount
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:isDefinedBy v-wf: ;
