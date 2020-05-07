@@ -351,14 +351,9 @@ v-df:SignRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -431,14 +426,9 @@ v-df:ConfirmationRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -504,14 +494,9 @@ v-df:QuestionRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -574,14 +559,9 @@ v-df:InstructionRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -632,6 +612,15 @@ v-df:SpecialInstructionRouteStartFormTemplate
   rdfs:label "Special InstructionRouteStartForm template"@en ;
   v-ui:template """
 <script>
+  template.on("validate", function () {
+    var result = {};
+    result["v-s:dateTo"] = {
+      state: individual.hasValue("v-s:dateTo"),
+      cause: ["v-ui:minCardinality"]
+    };
+    template.trigger("validated", result);
+  });  
+  
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -653,14 +642,9 @@ v-df:SpecialInstructionRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -735,14 +719,9 @@ v-df:TaskRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -804,14 +783,9 @@ v-df:DistributionRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-s:dateTo" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-s:dateTo" class="view -edit -search"></div>
       <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-2">
-      <em about="v-s:count" property="rdfs:label"></em>
-      <div property="v-s:count" class="view -edit -search"></div>
-      <veda-control property="v-s:count" data-type="integer" class="-view edit search"></veda-control>
     </div>
   </div>
   <em about="rdfs:comment" property="rdfs:label"></em>
@@ -873,7 +847,7 @@ v-df:CoordinationRouteStartFormTemplate
       <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
     </div>
     <div class="col-md-4">
-      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
       <div property="v-wf:dateGiven" class="view -edit -search"></div>
       <veda-control property="v-wf:dateGiven" data-type="dateTime" class="-view edit search"></veda-control>
     </div>
