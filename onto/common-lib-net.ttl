@@ -1736,6 +1736,7 @@ s-wf:map_from_sys_appt
 .
 
 # Используется в комплексном процесса в задаче Доработать
+# update: не используется
 s-wf:map_wf_from_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
@@ -2213,12 +2214,11 @@ s-wf:map_from_4_TIV_from
   rdfs:isDefinedBy s-wf: ;
 .
 
-#Используется в Комплексном процессе в уведомлениях о завершении этапов
+#Используется в Комплексном процессе в уведомлениях о завершении этапов и рассылке
 s-wf:map_wf_from_4_TIV_sys_appt
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_wf_from ;
-#  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
-   v-wf:mappingExpression "";
+  v-wf:mappingExpression "veda.Util.newUri ('cfg:VedaSystemAppointment')";
   rdfs:isDefinedBy s-wf: ;
 .
 
