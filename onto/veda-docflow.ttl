@@ -25,8 +25,8 @@ v-df:ApprovalTask
   rdfs:label "Утвердить документ"@ru ;
   rdfs:label "Approval document"@en ;
   rdfs:comment "Форма ответа на задачу утверждения"@ru ;
-  v-ui:hasTemplate v-df:ApprovalTaskTemplate ;
 .
+
 v-df:PsApprovalTask_from
   rdf:type v-ui:ObjectPropertySpecification ;
   v-ui:forClass v-df:ApprovalTask ;
@@ -74,6 +74,12 @@ v-df:PsApprovalTask_decisionKind
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЯ --
+v-s:TS_ApprovalTask 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
+  v-ui:forClass v-df:ApprovalTask
+.
 v-df:ApprovalTaskTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:ApprovalTask ;
@@ -146,7 +152,6 @@ v-df:SignRouteStartForm
   rdfs:label "Подписать"@ru ;
   rdfs:label "Sign"@en ;
   rdfs:comment "Задача подписать"@ru ;
-  v-ui:hasTemplate v-df:SignRouteStartFormTemplate ;
 .
 
 v-df:ConfirmationRouteStartForm
@@ -156,7 +161,6 @@ v-df:ConfirmationRouteStartForm
   rdfs:label "Утвердить"@ru ;
   rdfs:label "Confirmation"@en ;
   rdfs:comment "Задача утвердить"@ru ;
-  v-ui:hasTemplate v-df:ConfirmationRouteStartFormTemplate ;
 .
 
 v-df:QuestionRouteStartForm
@@ -166,7 +170,6 @@ v-df:QuestionRouteStartForm
   rdfs:label "Ответить на вопрос"@ru ;
   rdfs:label "Answer question"@en ;
   rdfs:comment "Задача ответить на вопрос"@ru ;
-  v-ui:hasTemplate v-df:QuestionRouteStartFormTemplate ;
 .
 v-df:InstructionRouteStartForm
   rdf:type owl:Class ;
@@ -175,7 +178,6 @@ v-df:InstructionRouteStartForm
   rdfs:label "Исполнить поручение"@ru ;
   rdfs:label "Perform instruction"@en ;
   rdfs:comment "Задача исполнить поручение"@ru ;
-  v-ui:hasTemplate v-df:InstructionRouteStartFormTemplate ;
 .
 
 v-df:TaskRouteStartForm
@@ -185,7 +187,6 @@ v-df:TaskRouteStartForm
   rdfs:label "Ознакомиться"@ru ;
   rdfs:label "Get informed"@en ;
   rdfs:comment "Задача ознакомиться"@ru ;
-  v-ui:hasTemplate v-df:TaskRouteStartFormTemplate ;
 .
 v-df:DistributionRouteStartForm
   rdf:type owl:Class ;
@@ -194,7 +195,6 @@ v-df:DistributionRouteStartForm
   rdfs:label "Рассылка"@ru ;
   rdfs:label "Distribution"@en ;
   rdfs:comment "Задача рассылки"@ru ;
-  v-ui:hasTemplate v-df:DistributionRouteStartFormTemplate ;
 .
 v-df:CoordinationRouteStartForm
   rdf:type owl:Class ;
@@ -203,7 +203,6 @@ v-df:CoordinationRouteStartForm
   rdfs:label "Согласовать"@ru ;
   rdfs:label "Coordinate"@en ;
   rdfs:comment "Задача согласовать"@ru ;
-  v-ui:hasTemplate v-df:CoordinationRouteStartFormTemplate ;
 .
 
 v-df:PsStartForm_responsible
@@ -323,6 +322,12 @@ v-df:NotifyUponTermination_Bundle
 
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ --
+v-s:TS_SignRouteStartForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
+  v-ui:forClass v-df:SignRouteStartForm
+.
 v-df:SignRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:SignRouteStartForm ;
@@ -396,6 +401,12 @@ v-df:SignRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЕ --
+v-s:TS_ConfirmationRouteStartForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
+  v-ui:forClass v-df:ConfirmationRouteStartForm
+.
 v-df:ConfirmationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:ConfirmationRouteStartForm ;
@@ -474,6 +485,12 @@ v-df:ConfirmationRouteStartFormTemplate
 
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС --
+v-s:TS_QuestionRouteStartForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
+  v-ui:forClass v-df:QuestionRouteStartForm
+.
 v-df:QuestionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:QuestionRouteStartForm ;
@@ -529,6 +546,12 @@ v-df:QuestionRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ИСПОЛНИТЬ ПОРУЧЕНИЕ --
+v-s:TS_InstructionRouteStartForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
+  v-ui:forClass v-df:InstructionRouteStartForm
+.
 v-df:InstructionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:InstructionRouteStartForm ;
@@ -689,6 +712,12 @@ v-df:SpecialInstructionRouteStartFormTemplate
 """ ;
 .
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ --
+v-s:TS_TaskRouteStartForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
+  v-ui:forClass v-df:TaskRouteStartForm
+.
 v-df:TaskRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:TaskRouteStartForm ;
@@ -753,6 +782,12 @@ v-df:TaskRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ РАССЫЛКИ --
+v-s:TS_DistributionRouteStartForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
+  v-ui:forClass v-df:DistributionRouteStartForm
+.
 v-df:DistributionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:DistributionRouteStartForm ;
@@ -817,6 +852,12 @@ v-df:DistributionRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ СОГЛАСОВАНИЯ --
+v-s:TS_CoordinationRouteStartForm
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:CoordinationRouteStartFormTemplate;
+  v-ui:forClass v-df:CoordinationRouteStartForm
+.
 v-df:CoordinationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
@@ -1585,6 +1626,12 @@ v-df:PsHasAction
   v-ui:placeholder "Add action"@en ;
 .
 
+v-s:TS_DecisionAgreedToExecute 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-df:DecisionTemplate2;
+  v-ui:forClass v-wf:DecisionAgreedToExecute
+.
 v-df:DecisionTemplate2
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
@@ -1739,7 +1786,6 @@ v-wf:DecisionNoAgreed
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Согласование не требуется"@ru ;
   rdfs:label "Negotiation is not required"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionAgreed
@@ -1748,7 +1794,6 @@ v-wf:DecisionAgreed
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Согласовано"@ru ;
   rdfs:label "Approved"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 
@@ -1758,7 +1803,6 @@ v-wf:DecisionAgreedToProject
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Начать проект"@ru ;
   rdfs:label "Start project"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionAgreedToExecute
@@ -1767,7 +1811,6 @@ v-wf:DecisionAgreedToExecute
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Согласовано в реализацию"@ru ;
   rdfs:label "Approved for implementation"@en ;
-  v-ui:hasTemplate v-df:DecisionTemplate2 ;
 .
 
 v-wf:DecisionAgreedToExecuteComment
@@ -1776,7 +1819,6 @@ v-wf:DecisionAgreedToExecuteComment
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Согласовано в реализацию"@ru ;
   rdfs:label "Approved for implementation"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionSign
@@ -1785,7 +1827,6 @@ v-wf:DecisionSign
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Подписано"@ru ;
   rdfs:label "Signed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionApprove
@@ -1794,7 +1835,6 @@ v-wf:DecisionApprove
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Утверждено"@ru ;
   rdfs:label "Approved"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionReview
@@ -1803,7 +1843,6 @@ v-wf:DecisionReview
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Рассмотрено"@ru ;
   rdfs:label "Reviewed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionRejected
@@ -1812,7 +1851,6 @@ v-wf:DecisionRejected
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Отклонено"@ru ;
   rdfs:label "Declined"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionDeclined
@@ -1821,7 +1859,6 @@ v-wf:DecisionDeclined
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Отклонено. На доработку"@ru ;
   rdfs:label "Declined. To remake"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionRemake
@@ -1830,7 +1867,6 @@ v-wf:DecisionRemake
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Доработать"@ru ;
   rdfs:label "Rework"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplateForRemake ;
 .
 
 v-wf:DecisionRemakeGroupAccount
@@ -1839,7 +1875,6 @@ v-wf:DecisionRemakeGroupAccount
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Доработать"@ru ;
   rdfs:label "Rework"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplateForRemake ;
 .
 # v-s:dateTo
 
@@ -1849,7 +1884,6 @@ v-wf:DecisionRemaked
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Доработано"@ru ;
   rdfs:label "Reworked"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionNotForMe
@@ -1858,7 +1892,6 @@ v-wf:DecisionNotForMe
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Ошибочный исполнитель"@ru ;
   rdfs:label "Wrong executor"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionRevoke_Bundle
@@ -1867,7 +1900,6 @@ v-wf:DecisionRevoke_Bundle
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Отозвать задачу"@ru ;
   rdfs:label "Revoke task"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionRevokeTask
@@ -1876,7 +1908,6 @@ v-wf:DecisionRevokeTask
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Задача отозвана"@ru ;
   rdfs:label "TaskRevoked"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionProlongate
@@ -1885,7 +1916,6 @@ v-wf:DecisionProlongate
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Прошу продлить срок"@ru ;
   rdfs:label "Prolongate"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionBreak
@@ -1894,7 +1924,6 @@ v-wf:DecisionBreak
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Прервать процесс"@ru ;
   rdfs:label "Cancel route"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 v-wf:DecisionBreaked_Bundle
   rdf:type v-s:Bundle;
@@ -1908,7 +1937,6 @@ v-wf:DecisionExamined
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Принято к сведению"@ru ;
   rdfs:label "Examined"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionReturnedToReview
@@ -1917,7 +1945,6 @@ v-wf:DecisionReturnedToReview
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Вернуть на рассмотрение"@ru ;
   rdfs:label "Returned to review"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionAchieved
@@ -1926,7 +1953,6 @@ v-wf:DecisionAchieved
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Выполнено"@ru ;
   rdfs:label "Completed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionNotPerformed
@@ -1935,7 +1961,6 @@ v-wf:DecisionNotPerformed
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Не выполнено"@ru ;
   rdfs:label "Not completed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionNotPerformed_Bundle
@@ -1969,7 +1994,6 @@ v-wf:DecisionConfirm
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Подтверждено"@ru ;
   rdfs:label "Confirmed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionDelegate_Bundle
@@ -1995,7 +2019,6 @@ v-wf:DecisionRedirect
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Перенаправлено"@ru ;
   rdfs:label "Redirected"@en ;
-  v-ui:hasTemplate v-wf:DecisionRedirectTemplate ;
 .
 
 v-wf:DecisionPostponed
@@ -2004,7 +2027,6 @@ v-wf:DecisionPostponed
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Отложено"@ru ;
   rdfs:label "Postponed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionCalculationsPerformed
@@ -2013,7 +2035,6 @@ v-wf:DecisionCalculationsPerformed
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Расчет выполнен"@ru ;
   rdfs:label "Calculations performed"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 v-wf:DecisionAcceptMotivatedRefusal
   rdf:type owl:Class ;
@@ -2021,7 +2042,6 @@ v-wf:DecisionAcceptMotivatedRefusal
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Принять мотивированный отказ"@ru ;
   rdfs:label "Accept a motivated refusal"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 v-wf:DecisionIssueTaskToAnother
   rdf:type owl:Class ;
@@ -2029,9 +2049,14 @@ v-wf:DecisionIssueTaskToAnother
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Выдать задачу повторно"@ru ;
   rdfs:label "Re-issue the task"@en ;
-  v-ui:hasTemplate v-wf:DecisionTemplateForTaskToAnother ;
 .
 
+v-s:TS_DecisionRedirect 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
+  v-ui:forClass v-wf:DecisionRedirect
+.
 v-wf:DecisionRedirectTemplate
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
@@ -2077,6 +2102,145 @@ v-wf:DecisionRedirectTemplate
   </div>
 </div>
   """ ;
+.
+
+v-s:TS_DecisionNoAgreed 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNoAgreed
+.
+v-s:TS_DecisionAgreed 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAgreed
+.
+v-s:TS_DecisionAgreedToProject 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAgreedToProject
+.
+v-s:TS_DecisionAgreedToExecuteComment 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAgreedToExecuteComment
+.
+v-s:TS_DecisionSign 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionSign
+.
+v-s:TS_DecisionApprove 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionApprove
+.
+v-s:TS_DecisionReview 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionReview
+.
+v-s:TS_DecisionRejected 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionRejected
+.
+v-s:TS_DecisionDeclined
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionDeclined
+.
+v-s:TS_DecisionRemaked 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionRemaked
+.
+v-s:TS_DecisionNotForMe 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNotForMe
+.
+v-s:TS_DecisionRevoke_Bundle 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionRevoke_Bundle
+.
+v-s:TS_DecisionRevokeTask 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionRevokeTask
+.
+v-s:TS_DecisionProlongate 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionProlongate
+.
+v-s:TS_DecisionBreak 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionBreak
+.
+v-s:TS_DecisionExamined 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionExamined
+.
+v-s:TS_DecisionReturnedToReview 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionReturnedToReview
+.
+v-s:TS_DecisionAchieved 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAchieved
+.
+v-s:TS_DecisionNotPerformed 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNotPerformed
+.
+v-s:TS_DecisionConfirm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionConfirm
+.
+v-s:TS_DecisionPostponed 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionPostponed
+.
+v-s:TS_DecisionCalculationsPerformed 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionCalculationsPerformed
+.
+v-s:TS_DecisionAcceptMotivatedRefusal 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAcceptMotivatedRefusal
 .
 v-wf:DecisionTemplate1
   rdf:type v-ui:ClassTemplate ;
@@ -2149,6 +2313,18 @@ v-wf:DecisionTemplate1
   """ ;
 .
 
+v-s:TS_DecisionRemake 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
+  v-ui:forClass v-wf:DecisionRemake
+.
+v-s:TS_DecisionRemakeGroupAccount 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
+  v-ui:forClass v-wf:DecisionRemakeGroupAccount
+.
 v-wf:DecisionTemplateForRemake
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
@@ -2574,7 +2750,12 @@ v-wf:rule3coordination
   v-wf:grouping "1";
 .
 
-
+v-s:TS_DecisionIssueTaskToAnother 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother
+.
 v-wf:DecisionTemplateForTaskToAnother
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
