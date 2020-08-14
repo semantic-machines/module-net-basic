@@ -1546,7 +1546,7 @@ s-wf:map_initiator_4_actor_task
   v-wf:mapToVariable s-wf:var_initiator ;
   v-wf:mappingExpression """
   veda.Workflow.get_properties_chain (process.getInputVariable('actor_task'),
-              [{$go:'v-s:hasActivity'}, {$get:'v-s:author', $eq:{'v-s:responsible':process.getExecutor ()}}]
+              [{$go:'v-s:hasActivity'}, {$get:'v-s:creator', $eq:{'v-s:responsible':process.getExecutor ()}}]
               )
   """;
   rdfs:label "Описание задачи из формы решения пользователя [actor_task]"@ru ;
