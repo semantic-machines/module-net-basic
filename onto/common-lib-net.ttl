@@ -1019,7 +1019,6 @@ s-wf:UserTaskForm
   rdfs:subClassOf v-wf:DecisionForm ;
   rdfs:label "Форма ответа на задачу"@ru ;
   rdfs:isDefinedBy s-wf: ;
-  v-ui:hasTemplate s-wf:UserTaskFormTemplate ;
 .
 
 s-wf:UserTaskForm_StartForm_Bundle
@@ -1028,6 +1027,12 @@ s-wf:UserTaskForm_StartForm_Bundle
   rdfs:label "Start form"@en ;
 .
 # ------------------------------------------------------------------------------------------
+v-s:TS_UserTaskForm 
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate s-wf:UserTaskFormTemplate;
+  v-ui:forClass s-wf:UserTaskForm
+.
 
 s-wf:UserTaskFormTemplate
   rdf:type v-ui:ClassTemplate ;
