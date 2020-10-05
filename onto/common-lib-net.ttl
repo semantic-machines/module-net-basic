@@ -260,7 +260,14 @@ s-wf:var_origin_task_for_rework
 s-wf:var_workflowStatus
   rdf:type v-wf:VarDefine ;
   v-wf:varDefineName "workflowStatus" ;
-  rdfs:label "Текущий статус документа в процессе фы"@ru ;
+  rdfs:label "Текущий статус документа в процессе"@ru ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:var_permissionStatement
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "permissionStatement" ;
+  rdfs:label "Наличие permissionStatement"@ru ;
   rdfs:isDefinedBy s-wf: ;
 .
 # --------------------------------
@@ -506,6 +513,7 @@ s-wf:executor_responsible
   v-wf:executorExpression "process.getLocalVariable('responsible')" ;
   rdfs:isDefinedBy s-wf: ;
 .
+
 # ------------------------------- var + map : "Проверить, запущен ли?" ---------------- #
 
 s-wf:var_result_t1
@@ -1068,51 +1076,54 @@ s-wf:UserTaskFormTemplate
       }
     }
   }
-  individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
+  return individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
     //is rework task
     if (forNetElementArr.length > 0 && forNetElementArr[0].id === "s-wf:cr_rework") {
-      individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forProcess").then(function(forProcessArr) {
-        forProcessArr[0].load().then(function(forProcess) {
-          $("#stopProcess", template).click(function(e) {
-            e.preventDefault();
-            var warn = new veda.IndividualModel("v-s:AreYouSure");
-            warn.load().then(function (warn) {
-              warn = warn["rdfs:label"].join(" ");
-              if ( confirm(warn) ) {
-                forProcess['v-wf:isStopped'] = [ true ];
-                forProcess.save().then(function(saved) {
-                  riot.route("#/" + individual["v-wf:onDocument"][0].id);
-                });
-              }
-            });
-          })
-          var startForm = forProcess.properties["v-wf:hasStartForm"];
-          if (startForm) {
-            startForm = startForm[0].data;
-          } else {
-            //Устаревший вариант (но почему то не такой уж и устаревший)
-            console.log("not found hasStartForm, use variables");
-            var promises = forProcess["v-wf:inVars"].map(function(vrbl) {
-              return vrbl.load();
-            });
-            Promise.all(promises).then(function(variables) {
-              var startFormVar = variables.filter(function (vrbl) {
-                return vrbl.hasValue("v-wf:variableName",  "startForm_id");
+      return individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forProcess").then(function(forProcessArr) {
+        return forProcessArr[0].load();
+      }).then(function(forProcess) {
+        $("#stopProcess", template).click(function(e) {
+          e.preventDefault();
+          var warn = new veda.IndividualModel("v-s:AreYouSure");
+          warn.load().then(function (warn) {
+            warn = warn["rdfs:label"].join(" ");
+            if ( confirm(warn) ) {
+              forProcess['v-wf:isStopped'] = [ true ];
+              forProcess.save().then(function(saved) {
+                riot.route("#/" + individual["v-wf:onDocument"][0].id);
               });
-              startForm = startFormVar[0]["v-wf:variableValue"][0].id;
-            })
-          }
-          if (startForm) {
-            $("#edit-StartForm", template).click(function () {
-              var modal = veda.Util.showModal(new veda.IndividualModel(startForm), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
+            }
+          });
+        })
+        var startForm = forProcess.properties["v-wf:hasStartForm"];
+        if (startForm) {
+          return startForm[0].data;
+        } else {
+          //Устаревший вариант (но почему то не такой уж и устаревший)
+          console.log("not found hasStartForm, use variables");
+          var promises = forProcess["v-wf:inVars"].map(function(vrbl) {
+            return vrbl.load();
+          });
+          return Promise.all(promises).then(function(variables) {
+            var startFormVar = variables.filter(function (vrbl) {
+              return vrbl.hasValue("v-wf:variableName",  "startForm_id");
             });
-          }
-        });
+            return startFormVar[0]["v-wf:variableValue"][0].id;
+          })
+        }
+      }).then(function(startFormId) {
+        if (startFormId) {
+          $("#edit-StartForm", template).click(function () {
+            var modal = veda.Util.showModal(new veda.IndividualModel(startFormId), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
+          });
+        };
+        return true;
       });
     } else {
       $("#edit-StartForm", template).remove();
       $("#stopProcess", template).remove();
     }
+    return true;
   }).catch(function(error) {
     $("#edit-StartForm", template).remove();
     $("#stopProcess", template).remove();
