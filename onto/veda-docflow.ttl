@@ -74,7 +74,7 @@ v-df:PsApprovalTask_decisionKind
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЯ --
-v-s:TS_ApprovalTask 
+v-s:TS_ApprovalTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
@@ -322,7 +322,7 @@ v-df:NotifyUponTermination_Bundle
 
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ --
-v-s:TS_SignRouteStartForm 
+v-s:TS_SignRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
@@ -401,7 +401,7 @@ v-df:SignRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЕ --
-v-s:TS_ConfirmationRouteStartForm 
+v-s:TS_ConfirmationRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
@@ -485,7 +485,7 @@ v-df:ConfirmationRouteStartFormTemplate
 
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС --
-v-s:TS_QuestionRouteStartForm 
+v-s:TS_QuestionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
@@ -546,7 +546,7 @@ v-df:QuestionRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ИСПОЛНИТЬ ПОРУЧЕНИЕ --
-v-s:TS_InstructionRouteStartForm 
+v-s:TS_InstructionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
@@ -642,8 +642,8 @@ v-df:SpecialInstructionRouteStartFormTemplate
       cause: ["v-ui:minCardinality"]
     };
     template.trigger("validated", result);
-  });  
-  
+  });
+
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
@@ -712,7 +712,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
 """ ;
 .
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ --
-v-s:TS_TaskRouteStartForm 
+v-s:TS_TaskRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
@@ -782,7 +782,7 @@ v-df:TaskRouteStartFormTemplate
 .
 
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ РАССЫЛКИ --
-v-s:TS_DistributionRouteStartForm 
+v-s:TS_DistributionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
@@ -1626,7 +1626,7 @@ v-df:PsHasAction
   v-ui:placeholder "Add action"@en ;
 .
 
-v-s:TS_DecisionAgreedToExecute 
+v-s:TS_DecisionAgreedToExecute
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:DecisionTemplate2;
@@ -1668,6 +1668,7 @@ v-df:DecisionTemplate2
   <div rel="v-s:hasActivity" data-template="v-df:ActionInDecisionTemplate" data-embedded="true"></div>
   <veda-control rel="v-s:hasActivity" data-type="link" class="-view edit search fulltext create"></veda-control>
   <br class="-view edit -search">
+  <div about="@" data-template="v-ui:SystemPropertiesShortTemplate" data-embedded="true" class="-view"></div>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
@@ -2051,7 +2052,7 @@ v-wf:DecisionIssueTaskToAnother
   rdfs:label "Re-issue the task"@en ;
 .
 
-v-s:TS_DecisionRedirect 
+v-s:TS_DecisionRedirect
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
@@ -2097,6 +2098,7 @@ v-wf:DecisionRedirectTemplate
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br class="-view edit -search">
+  <div about="@" data-template="v-ui:SystemPropertiesShortTemplate" data-embedded="true" class="-view"></div>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
@@ -2104,49 +2106,49 @@ v-wf:DecisionRedirectTemplate
   """ ;
 .
 
-v-s:TS_DecisionNoAgreed 
+v-s:TS_DecisionNoAgreed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNoAgreed
 .
-v-s:TS_DecisionAgreed 
+v-s:TS_DecisionAgreed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreed
 .
-v-s:TS_DecisionAgreedToProject 
+v-s:TS_DecisionAgreedToProject
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreedToProject
 .
-v-s:TS_DecisionAgreedToExecuteComment 
+v-s:TS_DecisionAgreedToExecuteComment
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreedToExecuteComment
 .
-v-s:TS_DecisionSign 
+v-s:TS_DecisionSign
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionSign
 .
-v-s:TS_DecisionApprove 
+v-s:TS_DecisionApprove
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionApprove
 .
-v-s:TS_DecisionReview 
+v-s:TS_DecisionReview
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionReview
 .
-v-s:TS_DecisionRejected 
+v-s:TS_DecisionRejected
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
@@ -2158,85 +2160,85 @@ v-s:TS_DecisionDeclined
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionDeclined
 .
-v-s:TS_DecisionRemaked 
+v-s:TS_DecisionRemaked
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRemaked
 .
-v-s:TS_DecisionNotForMe 
+v-s:TS_DecisionNotForMe
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotForMe
 .
-v-s:TS_DecisionRevoke_Bundle 
+v-s:TS_DecisionRevoke_Bundle
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRevoke_Bundle
 .
-v-s:TS_DecisionRevokeTask 
+v-s:TS_DecisionRevokeTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRevokeTask
 .
-v-s:TS_DecisionProlongate 
+v-s:TS_DecisionProlongate
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionProlongate
 .
-v-s:TS_DecisionBreak 
+v-s:TS_DecisionBreak
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionBreak
 .
-v-s:TS_DecisionExamined 
+v-s:TS_DecisionExamined
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionExamined
 .
-v-s:TS_DecisionReturnedToReview 
+v-s:TS_DecisionReturnedToReview
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionReturnedToReview
 .
-v-s:TS_DecisionAchieved 
+v-s:TS_DecisionAchieved
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAchieved
 .
-v-s:TS_DecisionNotPerformed 
+v-s:TS_DecisionNotPerformed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotPerformed
 .
-v-s:TS_DecisionConfirm 
+v-s:TS_DecisionConfirm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionConfirm
 .
-v-s:TS_DecisionPostponed 
+v-s:TS_DecisionPostponed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionPostponed
 .
-v-s:TS_DecisionCalculationsPerformed 
+v-s:TS_DecisionCalculationsPerformed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionCalculationsPerformed
 .
-v-s:TS_DecisionAcceptMotivatedRefusal 
+v-s:TS_DecisionAcceptMotivatedRefusal
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
@@ -2306,6 +2308,7 @@ v-wf:DecisionTemplate1
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br class="-view edit -search">
+  <div about="@" data-template="v-ui:SystemPropertiesShortTemplate" data-embedded="true" class="-view"></div>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
@@ -2313,13 +2316,13 @@ v-wf:DecisionTemplate1
   """ ;
 .
 
-v-s:TS_DecisionRemake 
+v-s:TS_DecisionRemake
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
   v-ui:forClass v-wf:DecisionRemake
 .
-v-s:TS_DecisionRemakeGroupAccount 
+v-s:TS_DecisionRemakeGroupAccount
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
@@ -2371,6 +2374,7 @@ v-wf:DecisionTemplateForRemake
     </div>
   </div>
   <br class="-view edit -search">
+  <div about="@" data-template="v-ui:SystemPropertiesShortTemplate" data-embedded="true" class="-view"></div>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
@@ -2750,7 +2754,7 @@ v-wf:rule3coordination
   v-wf:grouping "1";
 .
 
-v-s:TS_DecisionIssueTaskToAnother 
+v-s:TS_DecisionIssueTaskToAnother
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
@@ -2800,6 +2804,7 @@ v-wf:DecisionTemplateForTaskToAnother
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
   <br class="-view edit -search">
+  <div about="@" data-template="v-ui:SystemPropertiesShortTemplate" data-embedded="true" class="-view"></div>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
   </div>
