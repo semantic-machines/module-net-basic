@@ -20,7 +20,7 @@
   v-s:loadPriority 21 ;
 .
 
-#------------------------Строки----------
+#------------------------Строки------------
 v-s:TaskIsRedirectedFrom
   rdf:type v-s:Bundle ;
   rdfs:label "Задача перенаправлена"@ru ;
@@ -111,6 +111,13 @@ s-wf:map_set_status
   v-wf:mappingExpression "process.getInputVariable ('setStatus')" ;
   rdfs:isDefinedBy s-wf: ;
 .
+s-wf:map_set_autoCompleted
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_set_autoCompleted ;
+  v-wf:mappingExpression "process.getInputVariable ('setAutoCompleted')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:var_actor_task_add_to_date_to
   rdf:type v-wf:VarDefine ;
   v-wf:varDefineName "actor_task_add_to_date_to" ;
@@ -270,6 +277,15 @@ s-wf:var_permissionStatement
   rdfs:label "Наличие permissionStatement"@ru ;
   rdfs:isDefinedBy s-wf: ;
 .
+
+s-wf:var_set_autoCompleted
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "setAutoCompleted" ;
+  rdfs:label "Автозавершение в контрольный срок"@ru ;
+  v-wf:varDefineScope v-wf:Net ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 # --------------------------------
 
 s-wf:map_possible_decision
@@ -665,6 +681,12 @@ s-wf:SimpleRouteStartFormMinimal_Template
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
+  <div class="checkbox checkbox_canEdit disabled">
+    <label>
+      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
 <script>
   $('.sign .checkbox').show();
@@ -721,6 +743,12 @@ s-wf:SimpleRouteStartFormShort_Template
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
+  <div class="checkbox checkbox_canEdit disabled">
+    <label>
+      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
+    </label>
+  </div>
 </div>
   """ ;
 .
@@ -760,6 +788,12 @@ s-wf:SimpleRouteStartFormFull_Template
     <label>
       <veda-control property="v-wf:StartForm_setStatus" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_setStatus" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="checkbox checkbox_canEdit disabled">
+    <label>
+      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
     </label>
   </div>
   <em about="s-wf:SimpleRouteStartForm_controller" property="rdfs:label"></em>
