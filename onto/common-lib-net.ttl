@@ -1120,9 +1120,9 @@ s-wf:UserTaskFormTemplate
           e.preventDefault();
           var warn = new veda.IndividualModel("v-s:AreYouSure");
           warn.load().then(function (warn) {
-            warn = warn["rdfs:label"].join(" ");
+            warn = warn["rdfs:label"].map(veda.Util.formatValue).join(" ");
             if ( confirm(warn) ) {
-              forProcess['v-wf:isStopped'] = [ true ];
+              forProcess["v-wf:isStopped"] = [ true ];
               forProcess.save().then(function(saved) {
                 riot.route("#/" + individual["v-wf:onDocument"][0].id);
               });
@@ -1277,9 +1277,11 @@ s-wf:UserTaskFormTemplate
           $(".possible-decisions, .new-decision", template).remove();
         }
       }
-      individual.on("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+      individual.on("v-wf:isCompleted", completedHandler);
+      individual.on("v-wf:takenDecision", completedHandler);
       template.one("remove", function () {
-        individual.off("v-wf:isCompleted v-wf:takenDecision", completedHandler);
+        individual.off("v-wf:isCompleted", completedHandler);
+        individual.off("v-wf:takenDecision", completedHandler);
       });
 
       var decision = new veda.IndividualModel();
