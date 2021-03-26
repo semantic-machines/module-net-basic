@@ -370,12 +370,6 @@ v-df:SignRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
-    </label>
-  </div>
   <div class="-view edit -search">
     <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
       <span class="glyphicon glyphicon-user"></span>
@@ -455,12 +449,6 @@ v-df:ConfirmationRouteStartFormTemplate
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
-    </label>
-  </div>
-  <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
     </label>
   </div>
   <div class="-view edit -search">
@@ -608,12 +596,6 @@ v-df:InstructionRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
-    </label>
-  </div>  
   <div class="checkbox" id="process-setStatus" style="display:none">
     <label>
       <veda-control property="v-wf:StartForm_setStatus" data-type="boolean"></veda-control>
@@ -703,12 +685,6 @@ v-df:SpecialInstructionRouteStartFormTemplate
       <span about="v-wf:StartForm_setStatus" property="rdfs:label"></span>
     </label>
   </div>
-   <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
-    </label>
-  </div> 
   <em about="v-s:controller" property="rdfs:label"></em>
   <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
   <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
@@ -787,12 +763,6 @@ v-df:TaskRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-   <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
-    </label>
-  </div> 
   <br>
   <div class="actions -view edit -search">
     <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
@@ -861,12 +831,6 @@ v-df:DistributionRouteStartFormTemplate
     <label>
       <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
-    </label>
-  </div>
-  <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
     </label>
   </div>
   <br>
@@ -939,12 +903,6 @@ v-df:CoordinationRouteStartFormTemplate
       <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
     </label>
   </div>
-  <div class="checkbox disabled">
-    <label>
-      <veda-control property="v-wf:StartForm_setAutoCompleted" data-type="boolean"></veda-control>
-      <span about="v-wf:StartForm_setAutoCompleted" property="rdfs:label"></span>
-    </label>
-  </div>
   <div class="-view edit -search">
     <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
       <span class="glyphicon glyphicon-user"></span>
@@ -991,7 +949,6 @@ v-df:SignRouteStartFormToNet
   v-wf:transformRule v-df:rul_SignTransform7 ;
   v-wf:transformRule v-df:rul_SignTransform8;
   v-wf:transformRule v-df:rul_SignTransform9;
-  v-wf:transformRule v-df:rul_SignTransform10 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_SignTransform0
@@ -1077,13 +1034,6 @@ v-df:rul_SignTransform9
     };
   """;
 .
-v-df:rul_SignTransform10
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('v-wf:StartForm_setAutoCompleted')" ;
-  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putValue ('v-wf:variableValue')";
-  v-wf:aggregate  "putString ('v-wf:variableName', 'setAutoCompleted')";
-.
 
 
 v-df:ConfirmationRouteStartFormToNet
@@ -1100,7 +1050,6 @@ v-df:ConfirmationRouteStartFormToNet
   v-wf:transformRule v-df:rul_ConfirmationTransform7 ;
   v-wf:transformRule v-df:rul_ConfirmationTransform8;
   v-wf:transformRule v-df:rul_ConfirmationTransform9;
-  v-wf:transformRule v-df:rul_ConfirmationTransform10;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_ConfirmationTransform0
@@ -1184,13 +1133,6 @@ v-df:rul_ConfirmationTransform9
       putString ('v-wf:variableValue', '-ru-');
     };
   """;
-.
-v-df:rul_ConfirmationTransform10
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('v-wf:StartForm_setAutoCompleted')" ;
-  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putValue ('v-wf:variableValue')";
-  v-wf:aggregate  "putString ('v-wf:variableName', 'setAutoCompleted')";
 .
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС В СЕТЬ --
@@ -1298,7 +1240,6 @@ v-df:InstructionRouteStartFormToNet
   v-wf:transformRule v-df:rul_InstructionTransform8 ;
   v-wf:transformRule v-df:rul_InstructionTransform9 ;
   v-wf:transformRule v-df:rul_InstructionTransform10 ;
-  v-wf:transformRule v-df:rul_InstructionTransform11 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_InstructionTransform0
@@ -1393,13 +1334,6 @@ v-df:rul_InstructionTransform10
   v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'setStatus')";
 .
-v-df:rul_InstructionTransform11
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('v-wf:StartForm_setAutoCompleted')" ;
-  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putValue ('v-wf:variableValue')";
-  v-wf:aggregate  "putString ('v-wf:variableName', 'setAutoCompleted')";
-.
 
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ В СЕТЬ --
 v-df:TaskRouteStartFormToNet
@@ -1415,7 +1349,6 @@ v-df:TaskRouteStartFormToNet
   v-wf:transformRule v-df:rul_TaskTransform6_3 ;
   v-wf:transformRule v-df:rul_TaskTransform7 ;
   v-wf:transformRule v-df:rul_TaskTransform8 ;
-  v-wf:transformRule v-df:rul_TaskTransform9 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_TaskTransform0
@@ -1492,13 +1425,6 @@ v-df:rul_TaskTransform8
       putString ('v-wf:variableValue', '-ru-');
     };
   """;
-.
-v-df:rul_TaskTransform9
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('v-wf:StartForm_setAutoCompleted')" ;
-  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putValue ('v-wf:variableValue')";
-  v-wf:aggregate  "putString ('v-wf:variableName', 'setAutoCompleted')";
 .
 
 
@@ -1596,7 +1522,6 @@ v-df:CoordinationRouteStartFormToNet
   v-wf:transformRule v-df:rul_CoordinationTransform7 ;
   v-wf:transformRule v-df:rul_CoordinationTransform8 ;
   v-wf:transformRule v-df:rul_CoordinationTransform9 ;
-  v-wf:transformRule v-df:rul_CoordinationTransform10 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_CoordinationTransform0
@@ -1683,13 +1608,6 @@ v-df:rul_CoordinationTransform9
       putString ('v-wf:variableValue', '-ru-');
     };
   """;
-.
-v-df:rul_CoordinationTransform10
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('v-wf:StartForm_setAutoCompleted')" ;
-  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
-  v-wf:aggregate  "putValue ('v-wf:variableValue')";
-  v-wf:aggregate  "putString ('v-wf:variableName', 'setAutoCompleted')";
 .
 
 
