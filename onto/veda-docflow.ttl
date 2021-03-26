@@ -2824,3 +2824,64 @@ v-wf:DecisionTemplateForTaskToAnother
 </div>
   """ ;
 .
+
+v-wf:AutoComplitTask_Daily
+  rdf:type v-s:Event ;
+  v-s:author cfg:VedaSystemAppointment ;
+  rdfs:label "Автозакрытие задач" ;
+  v-s:triggerByUid cfg:daily ;
+  v-s:runAt "V8.LowPriority";
+  v-s:script """
+print("[v-wf:AutoComplitTask_Daily] ************************** START **************************");
+
+var scriptInfo = get_individual(ticket, 'v-wf:AutoComplitTask_Daily_Info');
+if (!scriptInfo) {
+  var yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  scriptInfo = {
+    '@': 'v-wf:AutoComplitTask_Daily_Info',
+    'rdf:type': veda.Util.newUri('v-s:CronScriptsInfo'),
+    'v-s:lastDateOfExecuting':  veda.Util.newDate(yesterday)
+  };
+}
+var lastDate = new Date(scriptInfo['v-s:lastDateOfExecuting'][0].data);
+var today = new Date();
+var msInDay = 86400000;
+var datePeriod = [new Date(+lastDate), new Date(+today)];
+var queryString = "( 'rdf:type'=='v-wf:DecisionForm' && 'rdf:type'=='s-wf:UserTaskForm' && 'v-wf:isCompleted'=='false' && 'v-wf:isAutoCompleted'=='true'";
+queryString = queryString + " && 'v-wf:dateGiven'==["+ datePeriod[0].toISOString() +","+ datePeriod[1].toISOString() +"])";
+print(queryString);
+var result = query(ticket, queryString).result;
+for (var i=0;i<result.length;i++){ 
+  var uri = veda.Util.genUri();
+  try {
+    var decisionRevoke = {
+      "@": uri,
+      "rdf:type": veda.Util.newUri("v-wf:DecisionRevokeTask"),
+      "v-s:backwardProperty": veda.Util.newUri("v-wf:takenDecision"),
+      "v-s:backwardTarget": veda.Util.newUri(result[i]),
+      "v-s:canRead": veda.Util.newBool(true),
+      "v-s:creator": veda.Util.newUri("cfg:VedaSystemAppointment"),
+      "v-wf:hasStatusWorkflow": veda.Util.newUri("v-wf:ToBeSent"),
+      "rdfs:label": veda.Util.newStr("Задача отозвана"),
+      "rdfs:comment": veda.Util.newStr("Пользователь не выполнил задачу в срок. Задача отозвана автоматически.")
+    };
+    put_individual(veda.ticket, decisionRevoke, _event_id);
+    print("Created: ", uri, ". For document:", result[i]);
+  } catch (err) {
+    print(result[i], err);
+    continue;
+  };
+  var set_in_doc = {
+    "@": result[i],
+    "v-wf:takenDecision": veda.Util.newUri(uri),
+  };
+  set_in_individual(veda.ticket, set_in_doc, _event_id);
+}
+
+scriptInfo['v-s:lastDateOfExecuting'] = veda.Util.newDate(new Date());
+put_individual(ticket, scriptInfo, _event_id);
+
+print("[v-wf:AutoComplitTask_Daily] ************************** END **************************");
+""" ;
+.
