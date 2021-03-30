@@ -2786,6 +2786,18 @@ for (var i=0;i<result.length;i++){
     };
     put_individual(veda.ticket, decisionRevoke, _event_id);
     print("Created: ", uri, ". For document:", result[i]);
+
+    //backward не обрабатывается в event_16 из-за parent_script_id
+    var membershipUri = "d:backward_membership_" + uri.split(":").join('_') + '_' + result[i].split(':').join('_');
+    var membership = {
+      '@' : membershipUri,
+      'rdf:type'     : veda.Util.newUri('v-s:Membership'),
+      'v-s:memberOf' : veda.Util.newUri(result[i]),
+      'v-s:resource' : veda.Util.newUri(uri),
+      'rdfs:comment' : veda.Util.newStr('создано v-wf:AutoComplitTask_Daily')
+    };
+    put_individual(veda.ticket, membership, _event_id);
+    print("Created membership: ", membershipUri);
   } catch (err) {
     print(result[i], err);
     continue;
