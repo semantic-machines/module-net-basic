@@ -669,7 +669,10 @@ s-wf:SimpleRouteStartFormMinimal_Template
   rdfs:label "Single route start form template"@en ;
   v-ui:template """
 <div>
-  <em about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></em>
+  <em>
+    <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+    <span about="@" property="v-s:description" class="view edit -search"></span>
+  </em>
   <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
   <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
@@ -722,7 +725,10 @@ s-wf:SimpleRouteStartFormShort_Template
   rdfs:label "Single route start form template"@en ;
   v-ui:template """
 <div>
-  <em about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></em>
+  <em>
+    <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+    <span about="@" property="v-s:description" class="view edit -search"></span>
+  </em>
   <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
   <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
@@ -748,7 +754,10 @@ s-wf:SimpleRouteStartFormFull_Template
   rdfs:label "Single route start form template"@en ;
   v-ui:template """
 <div>
-  <em about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></em>
+  <em>
+    <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+    <span about="@" property="v-s:description" class="view edit -search"></span>
+  </em>
   <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
   <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
   <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
