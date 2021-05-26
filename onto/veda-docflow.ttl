@@ -1948,6 +1948,15 @@ v-wf:DecisionDelegated_Bundle
   rdfs:label "Делегировано"@ru ;
   rdfs:label "Delegated"@en ;
 .
+v-wf:DecisionRevokeTask_infoBundle
+  rdf:type v-s:Bundle ;
+  rdfs:comment "Задача будет отозвана, процесс пойдет дальше. Задача Доработать в данном случае не формируется."@ru ;
+  rdfs:comment "Task will be revoke, process will go further."@en ;
+.
+
+
+
+
 
 v-wf:DecisionRedirect
   rdf:type owl:Class ;
@@ -2109,13 +2118,13 @@ v-s:TS_DecisionNotForMe
 v-s:TS_DecisionRevoke_Bundle
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
   v-ui:forClass v-wf:DecisionRevoke_Bundle
 .
 v-s:TS_DecisionRevokeTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
   v-ui:forClass v-wf:DecisionRevokeTask
 .
 v-s:TS_DecisionProlongate
@@ -2210,7 +2219,6 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionAgreedToProject ;
   v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
-  v-ui:forClass v-wf:DecisionRevokeTask ;
   v-ui:template """
 <script>
   template.on("cancel", function () {
@@ -2238,6 +2246,55 @@ v-wf:DecisionTemplate1
     <hr class="margin-sm"/>
   </div>
   <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+v-wf:DecisionRevokeTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение-"@ru ;
+  rdfs:label "Template for -Decision- class"@en ;
+  v-ui:forClass v-wf:DecisionRevokeTask ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+//# sourceURL=v-wf:DecisionRevokeTemplate_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div>
+    <div class="alert alert-info">
+      <div about="v-wf:DecisionRevokeTask_infoBundle" property="rdfs:comment" style="white-space: pre-line; line-height: 1;"></div>
+    </div>
+  </div>
   <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
   <div property="rdfs:comment" class="view -edit -search"></div>
   <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
