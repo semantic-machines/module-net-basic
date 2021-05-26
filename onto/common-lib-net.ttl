@@ -548,6 +548,7 @@ s-wf:map_t1_e
 s-wf:SimpleRouteStartForm
   rdf:type rdfs:Class ;
   rdfs:subClassOf v-s:Embedded ;
+  rdfs:subClassOf v-s:BackwardLink ;
   rdfs:subClassOf v-wf:StartForm ;
   rdfs:subClassOf v-s:AutomaticallyVersioned ;
   rdfs:subClassOf v-s:Journaling ;
