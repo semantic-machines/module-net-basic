@@ -1,0 +1,34 @@
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+//# sourceURL=v-wf_DecisionTemplate1.html_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui_LabelTemplate.html"></strong>
+        <small rel="v-s:occupation" data-template="v-ui_LabelTemplate.html"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui_StandardButtonsTemplate.html" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
