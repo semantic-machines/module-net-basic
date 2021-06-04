@@ -77,9 +77,73 @@ v-df:PsApprovalTask_decisionKind
 v-s:TS_ApprovalTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_ApprovalTaskTemplate.html";
+  v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
   v-ui:forClass v-df:ApprovalTask
 .
+v-df:ApprovalTaskTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:ApprovalTask ;
+  rdfs:label "Шаблон формы задачи утверждения"@ru ;
+  rdfs:label "Approval task template"@en ;
+  v-ui:template """
+<div class="container sheet">
+  <h3><span about="v-df:ApprovalTask" property="rdfs:label"></span>: <span about="@" property="rdfs:label"></span></h3>
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <em about="v-wf:from" property="rdfs:label"></em>
+    </div>
+    <div class="col-md-3">
+      <div rel="v-wf:from" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+      <veda-control rel="v-wf:from" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <em about="v-wf:onDocument" property="rdfs:label"></em>
+    </div>
+    <div class="col-md-3">
+      <div rel="v-wf:onDocument" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+      <veda-control rel="v-wf:onDocument" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+    </div>
+    <div class="col-md-3">
+      <div property="v-wf:dateGiven" class="view -edit -search"></div>
+      <veda-control property="v-wf:dateGiven" data-type="dateTime" class="-view edit search fulltext"></veda-control>
+    </div>
+  </div>
+  <hr class="margin-sm">
+
+  <div class="row">
+    <div class="col-md-3">
+      <em about="v-df:approvalTask_decisionKind" property="rdfs:label"></em>
+    </div>
+    <div class="col-md-3">
+      <veda-control property="v-df:approvalTask_decisionKind" data-type="radio"></veda-control>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <em about="v-wf:possibleDecisionClass" property="rdfs:label"></em>
+    </div>
+    <div class="col-md-3">
+      <veda-control rel="v-wf:possibleDecisionClass" data-type="radio"></veda-control>
+    </div>
+  </div>
+  <br><br>
+  <div class="actions">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send edit save cancel delete"></span>
+  </div>
+</div>
+""" ;
+.
+
+
 # -- СТАРТОВЫЕ ФОРМЫ СТАНДАРТНЫХ ЗАДАЧ --
 v-df:SignRouteStartForm
   rdf:type owl:Class ;
@@ -261,52 +325,615 @@ v-df:NotifyUponTermination_Bundle
 v-s:TS_SignRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_SignRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
   v-ui:forClass v-df:SignRouteStartForm
 .
+v-df:SignRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:SignRouteStartForm ;
+  rdfs:label "Шаблон формы задачи подписание"@ru ;
+  rdfs:label "SignRouteStartForm template"@en ;
+  v-ui:template """
+<script>
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:SignRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="-view edit -search">
+    <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+    <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  </div>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  $("#add-controller", template).click(function() {
+    individual["v-s:controller"] = [veda.appointment];
+  });
+  //# sourceURL=v-df:SignRouteStartFormTemplate
+</script>
+""" ;
+.
+
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЕ --
 v-s:TS_ConfirmationRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_ConfirmationRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
   v-ui:forClass v-df:ConfirmationRouteStartForm
 .
+v-df:ConfirmationRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  rdfs:label "Шаблон формы задачи утвреждение"@ru ;
+  rdfs:label "ConfirmationRouteStartFormTemplate template"@en ;
+  v-ui:template """
+<script>
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:ConfirmationRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="-view edit -search">
+    <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+    <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  </div>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  $("#add-controller", template).click(function() {
+    individual["v-s:controller"] = [veda.appointment];
+  });
+  //# sourceURL=v-df:ConfirmationRouteStartFormTemplate
+</script>
+""" ;
+.
+
+
+
+
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС --
 v-s:TS_QuestionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_QuestionRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
   v-ui:forClass v-df:QuestionRouteStartForm
 .
+v-df:QuestionRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  rdfs:label "Шаблон формы задачи задать вопрос"@ru ;
+  rdfs:label "QuestionRouteStartForm template"@en ;
+  v-ui:template """
+<div class="container sheet">
+  <h3>
+    <span about="v-df:QuestionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+
+  <em about="v-s:controller" property="rdfs:label"></em>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  if ( mode === "edit" && this.isNew() ) {
+    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+  }
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  //# sourceURL=v-df:QuestionRouteStartFormTemplate
+</script>
+""" ;
+.
+
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ИСПОЛНИТЬ ПОРУЧЕНИЕ --
 v-s:TS_InstructionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_InstructionRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
   v-ui:forClass v-df:InstructionRouteStartForm
 .
+v-df:InstructionRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  rdfs:label "Шаблон формы задачи исполнить поручение"@ru ;
+  rdfs:label "InstructionRouteStartForm template"@en ;
+  v-ui:template """
+<script>
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="checkbox" id="process-setStatus" style="display:none">
+    <label>
+      <veda-control property="v-wf:StartForm_setStatus" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setStatus" property="rdfs:label"></span>
+    </label>
+  </div>
+  <em about="v-s:controller" property="rdfs:label"></em>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  if ( mode === "edit" && this.isNew() ) {
+    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+  }
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  //# sourceURL=v-df:InstructionRouteStartFormTemplate
+</script>
+""" ;
+.
+
 # шаблон с возможностью включить смену статусов
+v-df:SpecialInstructionRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  rdfs:label "Спец шаблон формы задачи исполнить поручение"@ru ;
+  rdfs:label "Special InstructionRouteStartForm template"@en ;
+  v-ui:template """
+<script>
+  template.on("validate", function () {
+    var result = {};
+    result["v-s:dateTo"] = {
+      state: individual.hasValue("v-s:dateTo"),
+      cause: ["v-ui:minCardinality"]
+    };
+    template.trigger("validated", result);
+  });
+
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:InstructionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="checkbox" id="process-setStatus">
+    <label>
+      <veda-control property="v-wf:StartForm_setStatus" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setStatus" property="rdfs:label"></span>
+    </label>
+  </div>
+  <em about="v-s:controller" property="rdfs:label"></em>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  if ( mode === "edit" && individual.isNew() ) {
+    if (!individual.hasValue("v-s:controller")) {
+      individual["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+    }
+  }
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  //# sourceURL=v-df:InstructionRouteStartFormTemplate
+</script>
+""" ;
+.
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ --
 v-s:TS_TaskRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_TaskRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
   v-ui:forClass v-df:TaskRouteStartForm
 .
+
+v-df:TaskRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  rdfs:label "Шаблон формы задачи ознакомиться"@ru ;
+  rdfs:label "TaskRouteStartForm template"@en ;
+  v-ui:template """
+<script>
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:TaskRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  //# sourceURL=v-df:TaskRouteStartFormTemplate
+</script>
+""" ;
+.
+
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ РАССЫЛКИ --
 v-s:TS_DistributionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_DistributionRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
   v-ui:forClass v-df:DistributionRouteStartForm
 .
+v-df:DistributionRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  rdfs:label "Шаблон формы задачи рассылки"@ru ;
+  rdfs:label "DistributionRouteStartForm template"@en ;
+  v-ui:template """
+<script>
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:DistributionRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox -edit" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+  //# sourceURL=v-df:DistributionRouteStartFormTemplate
+</script>
+""" ;
+.
+
 # -- ШАБЛОН ФОРМЫ ЗАДАЧИ СОГЛАСОВАНИЯ --
 v-s:TS_CoordinationRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-df_CoordinationRouteStartFormTemplate.html";
+  v-ui:defaultTemplate v-df:CoordinationRouteStartFormTemplate;
   v-ui:forClass v-df:CoordinationRouteStartForm
 .
+v-df:CoordinationRouteStartFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  rdfs:label "Шаблон формы задачи согласования"@ru ;
+  rdfs:label "CoordinationRouteStartForm template"@en ;
+  v-ui:template """
+<script>
+  var processedDocument = individual['v-wf:processedDocument'][0];
+  if (processedDocument) {
+    return processedDocument.rights.then(function (rights) {
+      if ( !rights.hasValue('v-s:canUpdate', true) ) {
+        $('#set-canEdit', template).remove();
+      }
+    });
+  }
+</script>
+<div class="container sheet">
+  <h3>
+    <span about="v-df:CoordinationRouteStartForm" property="rdfs:label"></span><br>
+    <small about="@" property="rdfs:label"></small>
+  </h3>
+  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
+  <div class="row">
+    <div class="col-md-6">
+      <em about="v-s:responsible" property="rdfs:label"></em>
+      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-4">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="v-wf:dateGiven" class="view -edit -search"></div>
+      <veda-control property="v-wf:dateGiven" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+  <div class="checkbox" id="set-canEdit">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="-view edit -search">
+    <button class="btn btn-xs margin-sm btn-primary pull-right -view edit search" id="add-controller" data-toggle="tooltip" title="Назначить себя">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+    <em about="v-df:NotifyUponTermination_Bundle" property="rdfs:label"></em>
+  </div>
+  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+  <br>
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+
+  $("#add-controller", template).click(function() {
+    individual["v-s:controller"] = [veda.appointment];
+  });
+  //# sourceURL=v-df:CoordinationRouteStartFormTemplate
+</script>
+""" ;
+.
+
 # -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ В СЕТЬ --
 v-df:SignRouteStartFormToNet
   rdfs:label "Трансформация из СтФ Подписание в стандартную сеть процесса"^^xsd:string;
@@ -984,7 +1611,7 @@ v-df:rul_CoordinationTransform9
 .
 
 
-#"v-df_ActionInDecisionTemplate.html"
+#v-df:ActionInDecisionTemplate
 #  rdf:type v-ui:ClassTemplate ;
 #  rdfs:isDefinedBy v-wf: ;
 #  rdfs:label "Шаблон для класса Мероприятие внутри Ответа на задачу."@ru ;
@@ -997,7 +1624,7 @@ v-df:rul_CoordinationTransform9
 #  </div>
 #  <div class="panel-body">
 #    <em about="v-s:responsible" property="rdfs:label"></em>
-#    <div rel="v-s:responsible" data-template=""v-ui_LabelTemplate.html"" class="view -edit -search"></div>
+#    <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
 #    <veda-control rel="v-s:responsible" data-type="link" class="fulltext -view edit search"></veda-control>
 #    <br>
 #    <em about="v-s:description" property="rdfs:label"></em>
@@ -1372,159 +1999,378 @@ v-wf:DecisionIssueTaskToAnother
 v-s:TS_DecisionRedirect
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionRedirectTemplate.html";
+  v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
   v-ui:forClass v-wf:DecisionRedirect
 .
+v-wf:DecisionRedirectTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Перенаправить-"@ru ;
+  rdfs:label "Template for -Decision Redirect- class"@en ;
+  v-ui:forClass v-wf:DecisionRedirect ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+//# sourceURL=v-wf:DecisionRedirectTemplate_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="v-wf:to" property="rdfs:label"></em>
+  <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
 v-s:TS_DecisionNoAgreed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNoAgreed
 .
 v-s:TS_DecisionAgreed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreed
 .
 v-s:TS_DecisionAgreedToProject
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreedToProject
 .
 v-s:TS_DecisionAgreedToExecuteComment
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreedToExecuteComment
 .
 v-s:TS_DecisionSign
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionSign
 .
 v-s:TS_DecisionApprove
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionApprove
 .
 v-s:TS_DecisionReview
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionReview
 .
 v-s:TS_DecisionRejected
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRejected
 .
 v-s:TS_DecisionDeclined
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionDeclined
 .
 v-s:TS_DecisionRemaked
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRemaked
 .
 v-s:TS_DecisionNotForMe
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotForMe
 .
 v-s:TS_DecisionRevoke_Bundle
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionRevokeTemplate.html";
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
   v-ui:forClass v-wf:DecisionRevoke_Bundle
 .
 v-s:TS_DecisionRevokeTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionRevokeTemplate.html";
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
   v-ui:forClass v-wf:DecisionRevokeTask
 .
 v-s:TS_DecisionProlongate
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionProlongate
 .
 v-s:TS_DecisionBreak
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionBreak
 .
 v-s:TS_DecisionExamined
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionExamined
 .
 v-s:TS_DecisionReturnedToReview
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionReturnedToReview
 .
 v-s:TS_DecisionAchieved
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAchieved
 .
 v-s:TS_DecisionNotPerformed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotPerformed
 .
 v-s:TS_DecisionConfirm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionConfirm
 .
 v-s:TS_DecisionPostponed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionPostponed
 .
 v-s:TS_DecisionCalculationsPerformed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionCalculationsPerformed
 .
 v-s:TS_DecisionAcceptMotivatedRefusal
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplate1.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAcceptMotivatedRefusal
 .
+v-wf:DecisionTemplate1
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение-"@ru ;
+  rdfs:label "Template for -Decision- class"@en ;
+  v-ui:forClass v-wf:DecisionNotForMe ;
+  v-ui:forClass v-wf:DecisionAgreed ;
+  v-ui:forClass v-wf:DecisionNoAgreed ;
+  v-ui:forClass v-wf:DecisionSign ;
+  v-ui:forClass v-wf:DecisionApprove ;
+  v-ui:forClass v-wf:DecisionReview ;
+  v-ui:forClass v-wf:DecisionBreak ;
+  v-ui:forClass v-wf:DecisionExamined ;
+  v-ui:forClass v-wf:DecisionReturnedToReview ;
+  v-ui:forClass v-wf:DecisionAchieved ;
+  v-ui:forClass v-wf:DecisionRejected ;
+  v-ui:forClass v-wf:DecisionGoCoordination1;
+  v-ui:forClass v-wf:DecisionGoCoordination2;
+  v-ui:forClass v-wf:DecisionGoCoordination3;
+  v-ui:forClass v-wf:DecisionGoCoordination4;
+  v-ui:forClass v-wf:DecisionGoCoordination5;
+  v-ui:forClass v-wf:DecisionGoCoordination6;
+  v-ui:forClass v-wf:DecisionGoSign;
+  v-ui:forClass v-wf:DecisionGoApproval;
+  v-ui:forClass v-wf:DecisionDeclined ;
+  v-ui:forClass v-wf:DecisionPostponed ;
+  v-ui:forClass v-wf:DecisionRemaked ;
+  v-ui:forClass v-wf:DecisionNotPerformed ;
+  v-ui:forClass v-wf:DecisionConfirm ;
+  v-ui:forClass v-wf:DecisionAgreedToProject ;
+  v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
+  v-ui:forClass v-wf:DecisionCalculationsPerformed ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+//# sourceURL=v-wf:DecisionTemplate1_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+v-wf:DecisionRevokeTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение-"@ru ;
+  rdfs:label "Template for -Decision- class"@en ;
+  v-ui:forClass v-wf:DecisionRevokeTask ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+//# sourceURL=v-wf:DecisionRevokeTemplate_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div>
+    <div class="alert alert-info">
+      <div about="v-wf:DecisionRevokeTask_infoBundle" property="rdfs:comment" style="white-space: pre-line; line-height: 1;"></div>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
 v-s:TS_DecisionRemake
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplateForRemake.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
   v-ui:forClass v-wf:DecisionRemake
 .
 v-s:TS_DecisionRemakeGroupAccount
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplateForRemake.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
   v-ui:forClass v-wf:DecisionRemakeGroupAccount
 .
+v-wf:DecisionTemplateForRemake
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение- Доработать"@ru ;
+  rdfs:label "Template for -Decision- Remake class"@en ;
+  v-ui:forClass v-wf:DecisionRemake ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+//# sourceURL=v-wf:DecisionTemplateForRemake_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div class="row">
+    <div class="col-md-9">
+      <em about="rdfs:comment" property="rdfs:label"></em>
+      <div property="rdfs:comment" class="view -edit -search"></div>
+      <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+    </div>
+    <div class="col-md-3">
+      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
 v-wf:DecisionRedirectTemplateSpec1
   rdf:type v-ui:PropertySpecification ;
   rdfs:isDefinedBy v-wf: ;
@@ -1900,9 +2746,60 @@ v-wf:rule3coordination
 v-s:TS_DecisionIssueTaskToAnother
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "v-wf_DecisionTemplateForTaskToAnother.html";
+  v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
   v-ui:forClass v-wf:DecisionIssueTaskToAnother
 .
+v-wf:DecisionTemplateForTaskToAnother
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение- Задача повторно (другому) со сроком"@ru ;
+  rdfs:label "Template for -Decision- IssueTaskToAnother class"@en ;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    window.history.back();
+  });
+//# sourceURL=v-wf:DecisionTemplateForTaskToAnother_pre
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div class="row">
+    <div class="col-md-9">
+      <em about="v-wf:to" property="rdfs:label"></em>
+      <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+      <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-3">
+      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
 v-wf:AutoComplitTask_Daily
   rdf:type v-s:Event ;
   v-s:author cfg:VedaSystemAppointment ;

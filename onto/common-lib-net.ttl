@@ -662,6 +662,139 @@ s-wf:pm_sf
   v-s:permissionObject s-wf:SimpleRouteStartForm;
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
+
+s-wf:SimpleRouteStartFormMinimal_Template
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон стартовых данных простого маршрута"@ru ;
+  rdfs:label "Single route start form template"@en ;
+  v-ui:template """
+<div>
+  <em>
+    <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+    <span about="@" property="v-s:description" class="view edit -search"></span>
+  </em>
+  <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
+  <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
+  <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
+  <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
+  <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
+  <div class="checkbox checkbox_canEdit disabled">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+</div>
+<script>
+  $('.sign .checkbox').show();
+</script>
+  """ ;
+.
+
+s-wf:SimpleRouteStartFormForActions_Template
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон отображения данных для автопоручений"@ru ;
+  rdfs:label "Auto instruction start form template"@en ;
+  v-ui:template """
+<div class="row">
+  <div class="col-md-5">
+    <em about="v-s:responsible" property="rdfs:label"></em>
+    <div rel="v-s:responsible" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
+    <veda-control data-type="link" rel="v-s:responsible" class="-view edit search fulltext"></veda-control>
+  </div>
+  <div class="col-md-4">
+    <em about="v-s:description" property="rdfs:label"></em>
+    <div property="v-s:description" class="view -edit -search"></div>
+    <veda-control data-type="text" property="v-s:description" class="-view edit -search"></veda-control>
+  </div>
+  <div class="col-md-3">
+    <em about="v-s:dateToPlan" property="rdfs:label"></em>
+    <div property="v-s:dateToPlan" class="view -edit -search"></div>
+    <veda-control data-type="dateTime" property="v-s:dateToPlan" class="-view edit -search"></veda-control>
+  </div>
+</div>
+<hr>
+  """ ;
+.
+
+s-wf:SimpleRouteStartFormShort_Template
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон стартовых данных простого маршрута"@ru ;
+  rdfs:label "Single route start form template"@en ;
+  v-ui:template """
+<div>
+  <em>
+    <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+    <span about="@" property="v-s:description" class="view edit -search"></span>
+  </em>
+  <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
+  <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
+  <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
+  <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
+  <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
+  <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
+  <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
+  <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
+  <div class="checkbox checkbox_canEdit disabled">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+</div>
+  """ ;
+.
+
+s-wf:SimpleRouteStartFormFull_Template
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон стартовых данных простого маршрута"@ru ;
+  rdfs:label "Single route start form template"@en ;
+  v-ui:template """
+<div>
+  <em>
+    <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+    <span about="@" property="v-s:description" class="view edit -search"></span>
+  </em>
+  <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
+  <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
+  <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
+  <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
+  <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
+  <div class="row">
+    <div class="col-md-6">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+      <div property="s-wf:SimpleRouteStartForm_deadlineDate" class="view -edit -search"></div>
+      <veda-control data-type="dateTime" property="s-wf:SimpleRouteStartForm_deadlineDate" class="-view edit -search"></veda-control>
+    </div>
+    <div class="col-md-6">
+      <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
+      <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
+      <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
+    </div>
+  </div>
+  <div class="checkbox checkbox_canEdit disabled">
+    <label>
+      <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+    </label>
+  </div>
+  <div class="checkbox checkbox_setStatus -edit">
+    <label>
+      <veda-control property="v-wf:StartForm_setStatus" data-type="boolean"></veda-control>
+      <span about="v-wf:StartForm_setStatus" property="rdfs:label"></span>
+    </label>
+  </div>
+  <em about="s-wf:SimpleRouteStartForm_controller" property="rdfs:label"></em>
+  <div property="s-wf:SimpleRouteStartForm_controller" class="view -edit -search"></div>
+  <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_controller" class="-view edit -search fulltext"></veda-control>
+</div>
+  """ ;
+.
+
 s-wf:controllerSpecification
   rdf:type v-ui:ObjectPropertySpecification ;
   v-ui:forClass s-wf:SimpleRouteStartForm ;
@@ -931,15 +1064,256 @@ s-wf:UserTaskForm_StartForm_Bundle
 v-s:TS_UserTaskForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate "s-wf_UserTaskFormTemplate.html";
+  v-ui:defaultTemplate s-wf:UserTaskFormTemplate;
   v-ui:forClass s-wf:UserTaskForm
 .
+
+s-wf:UserTaskFormTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
+  v-ui:forClass s-wf:UserTaskForm ;
+  v-ui:template """
+<script>
+  if ( individual.hasValue("v-wf:dateGiven") ) {
+    var label = $(".date-given", template);
+    var now = new Date();
+    var yesterday = new Date().setHours(0,0,0,1);
+    var tomorrow = new Date().setHours(23,59,59,999);
+    var dateGiven = individual["v-wf:dateGiven"][0];
+    var dateGivenYesterday = new Date(dateGiven).setHours(0,0,0,1);
+    var dateGivenTomorrow = new Date(dateGiven).setHours(23,59,59,999);
+    var dateDone = individual.hasValue("v-wf:takenDecision") && individual["v-wf:takenDecision"][0]["v-s:created"][0];
+    if ( individual.hasValue("v-wf:isCompleted", false) ) {
+      if (dateGiven < yesterday) {
+        label.toggleClass("label-default label-danger");
+      } else if (yesterday < dateGiven && dateGiven <= tomorrow) {
+        label.toggleClass("label-default label-warning");
+      } else if (tomorrow < dateGiven) {
+        label.toggleClass("label-default label-success");
+      }
+    } else {
+      if (dateGivenYesterday < dateDone && dateDone <= dateGivenTomorrow) {
+        label.toggleClass("label-default label-warning");
+      } else if (dateDone < dateGiven) {
+        label.toggleClass("label-default label-success");
+      } else if (dateGiven < dateDone ) {
+        label.toggleClass("label-default label-danger");
+      }
+    }
+  }
+  return individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
+    //is rework task
+    if (forNetElementArr.length > 0 && forNetElementArr[0].id === "s-wf:cr_rework") {
+      return individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forProcess").then(function(forProcessArr) {
+        return forProcessArr[0].load();
+      }).then(function(forProcess) {
+        $("#stopProcess", template).click(function(e) {
+          e.preventDefault();
+          var warn = new veda.IndividualModel("v-s:AreYouSure");
+          warn.load().then(function (warn) {
+            warn = warn["rdfs:label"].map(veda.Util.formatValue).join(" ");
+            if ( confirm(warn) ) {
+              forProcess["v-wf:isStopped"] = [ true ];
+              forProcess.save().then(function(saved) {
+                riot.route("#/" + individual["v-wf:onDocument"][0].id);
+              });
+            }
+          });
+        })
+        var startForm = forProcess.properties["v-wf:hasStartForm"];
+        if (startForm) {
+          return startForm[0].data;
+        } else {
+          //Устаревший вариант (но почему то не такой уж и устаревший)
+          console.log("not found hasStartForm, use variables");
+          var promises = forProcess["v-wf:inVars"].map(function(vrbl) {
+            return vrbl.load();
+          });
+          return Promise.all(promises).then(function(variables) {
+            var startFormVar = variables.filter(function (vrbl) {
+              return vrbl.hasValue("v-wf:variableName",  "startForm_id");
+            });
+            return startFormVar[0]["v-wf:variableValue"][0].id;
+          })
+        }
+      }).then(function(startFormId) {
+        if (startFormId) {
+          $("#edit-StartForm", template).click(function () {
+            var modal = veda.Util.showModal(new veda.IndividualModel(startFormId), new veda.IndividualModel("s-wf:ComplexRouteStartForm_Common_Template"), "view");
+          });
+        };
+        return true;
+      });
+    } else {
+      $("#edit-StartForm", template).remove();
+      $("#stopProcess", template).remove();
+    }
+    return true;
+  }).catch(function(error) {
+    $("#edit-StartForm", template).remove();
+    $("#stopProcess", template).remove();
+    console.log("Unexpected behaviour", error);
+  });
+//# sourceURL=s-wf:UserTaskFormTemplate_pre
+</script>
+<div>
+  <div class="container sheet">
+    <style scoped>
+      .taken-decision:empty {
+        display:none;
+      }
+    </style>
+    <div class="row">
+      <div class="col-sm-7 col-md-9" style="border-right: 1px dotted #ccc;">
+        <h2>
+          <span about="@" property="rdfs:label"></span><br/>
+          <small about="@" property="v-s:description"></small>
+        </h2>
+
+        <div class="possible-decisions clearfix" style="position:relative">
+          <hr />
+          <div id="NotRightsAlert" class="alert alert-warning hidden" role="alert">
+            <span about="v-s:NotRightsForDocumentBundle" property="rdfs:label"></span>
+          </div>
+          <h4 about="v-wf:takenDecision" property="rdfs:label"></h4>
+          <div about="@" rel="v-wf:possibleDecisionClass">
+            <div class="radio">
+              <label>
+                <input type="radio" name="decisionRadios">
+                <span property="rdfs:label"></span>
+              </label>
+            </div>
+          </div>
+          <div class="margin-sm">
+            <button type="button" class="btn btn-default view -edit -search" id="decisionRedirect" about="v-wf:DecisionDelegate_Bundle" property="rdfs:label"></button>
+            <button type="button" class="btn btn-primary view -edit -search" id="edit-StartForm" about="s-wf:UserTaskForm_StartForm_Bundle" property="rdfs:label"></button>
+            <button type="button" class="btn btn-danger view -edit -search" id="stopProcess" about="v-wf:DecisionBreak" property="rdfs:label"></button>
+            <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="task"></span>
+          </div>
+        </div>
+        <div class="well new-decision"></div>
+        <div class="alert alert-danger hidden" id="show-OverloadNotification">
+          <h4>Внимание</h4>
+          <span about="v-s:OverloadNotificationMessage" property="rdfs:label"></span>
+        </div>
+        <div class="well taken-decision" about="@" rel="v-wf:takenDecision"></div>
+      </div>
+      <div class="col-sm-5 col-md-3">
+        <h3><span about="@" property="v-wf:dateGiven" class="date-given label label-default"></span></h3>
+        <em about="v-wf:from" property="rdfs:label"></em>
+        <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
+        <em about="v-wf:to" property="rdfs:label"></em>
+        <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
+        <div about="@" rel="v-wf:redirect_from_task">
+          <script>
+            if ( !individual.hasValue("v-wf:to") ) {
+              template.empty();
+            }
+          </script>
+          <div>
+            <hr class="margin-sm"/>
+            <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
+            <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
+            <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
+            <div rel="v-wf:takenDecision">
+              <em about="rdfs:comment" property="rdfs:label"> </em>
+              <span about="@"  property="rdfs:comment"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div about="@" class="container sheet view edit -search" data-template="v-ft:TaskRelatedTasksTemplate"></div>
+  <div about="@" rel="v-wf:onDocument" class="view edit -search"></div>
+</div>
+<script>
+  var document = individual.hasValue("v-wf:onDocument") && individual["v-wf:onDocument"][0];
+  var taskRights = individual.rights;
+  var documentRights = document && document.rights;
+
+  Promise.all([taskRights, documentRights]).then(function (rights) {
+    var taskRights = rights[0];
+    var canReadDocument = rights[1] && rights[1].hasValue("v-s:canRead", true);
+    if (document && !canReadDocument) {
+      $("#NotRightsAlert", template).removeClass("hidden");
+    }
+    if ( individual.hasValue("v-wf:takenDecision") || !taskRights.hasValue("v-s:canUpdate", true) ) {
+      $(".possible-decisions, .new-decision", template).remove();
+    } else {
+      $(".possible-decisions input", template).on("change", function (e) {
+        var input = $(this);
+        var decisionContainer = $(".new-decision", template);
+        var decisionClassId = input.closest("[resource]").attr("resource");
+        var decisionClass = new veda.IndividualModel( decisionClassId );
+        decision["rdf:type"] = [ decisionClass ];
+        decision.properties["rdfs:label"] = decisionClass.properties["rdfs:label"];
+        if (decisionClassId === "v-wf:DecisionDeclined" && document && !canReadDocument) {
+          var comment = new veda.IndividualModel("v-s:NotRightsForDocumentCommentBundle");
+          comment.load().then(function (comment) {
+            decision["rdfs:comment"] = comment["rdfs:label"];
+          });
+        } else {
+          var prevComment = $("veda-control[property='rdfs:comment'] textarea", decisionContainer).val();
+          if (prevComment) {
+            decision["rdfs:comment"] = [prevComment];
+          }
+        }
+        decisionContainer.empty();
+        decision.present(decisionContainer, undefined, "edit");
+      });
+
+      function completedHandler() {
+        if ( individual.hasValue("v-wf:isCompleted", true) || individual.hasValue("v-wf:takenDecision") ) {
+          $(".possible-decisions, .new-decision", template).remove();
+        }
+      }
+      individual.on("v-wf:isCompleted", completedHandler);
+      individual.on("v-wf:takenDecision", completedHandler);
+      template.one("remove", function () {
+        individual.off("v-wf:isCompleted", completedHandler);
+        individual.off("v-wf:takenDecision", completedHandler);
+      });
+
+      var decision = new veda.IndividualModel();
+      decision["v-s:backwardTarget"] = [ individual ];
+      decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+      decision["v-s:canRead"] = [ true ];
+      $(".possible-decisions input", template).first().prop("checked", "checked").change();
+    }
+  });
+
+  $("#decisionRedirect", template).click(function() {
+    var decisionClass = new veda.IndividualModel( "v-wf:DecisionRedirect" );
+    var decision = new veda.IndividualModel();
+    new veda.IndividualModel( "v-wf:DecisionDelegated_Bundle" ).load().then(function(delegatedBundle) {
+      decision["rdf:type"] = [ decisionClass ];
+      decision["v-s:backwardTarget"] = [ individual ];
+      decision["rdfs:label"] = delegatedBundle["rdfs:label"];
+      decision["v-s:backwardProperty"] = [ new veda.IndividualModel("v-wf:takenDecision") ];
+      decision["v-s:canRead"] = [ true ];
+      var modal = veda.Util.showModal(decision, undefined, "edit");
+      decision.one("afterReset", function () {
+        modal.modal("hide").remove();
+      });
+      decision.one("afterSave", function () {
+        modal.modal("hide").remove();
+      });
+    })
+  })
+
+//# sourceURL=s-wf:UserTaskFormTemplate_post
+</script>
+  """ ;
+.
+
 v-wf:DecisionGoSign
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
   rdfs:label "Перейти к этапу подписания"@ru ;
   rdfs:isDefinedBy s-wf: ;
-  v-ui:hasTemplate "v-wf_DecisionTemplate1.html" ;
+  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionGoApproval
@@ -947,7 +1321,7 @@ v-wf:DecisionGoApproval
   rdfs:subClassOf v-wf:Decision ;
   rdfs:label "Перейти к этапу утверждения"@ru ;
   rdfs:isDefinedBy s-wf: ;
-  v-ui:hasTemplate "v-wf_DecisionTemplate1.html" ;
+  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 
