@@ -117,6 +117,25 @@ s-wf:map_set_autoCompleted
   v-wf:mappingExpression "process.getInputVariable ('setAutoCompleted')" ;
   rdfs:isDefinedBy s-wf: ;
 .
+s-wf:var_isEditable
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "isEditable" ;
+  rdfs:label "Признак редактируемости задачи"@ru ;
+  v-wf:varDefineScope v-wf:Net ;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_isEditable
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_isEditable ;
+  v-wf:mappingExpression "process.getInputVariable ('isEditable')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:map_isEditable_true
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_isEditable ;
+  v-wf:mappingExpression "veda.Util.newBool (true)";
+  rdfs:isDefinedBy s-wf: ;
+.
 
 s-wf:var_actor_task_add_to_date_to
   rdf:type v-wf:VarDefine ;
