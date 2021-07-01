@@ -395,7 +395,7 @@ v-df:SignRouteStartFormTemplate
   $("#add-controller", template).click(function() {
     individual["v-s:controller"] = [veda.appointment];
   });
-  //# sourceURL=v-df:SignRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -476,7 +476,7 @@ v-df:ConfirmationRouteStartFormTemplate
   $("#add-controller", template).click(function() {
     individual["v-s:controller"] = [veda.appointment];
   });
-  //# sourceURL=v-df:ConfirmationRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -540,7 +540,7 @@ v-df:QuestionRouteStartFormTemplate
       window.history.back();
     }
   });
-  //# sourceURL=v-df:QuestionRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -622,7 +622,7 @@ v-df:InstructionRouteStartFormTemplate
       window.history.back();
     }
   });
-  //# sourceURL=v-df:InstructionRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -707,7 +707,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
       window.history.back();
     }
   });
-  //# sourceURL=v-df:InstructionRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -777,7 +777,7 @@ v-df:TaskRouteStartFormTemplate
       window.history.back();
     }
   });
-  //# sourceURL=v-df:TaskRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -847,7 +847,7 @@ v-df:DistributionRouteStartFormTemplate
       window.history.back();
     }
   });
-  //# sourceURL=v-df:DistributionRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -929,7 +929,7 @@ v-df:CoordinationRouteStartFormTemplate
   $("#add-controller", template).click(function() {
     individual["v-s:controller"] = [veda.appointment];
   });
-  //# sourceURL=v-df:CoordinationRouteStartFormTemplate
+  
 </script>
 """ ;
 .
@@ -2018,7 +2018,7 @@ v-wf:DecisionRedirectTemplate
       window.history.back();
     }
   });
-//# sourceURL=v-wf:DecisionRedirectTemplate_pre
+
 </script>
 <div>
   <div class="view -edit -search">
@@ -2229,7 +2229,7 @@ v-wf:DecisionTemplate1
       window.history.back();
     }
   });
-//# sourceURL=v-wf:DecisionTemplate1_pre
+
 </script>
 <div>
   <div class="view -edit -search">
@@ -2273,7 +2273,7 @@ v-wf:DecisionRevokeTemplate
       window.history.back();
     }
   });
-//# sourceURL=v-wf:DecisionRevokeTemplate_pre
+
 </script>
 <div>
   <div class="view -edit -search">
@@ -2334,7 +2334,7 @@ v-wf:DecisionTemplateForRemake
       window.history.back();
     }
   });
-//# sourceURL=v-wf:DecisionTemplateForRemake_pre
+
 </script>
 <div>
   <div class="view -edit -search">
@@ -2760,7 +2760,7 @@ v-wf:DecisionTemplateForTaskToAnother
   template.on("cancel", function () {
     window.history.back();
   });
-//# sourceURL=v-wf:DecisionTemplateForTaskToAnother_pre
+
 </script>
 <div>
   <div class="view -edit -search">

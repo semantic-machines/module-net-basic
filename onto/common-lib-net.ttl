@@ -1174,7 +1174,7 @@ s-wf:UserTaskFormTemplate
     $("#stopProcess", template).remove();
     console.log("Unexpected behaviour", error);
   });
-//# sourceURL=s-wf:UserTaskFormTemplate_pre
+
 </script>
 <div>
   <div class="container sheet">
@@ -1322,7 +1322,7 @@ s-wf:UserTaskFormTemplate
     })
   })
 
-//# sourceURL=s-wf:UserTaskFormTemplate_post
+
 </script>
   """ ;
 .
