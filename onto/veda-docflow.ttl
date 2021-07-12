@@ -2823,7 +2823,7 @@ var lastDate = new Date(scriptInfo['v-s:lastDateOfExecuting'][0].data);
 var today = new Date();
 var msInDay = 86400000;
 var datePeriod = [new Date(+lastDate), new Date(+today)];
-var queryString = "( 'rdf:type'=='v-wf:DecisionForm' && 'rdf:type'=='s-wf:UserTaskForm' && 'v-wf:isCompleted'=='false' && 'v-wf:isAutoCompleted'=='true'";
+var queryString = "( 'rdf:type'=='v-wf:DecisionForm' && 'v-wf:isCompleted'=='false' && 'v-wf:isAutoCompleted'=='true'";
 queryString = queryString + " && 'v-wf:dateGiven'==["+ datePeriod[0].toISOString() +","+ datePeriod[1].toISOString() +"])";
 print(queryString);
 var result = query(ticket, queryString).result;
