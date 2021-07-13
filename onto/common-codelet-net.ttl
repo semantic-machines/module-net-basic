@@ -53,6 +53,39 @@ s-wf:codelet_add_status_executed
   rdfs:isDefinedBy s-wf: ;
 .
 
+# ------------------------------ CODELET : "установка статуса 'На контроле'"------------------------------------- #
+
+s-wf:codelet_add_status_underControl
+  rdf:type v-s:Codelet ;
+  rdfs:label "Установить статус 'На контроле'" ;
+  v-s:script """
+    veda.Codelet.change_document_status(process, 'v-s:StatusUnderControl');
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+# ------------------------------ CODELET : "установка статуса 'Отклонено'"------------------------------------- #
+
+s-wf:codelet_add_status_rejected
+  rdf:type v-s:Codelet ;
+  rdfs:label "Установить статус 'Отклонено'" ;
+  v-s:script """
+    veda.Codelet.change_document_status(process, 'v-s:StatusRejected');
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+# ------------------------------ CODELET : "установка статуса 'Не выполнено'"------------------------------------- #
+
+s-wf:codelet_add_status_notperformed
+  rdf:type v-s:Codelet ;
+  rdfs:label "Установить статус 'Не выполнено'" ;
+  v-s:script """
+    veda.Codelet.change_document_status(process, 'v-s:StatusNotPerformed');
+""" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 # ------------------------------ CODELET : ------------------------------------- #
 
 s-wf:codelet_add_value_to_document

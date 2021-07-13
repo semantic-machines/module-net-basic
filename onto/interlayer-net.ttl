@@ -151,7 +151,7 @@ s-wf:InterlayerNet_isEditable
   v-wf:mapToVariable s-wf:var_isEditable ;
   v-wf:mappingExpression
   """
-    var checkBox = veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'v-wf:SimpleRouteStartForm_editable'}]);
+    var checkBox = veda.Workflow.get_properties_chain ( process.getExecutor(), [{$get:'s-wf:SimpleRouteStartForm_editable'}]);
     if ( checkBox[0].data==true) {
       veda.Util.newBool (true);
     } else {
