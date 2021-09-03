@@ -18,6 +18,76 @@
   v-s:loadPriority 9 ;
 .
 
+
+# --------------------------------------------------------------------- СТРОКИ --
+v-df:NotifyUponTermination_Bundle
+  rdf:type v-s:Bundle ;
+  rdfs:label "Уведомить по окончании"@ru ;
+  rdfs:label "Notify upon termination"@en ;
+.
+v-wf:DecisionNotPerformed_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Не выполнено. Примите решение"@ru ;
+  rdfs:label "Not completed. Make a decision"@en ;
+.
+v-wf:DecisionNotForMe_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Ошибочный исполнитель. Примите решение"@ru ;
+  rdfs:label "Erroneous performer. Make a decision"@en ;
+.
+v-wf:DecisionRejected_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Отклонено. Примите решение"@ru ;
+  rdfs:label "Rejected. Make a decision"@en ;
+.
+v-wf:DecisionProlongate_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Продлить срок"@ru ;
+  rdfs:label "Prolongate task"@en ;
+.
+v-wf:DecisionRemake_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Доработать"@ru ;
+  rdfs:label "Remake"@en ;
+.
+v-wf:DecisionConfirm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Подтверждено"@ru ;
+  rdfs:label "Confirmed"@en ;
+.
+v-wf:DecisionDelegate_Bundle
+  rdf:type v-s:Bundle;
+#  rdfs:label "Делегировать принятие решения"@ru ;
+  rdfs:label "Делегировать"@ru ;
+  rdfs:label "Delegate decision making"@en ;
+.
+v-wf:DecisionRedirect_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Перенаправить задачу"@ru ;
+  rdfs:label "Redirect task"@en ;
+.
+v-wf:DecisionDelegated_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Делегировано"@ru ;
+  rdfs:label "Delegated"@en ;
+.
+v-wf:DecisionRevokeTask_infoBundle
+  rdf:type v-s:Bundle ;
+  rdfs:comment "Задача будет отозвана, процесс пойдет дальше. Задача Доработать в данном случае не формируется."@ru ;
+  rdfs:comment "Task will be revoke, process will go further."@en ;
+.
+v-wf:DecisionBreaked_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Процесс прерван"@ru ;
+  rdfs:label "Process is interrupted"@en ;
+.
+
+
+# --------------------------------------------------------------------- КЛАССЫ --
+
+#---------------------------------------------------------------- v-df:ApprovalTask --
 v-df:ApprovalTask
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:DecisionForm ;
@@ -27,29 +97,19 @@ v-df:ApprovalTask
   rdfs:comment "Форма ответа на задачу утверждения"@ru ;
 .
 
-v-df:PsApprovalTask_from
-  rdf:type v-ui:ObjectPropertySpecification ;
-  v-ui:forClass v-df:ApprovalTask ;
-  v-ui:forProperty v-wf:from ;
-  v-ui:maxCardinality 1 ;
-  v-ui:minCardinality 0 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment')"^^xsd:string ;
-  v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
-  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
-  rdfs:label "Спецификация отправителя задачи для класса Форма задачи утверждение"@ru ;
-  rdfs:label "Task sender property specification for Approval task class"@en ;
-.
-v-df:PsApprovalTask_dateGiven
-  rdf:type v-ui:DatatypePropertySpecification ;
-  v-ui:forClass v-df:ApprovalTask ;
-  v-ui:forProperty v-wf:dateGiven ;
-  v-ui:minCardinality "1"^^xsd:integer ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
-  v-ui:tooltip "Required, single value."@en ;
-  rdfs:label "Спецификация даты заседания технического комитета для класса AgShedule"@ru ;
-  rdfs:label "Preferences property specification for dateFrom in AgShedule class"@en ;
-.
+#v-wf:from
+  v-df:PsApprovalTask_from
+    rdf:type v-ui:ObjectPropertySpecification ;
+    v-ui:forClass v-df:ApprovalTask ;
+    v-ui:forProperty v-wf:from ;
+    v-ui:maxCardinality 1 ;
+    v-ui:minCardinality 0 ;
+    v-ui:queryPrefix "('rdf:type'=='v-s:Appointment')"^^xsd:string ;
+    v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
+    v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
+    rdfs:label "Спецификация отправителя задачи для класса Форма задачи утверждение"@ru ;
+    rdfs:label "Task sender property specification for Approval task class"@en ;
+  .
 
 v-df:approvalTask_decisionKind
   rdf:type owl:DatatypeProperty ;
@@ -59,26 +119,523 @@ v-df:approvalTask_decisionKind
   rdfs:domain v-df:ApprovalTask ;
   rdfs:range xsd:string ;
 .
-v-df:PsApprovalTask_decisionKind
+  v-df:PsApprovalTask_decisionKind
+    rdf:type v-ui:DatatypePropertySpecification ;
+    rdfs:label "Спецификация видов решения задачи утверждения"@ru ;
+    rdfs:label "Specification for Approval task decision kind property"@en ;
+    v-ui:forClass v-df:ApprovalTask ;
+    v-ui:forProperty v-df:approvalTask_decisionKind ;
+    v-ui:optionValue "Утверждено"^^xsd:string ;
+    v-ui:optionValue "Отложено"^^xsd:string ;
+    v-ui:optionValue "Отклонено"^^xsd:string ;
+    v-ui:optionValue "На доработку"^^xsd:string ;
+    v-ui:minCardinality "1"^^xsd:integer ;
+    v-ui:maxCardinality "1"^^xsd:integer ;
+  .
+#v-wf:dateGiven
+  v-df:PsApprovalTask_dateGiven
+    rdf:type v-ui:DatatypePropertySpecification ;
+    v-ui:forClass v-df:ApprovalTask ;
+    v-ui:forProperty v-wf:dateGiven ;
+    v-ui:minCardinality "1"^^xsd:integer ;
+    v-ui:maxCardinality "1"^^xsd:integer ;
+    v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
+    v-ui:tooltip "Required, single value."@en ;
+    rdfs:label "Спецификация даты заседания технического комитета для класса AgShedule"@ru ;
+    rdfs:label "Preferences property specification for dateFrom in AgShedule class"@en ;
+  .
+
+
+
+
+# ----------------------------------------------------------------- СТАРТОВЫЕ ФОРМЫ --
+
+v-df:SignRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Подписать"@ru ;
+  rdfs:label "Sign"@en ;
+  rdfs:comment "Задача подписать"@ru ;
+.
+v-df:ConfirmationRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Утвердить"@ru ;
+  rdfs:label "Confirmation"@en ;
+  rdfs:comment "Задача утвердить"@ru ;
+.
+v-df:QuestionRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Ответить на вопрос"@ru ;
+  rdfs:label "Answer question"@en ;
+  rdfs:comment "Задача ответить на вопрос"@ru ;
+.
+v-df:InstructionRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Исполнить поручение"@ru ;
+  rdfs:label "Perform instruction"@en ;
+  rdfs:comment "Задача исполнить поручение"@ru ;
+.
+v-df:TaskRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Ознакомиться"@ru ;
+  rdfs:label "Get informed"@en ;
+  rdfs:comment "Задача ознакомиться"@ru ;
+.
+v-df:DistributionRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Рассылка"@ru ;
+  rdfs:label "Distribution"@en ;
+  rdfs:comment "Задача рассылки"@ru ;
+.
+v-df:CoordinationRouteStartForm
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:StartForm ;
+  rdfs:isDefinedBy v-df: ;
+  rdfs:label "Согласовать"@ru ;
+  rdfs:label "Coordinate"@en ;
+  rdfs:comment "Задача согласовать"@ru ;
+.
+
+#v-s:responsible
+v-df:PsStartForm_responsible
+  rdf:type v-ui:ObjectPropertySpecification ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty v-s:responsible ;
+  v-ui:maxCardinality 400 ;
+  v-ui:minCardinality 1 ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
+  rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
+  rdfs:label "Task sender property specification for Question task class"@en ;
+.
+
+v-s:count
+  rdfs:domain v-df:QuestionRouteStartForm ;
+  rdfs:domain v-df:InstructionRouteStartForm ;
+  rdfs:domain v-df:TaskRouteStartForm ;
+  rdfs:domain v-df:DistributionRouteStartForm ;
+  rdfs:domain v-df:CoordinationRouteStartForm ;
+  rdfs:domain v-df:SignRouteStartForm ;
+  rdfs:domain v-df:ConfirmationRouteStartForm ;
+
+.
+v-df:PsCountForStartForm
   rdf:type v-ui:DatatypePropertySpecification ;
-  rdfs:label "Спецификация видов решения задачи утверждения"@ru ;
-  rdfs:label "Specification for Approval task decision kind property"@en ;
-  v-ui:forClass v-df:ApprovalTask ;
-  v-ui:forProperty v-df:approvalTask_decisionKind ;
-  v-ui:optionValue "Утверждено"^^xsd:string ;
-  v-ui:optionValue "Отложено"^^xsd:string ;
-  v-ui:optionValue "Отклонено"^^xsd:string ;
-  v-ui:optionValue "На доработку"^^xsd:string ;
+  rdfs:label "Спецификация количества дней для класса QuestionRouteStartForm"@ru ;
+  rdfs:label "Count day property specification for QuestionRouteStartForm"@en ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty v-s:count ;
+  v-ui:maxCardinality 1 ;
+  v-ui:minCardinality 0 ;
+  v-ui:tooltip "Необязательно к заполнению, единичное значение. Целое число."@ru ;
+  v-ui:tooltip "Required, single value. Integer"@en ;
+.
+
+#v-s:controller
+v-df:PsStartForm_v-s:controller
+  rdf:type v-ui:ObjectPropertySpecification ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty v-s:controller ;
+  v-ui:maxCardinality 1 ;
+  v-ui:minCardinality 0 ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
+  rdfs:label "Спецификация Контролирующего задачи для класса Стартовая форма задачи"@ru ;
+  rdfs:label "Task controller property specification for task class"@en ;
+.
+
+#v-s:dateTo
+v-df:PsStartForm_dateTo
+  rdf:type v-ui:DatatypePropertySpecification ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty v-s:dateTo ;
+  v-ui:minCardinality "0"^^xsd:integer ;
+  v-ui:maxCardinality "1"^^xsd:integer ;
+  v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
+  v-ui:tooltip "Required, single value."@en ;
+  rdfs:label "Спецификация контрольной даты для класса QuestionRouteStartForm"@ru ;
+  rdfs:label "Preferences property specification for dateFrom QuestionRouteStartForm class"@en ;
+.
+
+#v-wf:processedDocument
+v-df:PsStartForm_processedDocument
+  rdf:type v-ui:ObjectPropertySpecification ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm ;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty v-wf:processedDocument ;
+  v-ui:maxCardinality 1 ;
+  v-ui:minCardinality 0 ;
+  v-ui:tooltip "Необязательно к заполнению, множественное значение. Ссылка на объект."@ru ;
+  v-ui:tooltip "Non-required, multy value. Link"@en ;
+  rdfs:label "Спецификация ссылки на документ для класса Стартовая форма задачи задать вопрос"@ru ;
+  rdfs:label "Task by document property specification for QuestionRouteStartForm class"@en ;
+.
+
+#rdfs:comment
+v-df:PsStartForm_comment
+  rdf:type v-ui:PropertySpecification ;
+  v-ui:forClass v-df:QuestionRouteStartForm ;
+  v-ui:forClass v-df:InstructionRouteStartForm ;
+  v-ui:forClass v-df:TaskRouteStartForm ;
+  v-ui:forClass v-df:DistributionRouteStartForm ;
+  v-ui:forClass v-df:CoordinationRouteStartForm ;
+  v-ui:forClass v-df:SignRouteStartForm;
+  v-ui:forClass v-df:ConfirmationRouteStartForm ;
+  v-ui:forProperty rdfs:comment ;
+  rdfs:label "Спецификация к свойству комментарий для QuestionRouteStartForm"@ru ;
+  rdfs:label "Spec for comment for QuestionRouteStartFormclass"@en ;
   v-ui:minCardinality "1"^^xsd:integer ;
   v-ui:maxCardinality "1"^^xsd:integer ;
 .
 
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЯ --
+
+# ---------------------------------------------------------------- ОТВЕТЫ НА ЗАДАЧУ(v-wf:Decision) --
+v-wf:DecisionAnswerToYourQuestion
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Ответ на ваш вопрос"@ru ;
+  rdfs:label "Answer to your question"@en ;
+.
+v-wf:DecisionControll
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Принять отчет по поручению"@ru ;
+  rdfs:label "Accept report"@en ;
+.
+v-wf:DecisionNotRequireReview
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Не требует рассмотрения"@ru ;
+  rdfs:label "Review is not necessary"@en ;
+.
+v-wf:DecisionNoAgreed
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Согласование не требуется"@ru ;
+  rdfs:label "Negotiation is not required"@en ;
+.
+v-wf:DecisionAgreed
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Согласовано"@ru ;
+  rdfs:label "Approved"@en ;
+.
+v-wf:DecisionAgreedToProject
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Начать проект"@ru ;
+  rdfs:label "Start project"@en ;
+.
+v-wf:DecisionAgreedToExecute
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Согласовано в реализацию"@ru ;
+  rdfs:label "Approved for implementation"@en ;
+.
+v-wf:DecisionAgreedToExecuteComment
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Согласовано в реализацию"@ru ;
+  rdfs:label "Approved for implementation"@en ;
+.
+v-wf:DecisionSign
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Подписано"@ru ;
+  rdfs:label "Signed"@en ;
+.
+v-wf:DecisionApprove
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Утверждено"@ru ;
+  rdfs:label "Approved"@en ;
+.
+v-wf:DecisionReview
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Рассмотрено"@ru ;
+  rdfs:label "Reviewed"@en ;
+.
+v-wf:DecisionRejected
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Отклонено"@ru ;
+  rdfs:label "Declined"@en ;
+.
+v-wf:DecisionDeclined
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Отклонено. На доработку"@ru ;
+  rdfs:label "Declined. To remake"@en ;
+.
+v-wf:DecisionRemake
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Доработать"@ru ;
+  rdfs:label "Rework"@en ;
+.
+v-wf:DecisionRemakeGroupAccount
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Доработать"@ru ;
+  rdfs:label "Rework"@en ;
+.
+# v-s:dateTo
+v-wf:DecisionRemaked
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Доработано"@ru ;
+  rdfs:label "Reworked"@en ;
+.
+v-wf:DecisionNotForMe
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Ошибочный исполнитель"@ru ;
+  rdfs:label "Wrong executor"@en ;
+.
+v-wf:DecisionRevoke_Bundle
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Отозвать задачу"@ru ;
+  rdfs:label "Revoke task"@en ;
+.
+v-wf:DecisionRevokeTask
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Задача отозвана"@ru ;
+  rdfs:label "TaskRevoked"@en ;
+.
+v-wf:DecisionProlongate
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Прошу продлить срок"@ru ;
+  rdfs:label "Prolongate"@en ;
+.
+v-wf:DecisionBreak
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Прервать процесс"@ru ;
+  rdfs:label "Cancel route"@en ;
+.
+v-wf:DecisionExamined
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Принято к сведению"@ru ;
+  rdfs:label "Examined"@en ;
+.
+v-wf:DecisionReturnedToReview
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Вернуть на рассмотрение"@ru ;
+  rdfs:label "Returned to review"@en ;
+.
+v-wf:DecisionAchieved
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Выполнено"@ru ;
+  rdfs:label "Completed"@en ;
+.
+v-wf:DecisionNotPerformed
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Не выполнено"@ru ;
+  rdfs:label "Not completed"@en ;
+.
+v-wf:DecisionRedirect
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Перенаправлено"@ru ;
+  rdfs:label "Redirected"@en ;
+.
+v-wf:DecisionPostponed
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Отложено"@ru ;
+  rdfs:label "Postponed"@en ;
+.
+v-wf:DecisionCalculationsPerformed
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Расчет выполнен"@ru ;
+  rdfs:label "Calculations performed"@en ;
+.
+v-wf:DecisionAcceptMotivatedRefusal
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Принять мотивированный отказ"@ru ;
+  rdfs:label "Accept a motivated refusal"@en ;
+.
+v-wf:DecisionIssueTaskToAnother
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Выдать задачу повторно"@ru ;
+  rdfs:label "Re-issue the task"@en ;
+.
+
+#rdfs:comment
+  v-wf:DecisionRedirectTemplateSpec1
+    rdf:type v-ui:PropertySpecification ;
+    rdfs:isDefinedBy v-wf: ;
+    rdfs:label "Спецификация к свойству комментарий для некоторых подклассов класса -Решение-"@ru ;
+    rdfs:label "Spec for template for some -Decision- subclasses"@en ;
+    v-ui:minCardinality "1"^^xsd:integer ;
+    v-ui:maxCardinality "1"^^xsd:integer ;
+    v-ui:forProperty rdfs:comment ;
+    v-ui:forClass v-wf:DecisionNotForMe ;
+    v-ui:forClass v-wf:DecisionRejected ;
+    v-ui:forClass v-wf:DecisionDeclined ;
+    v-ui:forClass v-wf:DecisionPostponed ;
+    v-ui:forClass v-wf:DecisionRemake ;
+    v-ui:forClass v-wf:DecisionNotPerformed ;
+    v-ui:forClass v-wf:DecisionProlongate ;
+  .
+  v-wf:DecisionRedirectTemplateSpec2
+    rdf:type v-ui:PropertySpecification ;
+    rdfs:isDefinedBy v-wf: ;
+    rdfs:label "Спецификация к свойству комментарий для некоторых подклассов класса -Решение-"@ru ;
+    rdfs:label "Spec for template for some -Decision- subclasses"@en ;
+    v-ui:maxCardinality "1"^^xsd:integer ;
+    v-ui:forProperty rdfs:comment ;
+    v-ui:forClass v-wf:DecisionAgreed ;
+    v-ui:forClass v-wf:DecisionNoAgreed;
+    v-ui:forClass v-wf:DecisionSign ;
+    v-ui:forClass v-wf:DecisionApprove ;
+    v-ui:forClass v-wf:DecisionReview ;
+    v-ui:forClass v-wf:DecisionBreak ;
+    v-ui:forClass v-wf:DecisionRemaked ;
+    v-ui:forClass v-wf:DecisionExamined ;
+    v-ui:forClass v-wf:DecisionReturnedToReview ;
+  #  v-ui:forClass v-wf:DecisionAchieved ;
+    v-ui:forClass v-wf:DecisionAgreedToProject ;
+    v-ui:forClass v-wf:DecisionConfirm ;
+    v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
+    v-ui:forClass v-wf:DecisionCalculationsPerformed ;
+  .
+  v-wf:DecisionRedirectTemplateSpec2_comment
+    rdf:type v-ui:PropertySpecification ;
+    rdfs:isDefinedBy v-wf: ;
+    rdfs:label "Спецификация к свойству комментарий для некоторых подклассов класса -Решение-"@ru ;
+    rdfs:label "Spec for template for some -Decision- subclasses"@en ;
+    v-ui:maxCardinality "1"^^xsd:integer ;
+    v-ui:minCardinality "0"^^xsd:integer ;
+    v-ui:forProperty rdfs:comment ;
+    v-ui:forClass v-wf:DecisionAchieved ;
+  .
+
+#v-s:dateTo
+v-wf:DecisionRemakeTemplateSpec1
+  rdf:type v-ui:PropertySpecification ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Спецификация к свойству новая дата для некоторых подклассов класса -Решение-"@ru ;
+  rdfs:label "Spec for template for some -Decision- subclasses"@en ;
+  v-ui:minCardinality "1"^^xsd:integer ;
+  v-ui:maxCardinality "1"^^xsd:integer ;
+  v-ui:forProperty v-s:dateTo ;
+  v-ui:forClass v-wf:DecisionRemake ;
+.
+
+
+#v-wf:to
+v-wf:DecisionRedirectTemplateSpec3
+  rdf:type v-ui:ObjectPropertySpecification ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Спецификация свойств для класса -Перенаправить-"@ru ;
+  rdfs:label "Spec for template for -Decision Redirect- class"@en ;
+  v-ui:forClass v-wf:DecisionRedirect ;
+  v-ui:forClass v-wf:DecisionAgreedToExecute ;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
+  v-ui:forProperty v-wf:to ;
+  v-ui:minCardinality "1"^^xsd:integer ;
+  v-ui:maxCardinality "1"^^xsd:integer ;
+  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
+.
+
+
+
+# --------------------------------------------------------------------- ШАБЛОНЫ --
+
+# ---------------------------------------------------------------- v-df:ApprovalTask --
 v-s:TS_ApprovalTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
   v-ui:forClass v-df:ApprovalTask
+.
+v-s:CS_ApprovalTask
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:ApprovalTask "@ru, "Class specification v-df:ApprovalTask "@en;
+  v-s:hasClass v-df:ApprovalTask ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:ApprovalTaskTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -143,190 +700,20 @@ v-df:ApprovalTaskTemplate
 """ ;
 .
 
-
-# -- СТАРТОВЫЕ ФОРМЫ СТАНДАРТНЫХ ЗАДАЧ --
-v-df:SignRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Подписать"@ru ;
-  rdfs:label "Sign"@en ;
-  rdfs:comment "Задача подписать"@ru ;
-.
-
-v-df:ConfirmationRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Утвердить"@ru ;
-  rdfs:label "Confirmation"@en ;
-  rdfs:comment "Задача утвердить"@ru ;
-.
-
-v-df:QuestionRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Ответить на вопрос"@ru ;
-  rdfs:label "Answer question"@en ;
-  rdfs:comment "Задача ответить на вопрос"@ru ;
-.
-v-df:InstructionRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Исполнить поручение"@ru ;
-  rdfs:label "Perform instruction"@en ;
-  rdfs:comment "Задача исполнить поручение"@ru ;
-.
-
-v-df:TaskRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Ознакомиться"@ru ;
-  rdfs:label "Get informed"@en ;
-  rdfs:comment "Задача ознакомиться"@ru ;
-.
-v-df:DistributionRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Рассылка"@ru ;
-  rdfs:label "Distribution"@en ;
-  rdfs:comment "Задача рассылки"@ru ;
-.
-v-df:CoordinationRouteStartForm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:StartForm ;
-  rdfs:isDefinedBy v-df: ;
-  rdfs:label "Согласовать"@ru ;
-  rdfs:label "Coordinate"@en ;
-  rdfs:comment "Задача согласовать"@ru ;
-.
-
-v-df:PsStartForm_responsible
-  rdf:type v-ui:ObjectPropertySpecification ;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-ui:forClass v-df:TaskRouteStartForm ;
-  v-ui:forClass v-df:DistributionRouteStartForm ;
-  v-ui:forClass v-df:CoordinationRouteStartForm ;
-  v-ui:forClass v-df:SignRouteStartForm ;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-ui:forProperty v-s:responsible ;
-  v-ui:maxCardinality 400 ;
-  v-ui:minCardinality 1 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
-  rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
-  rdfs:label "Task sender property specification for Question task class"@en ;
-.
-v-df:PsStartForm_v-s:controller
-  rdf:type v-ui:ObjectPropertySpecification ;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-ui:forClass v-df:TaskRouteStartForm ;
-  v-ui:forClass v-df:DistributionRouteStartForm ;
-  v-ui:forClass v-df:CoordinationRouteStartForm ;
-  v-ui:forClass v-df:SignRouteStartForm ;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-ui:forProperty v-s:controller ;
-  v-ui:maxCardinality 1 ;
-  v-ui:minCardinality 0 ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
-  rdfs:label "Спецификация Контролирующего задачи для класса Стартовая форма задачи"@ru ;
-  rdfs:label "Task controller property specification for task class"@en ;
-.
-
-v-df:PsStartForm_dateTo
-  rdf:type v-ui:DatatypePropertySpecification ;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-ui:forClass v-df:TaskRouteStartForm ;
-  v-ui:forClass v-df:DistributionRouteStartForm ;
-  v-ui:forClass v-df:CoordinationRouteStartForm ;
-  v-ui:forClass v-df:SignRouteStartForm;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-ui:forProperty v-s:dateTo ;
-  v-ui:minCardinality "0"^^xsd:integer ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:tooltip "Обязательно к заполнению, единичное значение."@ru ;
-  v-ui:tooltip "Required, single value."@en ;
-  rdfs:label "Спецификация контрольной даты для класса QuestionRouteStartForm"@ru ;
-  rdfs:label "Preferences property specification for dateFrom QuestionRouteStartForm class"@en ;
-.
-v-s:count
-  rdfs:domain v-df:QuestionRouteStartForm ;
-  rdfs:domain v-df:InstructionRouteStartForm ;
-  rdfs:domain v-df:TaskRouteStartForm ;
-  rdfs:domain v-df:DistributionRouteStartForm ;
-  rdfs:domain v-df:CoordinationRouteStartForm ;
-  rdfs:domain v-df:SignRouteStartForm ;
-  rdfs:domain v-df:ConfirmationRouteStartForm ;
-
-.
-v-df:PsCountForStartForm
-  rdf:type v-ui:DatatypePropertySpecification ;
-  rdfs:label "Спецификация количества дней для класса QuestionRouteStartForm"@ru ;
-  rdfs:label "Count day property specification for QuestionRouteStartForm"@en ;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-ui:forClass v-df:TaskRouteStartForm ;
-  v-ui:forClass v-df:DistributionRouteStartForm ;
-  v-ui:forClass v-df:CoordinationRouteStartForm ;
-  v-ui:forClass v-df:SignRouteStartForm;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-ui:forProperty v-s:count ;
-  v-ui:maxCardinality 1 ;
-  v-ui:minCardinality 0 ;
-  v-ui:tooltip "Необязательно к заполнению, единичное значение. Целое число."@ru ;
-  v-ui:tooltip "Required, single value. Integer"@en ;
-.
-v-df:PsStartForm_processedDocument
-  rdf:type v-ui:ObjectPropertySpecification ;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-ui:forClass v-df:TaskRouteStartForm ;
-  v-ui:forClass v-df:DistributionRouteStartForm ;
-  v-ui:forClass v-df:CoordinationRouteStartForm ;
-  v-ui:forClass v-df:SignRouteStartForm ;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-ui:forProperty v-wf:processedDocument ;
-  v-ui:maxCardinality 1 ;
-  v-ui:minCardinality 0 ;
-  v-ui:tooltip "Необязательно к заполнению, множественное значение. Ссылка на объект."@ru ;
-  v-ui:tooltip "Non-required, multy value. Link"@en ;
-  rdfs:label "Спецификация ссылки на документ для класса Стартовая форма задачи задать вопрос"@ru ;
-  rdfs:label "Task by document property specification for QuestionRouteStartForm class"@en ;
-.
-v-df:PsStartForm_comment
-  rdf:type v-ui:PropertySpecification ;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-ui:forClass v-df:TaskRouteStartForm ;
-  v-ui:forClass v-df:DistributionRouteStartForm ;
-  v-ui:forClass v-df:CoordinationRouteStartForm ;
-  v-ui:forClass v-df:SignRouteStartForm;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-ui:forProperty rdfs:comment ;
-  rdfs:label "Спецификация к свойству комментарий для QuestionRouteStartForm"@ru ;
-  rdfs:label "Spec for comment for QuestionRouteStartFormclass"@en ;
-  v-ui:minCardinality "1"^^xsd:integer ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-.
-v-df:NotifyUponTermination_Bundle
-  rdf:type v-s:Bundle ;
-  rdfs:label "Уведомить по окончании"@ru ;
-  rdfs:label "Notify upon termination"@en ;
-.
-
-
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ --
+# ------------------------------------------------------------- v-df:SignRouteStartForm --
 v-s:TS_SignRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
   v-ui:forClass v-df:SignRouteStartForm
+.
+v-s:CS_SignRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:SignRouteStartForm "@ru, "Class specification v-df:SignRouteStartForm "@en;
+  v-s:hasClass v-df:SignRouteStartForm ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:SignRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -400,12 +787,20 @@ v-df:SignRouteStartFormTemplate
 """ ;
 .
 
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ УТВЕРЖДЕНИЕ --
+# --------------------------------------------------------- v-df:ConfirmationRouteStartForm --
 v-s:TS_ConfirmationRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
   v-ui:forClass v-df:ConfirmationRouteStartForm
+.
+v-s:CS_ConfirmationRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:ConfirmationRouteStartForm "@ru, "Class specification v-df:ConfirmationRouteStartForm "@en;
+  v-s:hasClass v-df:ConfirmationRouteStartForm ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:ConfirmationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -481,15 +876,20 @@ v-df:ConfirmationRouteStartFormTemplate
 """ ;
 .
 
-
-
-
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС --
+# ------------------------------------------------------- v-df:QuestionRouteStartFormTemplate --
 v-s:TS_QuestionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
   v-ui:forClass v-df:QuestionRouteStartForm
+.
+v-s:CS_QuestionRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:QuestionRouteStartForm "@ru, "Class specification v-df:QuestionRouteStartForm "@en;
+  v-s:hasClass v-df:QuestionRouteStartForm ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:QuestionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -545,12 +945,20 @@ v-df:QuestionRouteStartFormTemplate
 """ ;
 .
 
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ ИСПОЛНИТЬ ПОРУЧЕНИЕ --
+# ----------------------------------------------------------- v-df:InstructionRouteStartForm --
 v-s:TS_InstructionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
   v-ui:forClass v-df:InstructionRouteStartForm
+.
+v-s:CS_InstructionRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:InstructionRouteStartForm "@ru, "Class specification v-df:InstructionRouteStartForm "@en;
+  v-s:hasClass v-df:InstructionRouteStartForm ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:InstructionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -627,7 +1035,7 @@ v-df:InstructionRouteStartFormTemplate
 """ ;
 .
 
-# шаблон с возможностью включить смену статусов
+# ---------------------------------------------------------- v-df:InstructionRouteStartForm --
 v-df:SpecialInstructionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:InstructionRouteStartForm ;
@@ -711,14 +1119,22 @@ v-df:SpecialInstructionRouteStartFormTemplate
 </script>
 """ ;
 .
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ --
+
+# ------------------------------------------------------------- v-df:TaskRouteStartFor --
 v-s:TS_TaskRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
   v-ui:forClass v-df:TaskRouteStartForm
 .
-
+v-s:CS_TaskRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:TaskRouteStartForm"@ru, "Class specification v-df:TaskRouteStartForm"@en;
+  v-s:hasClass v-df:TaskRouteStartForm;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
+.
 v-df:TaskRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:TaskRouteStartForm ;
@@ -782,12 +1198,20 @@ v-df:TaskRouteStartFormTemplate
 """ ;
 .
 
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ РАССЫЛКИ --
+# --------------------------------------------------------- v-df:DistributionRouteStartForm --
 v-s:TS_DistributionRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
   v-ui:forClass v-df:DistributionRouteStartForm
+.
+v-s:CS_DistributionRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:DistributionRouteStartForm"@ru, "Class specification v-df:DistributionRouteStartForm"@en;
+  v-s:hasClass v-df:DistributionRouteStartForm;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:DistributionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -852,12 +1276,20 @@ v-df:DistributionRouteStartFormTemplate
 """ ;
 .
 
-# -- ШАБЛОН ФОРМЫ ЗАДАЧИ СОГЛАСОВАНИЯ --
+# ---------------------------------------------------- v-df:CoordinationRouteStartFormTemplate --
 v-s:TS_CoordinationRouteStartForm
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:CoordinationRouteStartFormTemplate;
   v-ui:forClass v-df:CoordinationRouteStartForm
+.
+v-s:CS_CoordinationRouteStartForm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-df:CoordinationRouteStartForm"@ru, "Class specification v-df:CoordinationRouteStartForm"@en;
+  v-s:hasClass v-df:CoordinationRouteStartForm;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-df:CoordinationRouteStartFormTemplate;
+  v-s:loadPriority 15 ;
 .
 v-df:CoordinationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -934,7 +1366,662 @@ v-df:CoordinationRouteStartFormTemplate
 """ ;
 .
 
-# -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ПОДПИСАНИЕ В СЕТЬ --
+# ----------------------------------------------------------- Перенаправить --
+v-s:TS_DecisionRedirect
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
+  v-ui:forClass v-wf:DecisionRedirect
+.
+v-s:CS_DecisionRedirect
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRedirect"@ru, "Class specification v-wf:DecisionRedirect"@en;
+  v-s:hasClass v-wf:DecisionRedirect ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
+  v-s:loadPriority 15 ;
+.
+v-wf:DecisionRedirectTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Перенаправить-"@ru ;
+  rdfs:label "Template for -Decision Redirect- class"@en ;
+  v-ui:forClass v-wf:DecisionRedirect ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="v-wf:to" property="rdfs:label"></em>
+  <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+  <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+# --------------------------------------------------------- Шаблон для класса Решение --
+v-s:TS_DecisionNoAgreed
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNoAgreed
+.
+v-s:CS_DecisionNoAgreed
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionNoAgreed"@ru, "Class specification v-wf:DecisionNoAgreed"@en;
+  v-s:hasClass v-wf:DecisionNoAgreed ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionAgreed
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAgreed
+.
+v-s:CS_DecisionAgreed
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionAgreed"@ru, "Class specification v-wf:DecisionAgreed"@en;
+  v-s:hasClass v-wf:DecisionAgreed ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionAgreedToProject
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAgreedToProject
+.
+v-s:CS_DecisionAgreedToProject
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionAgreedToProject"@ru, "Class specification v-wf:DecisionAgreedToProject"@en;
+  v-s:hasClass v-wf:DecisionAgreedToProject ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionAgreedToExecuteComment
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAgreedToExecuteComment
+.
+v-s:CS_DecisionAgreedToExecuteComment
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionAgreedToExecuteComment"@ru, "Class specification v-wf:DecisionAgreedToExecuteComment"@en;
+  v-s:hasClass v-wf:DecisionAgreedToExecuteComment ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionSign
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionSign
+.
+v-s:CS_DecisionSign
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionSign"@ru, "Class specification v-wf:DecisionSign"@en;
+  v-s:hasClass v-wf:DecisionSign ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionApprove
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionApprove
+.
+v-s:CS_DecisionApprove
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionApprove"@ru, "Class specification v-wf:DecisionApprove"@en;
+  v-s:hasClass v-wf:DecisionApprove ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionReview
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionReview
+.
+v-s:CS_DecisionReview
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionReviewe"@ru, "Class specification v-wf:DecisionReview"@en;
+  v-s:hasClass v-wf:DecisionReview ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionRejected
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionRejected
+.
+v-s:CS_DecisionRejected
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRejected"@ru, "Class specification v-wf:DecisionRejected"@en;
+  v-s:hasClass v-wf:DecisionRejected ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionDeclined
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionDeclined
+.
+v-s:CS_DecisionDeclined
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionDeclined"@ru, "Class specification v-wf:DecisionDeclined"@en;
+  v-s:hasClass v-wf:DecisionDeclined ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionRemaked
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionRemaked
+.
+v-s:CS_DecisionRemaked
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRemaked"@ru, "Class specification v-wf:DecisionRemaked"@en;
+  v-s:hasClass v-wf:DecisionRemaked ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionNotForMe
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNotForMe
+.
+v-s:CS_DecisionNotForMe
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionNotForMe"@ru, "Class specification v-wf:DecisionNotForMe"@en;
+  v-s:hasClass v-wf:DecisionNotForMe ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionProlongate
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionProlongate
+.
+v-s:CS_DecisionBreak
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionBreak"@ru, "Class specification v-wf:DecisionBreak"@en;
+  v-s:hasClass v-wf:DecisionBreak ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionBreak
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionBreak
+.
+v-s:CS_DecisionBreak
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionBreak"@ru, "Class specification v-wf:DecisionBreak"@en;
+  v-s:hasClass v-wf:DecisionBreak ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionExamined
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionExamined
+.
+v-s:CS_DecisionExamined
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionExamined"@ru, "Class specification v-wf:DecisionExamined"@en;
+  v-s:hasClass v-wf:DecisionExamined ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionReturnedToReview
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionReturnedToReview
+.
+v-s:CS_DecisionReturnedToReview
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionReturnedToReview"@ru, "Class specification v-wf:DecisionReturnedToReview"@en;
+  v-s:hasClass v-wf:DecisionReturnedToReview ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionAchieved
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAchieved
+.
+v-s:CS_DecisionAchieved
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionAchieved"@ru, "Class specification v-wf:DecisionAchieved"@en;
+  v-s:hasClass v-wf:DecisionAchieved ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionNotPerformed
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNotPerformed
+.
+v-s:CS_DecisionNotPerformed
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionNotPerformed"@ru, "Class specification v-wf:DecisionNotPerformed"@en;
+  v-s:hasClass v-wf:DecisionNotPerformed ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionConfirm
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionConfirm
+.
+v-s:CS_DecisionConfirm
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionConfirm"@ru, "Class specification v-wf:DecisionConfirm"@en;
+  v-s:hasClass v-wf:DecisionConfirm ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionPostponed
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionPostponed
+.
+v-s:CS_DecisionPostponed
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionPostponed"@ru, "Class specification v-wf:DecisionPostponed"@en;
+  v-s:hasClass v-wf:DecisionPostponed ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionCalculationsPerformed
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionCalculationsPerformed
+.
+v-s:CS_DecisionCalculationsPerformed
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionCalculationsPerformed"@ru, "Class specification v-wf:DecisionCalculationsPerformed"@en;
+  v-s:hasClass v-wf:DecisionCalculationsPerformed ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionAcceptMotivatedRefusal
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionAcceptMotivatedRefusal
+.
+v-s:CS_DecisionAcceptMotivatedRefusal
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionAcceptMotivatedRefusal"@ru, "Class specification v-wf:DecisionAcceptMotivatedRefusal"@en;
+  v-s:hasClass v-wf:DecisionAcceptMotivatedRefusal;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-wf:DecisionTemplate1
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение-"@ru ;
+  rdfs:label "Template for -Decision- class"@en ;
+  v-ui:forClass v-wf:DecisionNotForMe ;
+  v-ui:forClass v-wf:DecisionAgreed ;
+  v-ui:forClass v-wf:DecisionNoAgreed ;
+  v-ui:forClass v-wf:DecisionSign ;
+  v-ui:forClass v-wf:DecisionApprove ;
+  v-ui:forClass v-wf:DecisionReview ;
+  v-ui:forClass v-wf:DecisionBreak ;
+  v-ui:forClass v-wf:DecisionExamined ;
+  v-ui:forClass v-wf:DecisionReturnedToReview ;
+  v-ui:forClass v-wf:DecisionAchieved ;
+  v-ui:forClass v-wf:DecisionRejected ;
+  v-ui:forClass v-wf:DecisionGoCoordination1;
+  v-ui:forClass v-wf:DecisionGoCoordination2;
+  v-ui:forClass v-wf:DecisionGoCoordination3;
+  v-ui:forClass v-wf:DecisionGoCoordination4;
+  v-ui:forClass v-wf:DecisionGoCoordination5;
+  v-ui:forClass v-wf:DecisionGoCoordination6;
+  v-ui:forClass v-wf:DecisionGoSign;
+  v-ui:forClass v-wf:DecisionGoApproval;
+  v-ui:forClass v-wf:DecisionDeclined ;
+  v-ui:forClass v-wf:DecisionPostponed ;
+  v-ui:forClass v-wf:DecisionRemaked ;
+  v-ui:forClass v-wf:DecisionNotPerformed ;
+  v-ui:forClass v-wf:DecisionConfirm ;
+  v-ui:forClass v-wf:DecisionAgreedToProject ;
+  v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
+  v-ui:forClass v-wf:DecisionCalculationsPerformed ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+# --------------------------------------------------------- Шаблон для класса Решение Доработать --
+v-s:TS_DecisionRemake
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
+  v-ui:forClass v-wf:DecisionRemake
+.
+v-s:CS_DecisionRemake
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRemake"@ru, "Class specification v-wf:DecisionRemake"@en;
+  v-s:hasClass v-wf:DecisionRemake;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionRemakeGroupAccount
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
+  v-ui:forClass v-wf:DecisionRemakeGroupAccount
+.
+v-s:CS_DecisionRemakeGroupAccount
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRemakeGroupAccount"@ru, "Class specification v-wf:DecisionRemakeGroupAccount"@en;
+  v-s:hasClass v-wf:DecisionRemakeGroupAccount;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
+  v-s:loadPriority 15 ;
+.
+v-wf:DecisionTemplateForRemake
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение- Доработать"@ru ;
+  rdfs:label "Template for -Decision- Remake class"@en ;
+  v-ui:forClass v-wf:DecisionRemake ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div class="row">
+    <div class="col-md-9">
+      <em about="rdfs:comment" property="rdfs:label"></em>
+      <div property="rdfs:comment" class="view -edit -search"></div>
+      <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+    </div>
+    <div class="col-md-3">
+      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+# ---------------------------------------------------- Шаблон для класса Решение Задача повторно --
+v-s:TS_DecisionIssueTaskToAnother
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother
+.
+v-s:CS_DecisionIssueTaskToAnother
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionIssueTaskToAnother"@ru, "Class specification v-wf:DecisionIssueTaskToAnothert"@en;
+  v-s:hasClass v-wf:DecisionIssueTaskToAnothert;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
+  v-s:loadPriority 15 ;
+.
+v-wf:DecisionTemplateForTaskToAnother
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение- Задача повторно (другому) со сроком"@ru ;
+  rdfs:label "Template for -Decision- IssueTaskToAnother class"@en ;
+  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    window.history.back();
+  });
+
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div class="row">
+    <div class="col-md-9">
+      <em about="v-wf:to" property="rdfs:label"></em>
+      <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+      <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
+    </div>
+    <div class="col-md-3">
+      <em about="v-wf:dateGiven" property="rdfs:label"></em>
+      <div property="v-s:dateTo" class="view -edit -search"></div>
+      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+# ---------------------------------------------------- Шаблон для класса Решение Задача отозвана --
+v-s:TS_DecisionRevoke_Bundle
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
+  v-ui:forClass v-wf:DecisionRevoke_Bundle
+.
+v-s:CS_DecisionRevoke_Bundle
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRevoke_Bundle"@ru, "Class specification v-wf:DecisionRevoke_Bundle"@en;
+  v-s:hasClass v-wf:DecisionNotForMe ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionRevokeTask
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
+  v-ui:forClass v-wf:DecisionRevokeTask
+.
+v-s:CS_DecisionRevokeTask
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionRevokeTask"@ru, "Class specification v-wf:DecisionRevokeTask"@en;
+  v-s:hasClass v-wf:DecisionRevokeTask ;
+  v-s:isShelfLifeAlways true ;
+  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
+  v-s:loadPriority 15 ;
+.
+v-wf:DecisionRevokeTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение-"@ru ;
+  rdfs:label "Template for -Decision- class"@en ;
+  v-ui:forClass v-wf:DecisionRevokeTask ;
+  v-ui:template """
+<script>
+  template.on("cancel", function () {
+    var modal = template.closest(".modal");
+    if (modal.length) {
+      modal.modal("hide");
+    } else {
+      window.history.back();
+    }
+  });
+
+</script>
+<div>
+  <div class="view -edit -search">
+    <span rel="v-s:creator">
+      <span>
+        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
+        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
+      </span>
+    </span>
+    <small>
+      <span>&bullet;&nbsp;&nbsp;</span>
+      <span property="v-s:created"></span>
+    </small>
+    <hr class="margin-sm"/>
+  </div>
+  <h4 class="decision" about="@" property="rdfs:label"></h4>
+  <div>
+    <div class="alert alert-info">
+      <div about="v-wf:DecisionRevokeTask_infoBundle" property="rdfs:comment" style="white-space: pre-line; line-height: 1;"></div>
+    </div>
+  </div>
+  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
+  <div property="rdfs:comment" class="view -edit -search"></div>
+  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
+  <br class="-view edit -search">
+  <div class="actions -view edit -search">
+    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+  </div>
+</div>
+  """ ;
+.
+
+# --------------------------------------------------------------- ТРАНСФОРМАЦИИ --
+
+# ----------------------------------------------------- Из формы задачи подписания в сеть --
 v-df:SignRouteStartFormToNet
   rdfs:label "Трансформация из СтФ Подписание в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1035,7 +2122,7 @@ v-df:rul_SignTransform9
   """;
 .
 
-
+# ----------------------------------------------------- Утверждение в стандартную сеть процесса --
 v-df:ConfirmationRouteStartFormToNet
   rdfs:label "Трансформация из СтФ Утверждение в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1135,7 +2222,7 @@ v-df:rul_ConfirmationTransform9
   """;
 .
 
-# -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ЗАДАТЬ ВОПРОС В СЕТЬ --
+# --------------------------------------------------------- Из задать вопрос в сеть --
 v-df:QuestionRouteStartFormToNet
   rdfs:label "Трансформация из СтФ Задать вопрос в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1223,8 +2310,7 @@ v-df:rul_QuestionTransform8
 .
 
 
-
-# -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ИСПОЛНИТЬ ПОРУЧЕНИЕ В СЕТЬ --
+# --------------------------------------------------------- Исполнить поручение в сеть --
 v-df:InstructionRouteStartFormToNet
   rdfs:label "Трансформация из СтФ исполнить поручение в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1335,7 +2421,8 @@ v-df:rul_InstructionTransform10
   v-wf:aggregate  "putString ('v-wf:variableName', 'setStatus')";
 .
 
-# -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ ОЗНАКОМИТЬСЯ В СЕТЬ --
+
+# --------------------------------------------------------- Ознакомиться в сеть --
 v-df:TaskRouteStartFormToNet
   rdfs:label "Трансформация из СтФ Ознакомиться в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1427,8 +2514,7 @@ v-df:rul_TaskTransform8
   """;
 .
 
-
-# -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ ЗАДАЧИ РАССЫЛКА В СЕТЬ --
+# ----------------------------------------------------------- Рассылка в сеть --
 v-df:DistributionRouteStartFormToNet
   rdfs:label "Трансформация из СтФ Рассылка в стандартную сеть процесса"^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1506,8 +2592,8 @@ v-df:rul_DistributionTransform7
   v-wf:aggregate  "putString ('v-wf:variableValue', 'Рассылка')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'actor_task_action')";
 .
-# -- ТРАНСФОРМАЦИЯ ИЗ ФОРМЫ CОГЛАСОВАНИЕ В СЕТЬ ----
 
+# ----------------------------------------------------------- Согласование в сеть --
 v-df:CoordinationRouteStartFormToNet
   rdfs:label "Трансформация из СтФ На согласование в стандартную сеть процесса "^^xsd:string;
   rdf:type v-wf:Transform ;
@@ -1610,46 +2696,293 @@ v-df:rul_CoordinationTransform9
   """;
 .
 
-
-#v-df:ActionInDecisionTemplate
-#  rdf:type v-ui:ClassTemplate ;
-#  rdfs:isDefinedBy v-wf: ;
-#  rdfs:label "Шаблон для класса Мероприятие внутри Ответа на задачу."@ru ;
-#  rdfs:label "Action in decision Template."@en ;
-#  v-ui:forClass v-s:Activity ;
-#  v-ui:template """
-#<div class="panel panel-default">
-#  <div class="panel-heading">
-#    <span about="v-s:hasActivity" property="rdfs:label"></span>
-#  </div>
-#  <div class="panel-body">
-#    <em about="v-s:responsible" property="rdfs:label"></em>
-#    <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
-#    <veda-control rel="v-s:responsible" data-type="link" class="fulltext -view edit search"></veda-control>
-#    <br>
-#    <em about="v-s:description" property="rdfs:label"></em>
-#    <div property="v-s:description" class="view -edit -search"></div>
-#    <veda-control property="v-s:description" data-type="text" class="-view edit search"></veda-control>
-#    <br>
-#    <em about="v-s:dateTo" property="rdfs:label"></em>
-#    <div property="v-s:dateTo" class="view -edit -search"></div>
-#    <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-#  </div>
-#</div>
-#  """ ;
-#.
-v-df:PsresponsibleInDecision
-  rdf:type v-ui:ObjectPropertySpecification ;
-  v-ui:forClass v-s:Activity ;
-  v-ui:forProperty v-s:responsible ;
-  v-ui:maxCardinality 1 ;
-  v-ui:minCardinality 1 ;
-  v-ui:tooltip "Необязательно к заполнению, единичное значение. Ссылка на объект класса Назначение."@ru ;
-  v-ui:tooltip "Non-required, single value. Link to instance of Appointment class"@en ;
-  rdfs:label "Спецификация руководителя проекта для класса Решение тех.комитета"@ru ;
-  rdfs:label "Projeсt manager property specification for AgDecision class"@en ;
+# ----------------------------------------------------------- Подписать --
+v-wf:signRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Подписать"@ru ;
+  rdfs:label "Sign"@en ;
+  v-wf:transformRule v-wf:rule1sign ;
+  v-wf:transformRule v-wf:rule2sign ;
+  v-wf:transformRule v-wf:rule3sign ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1sign
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2sign
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3sign
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:SignRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:SignRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:signRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Подписать"@ru ;
+  rdfs:label "Sign"@en ;
+  v-s:classTo v-df:SignRouteStartForm;
+  v-s:hasTransformation v-wf:signRouteStartForm;
+  v-s:isRoute "true"^^xsd:boolean;
 .
 
+# ----------------------------------------------------------- Утвердить --
+v-wf:confirmationRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Утвердить"@ru ;
+  rdfs:label "Confirmation"@en ;
+  v-wf:transformRule v-wf:rule1confirmation ;
+  v-wf:transformRule v-wf:rule2confirmation ;
+  v-wf:transformRule v-wf:rule3confirmation ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1confirmation
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2confirmation
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3confirmation
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:ConfirmationRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:ConfirmationRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:confirmationRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Утвердить"@ru ;
+  rdfs:label "Confirmation"@en ;
+  v-s:classTo v-df:ConfirmationRouteStartForm ;
+  v-s:hasTransformation v-wf:confirmationRouteStartForm ;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+
+# ----------------------------------------------------------- Ответить на вопрос --
+v-wf:questionRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Ответить на вопрос"@ru ;
+  rdfs:label "Answer question"@en ;
+  v-wf:transformRule v-wf:rule1question ;
+  v-wf:transformRule v-wf:rule2question ;
+  v-wf:transformRule v-wf:rule3question ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1question
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2question
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3question
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:QuestionRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:QuestionRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:questionRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Ответить на вопрос"@ru ;
+  rdfs:label "Answer question"@en ;
+  v-s:classTo v-df:QuestionRouteStartForm;
+  v-s:hasTransformation v-wf:questionRouteStartForm;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+
+# ---------------------------------------------------------- Исполнить поручение --
+v-wf:instructionRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Исполнить поручение"@ru ;
+  rdfs:label "Perform instruction"@en ;
+  v-wf:transformRule v-wf:rule1instruction ;
+  v-wf:transformRule v-wf:rule2instruction ;
+  v-wf:transformRule v-wf:rule3instruction ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1instruction
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2instruction
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3instruction
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:InstructionRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:InstructionRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:instructionRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Исполнить поручение"@ru ;
+  rdfs:label "Perform instruction"@en ;
+  v-s:classTo v-df:InstructionRouteStartForm;
+  v-s:hasTransformation v-wf:instructionRouteStartForm;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+# ----------------------------------------------------------- Ознакомиться --
+v-wf:taskRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Ознакомиться"@ru ;
+  rdfs:label "Get informed"@en ;
+  v-wf:transformRule v-wf:rule1task ;
+  v-wf:transformRule v-wf:rule2task ;
+  v-wf:transformRule v-wf:rule3task ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1task
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2task
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3task
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:TaskRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:TaskRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:taskRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Ознакомиться"@ru ;
+  rdfs:label "Get informed"@en ;
+  v-s:classTo v-df:TaskRouteStartForm;
+  v-s:hasTransformation v-wf:taskRouteStartForm;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+
+# ------------------------------------------------------------- Рассылка --
+v-wf:distributionRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Рассылка"@ru ;
+  rdfs:label "Distribution"@en ;
+  v-wf:transformRule v-wf:rule1distribution ;
+  v-wf:transformRule v-wf:rule2distribution ;
+  v-wf:transformRule v-wf:rule3distribution ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1distribution
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2distribution
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3distribution
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:DistributionRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:DistributionRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:distributionRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Рассылка"@ru ;
+  rdfs:label "Distribution"@en ;
+  v-s:classTo v-df:DistributionRouteStartForm;
+  v-s:hasTransformation v-wf:distributionRouteStartForm;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+
+# ------------------------------------------------------------- Согласовать --
+v-wf:coordinationRouteStartForm
+  rdf:type v-wf:Transform ;
+  rdfs:label "Согласовать"@ru ;
+  rdfs:label "Coordination"@en ;
+  v-wf:transformRule v-wf:rule1coordination ;
+  v-wf:transformRule v-wf:rule2coordination ;
+  v-wf:transformRule v-wf:rule3coordination ;
+  rdfs:isDefinedBy v-wf: ;
+.
+v-wf:rule1coordination
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('@')" ;
+  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule2coordination
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:rule3coordination
+  rdf:type v-wf:Rule ;
+  v-wf:aggregate "putUri ('rdf:type', 'v-df:CoordinationRouteStartForm')" ;
+  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:CoordinationRouteStartFormToNet')" ;
+  v-wf:segregateElement "contentName('@')" ;
+  rdfs:isDefinedBy v-wf: ;
+  v-wf:grouping "1";
+.
+v-wf:coordinationRouteStartFormLinkRule
+  rdf:type v-s:DocumentLinkRules;
+  rdfs:label "Согласовать"@ru ;
+  rdfs:label "Coordination"@en ;
+  v-s:classTo v-df:CoordinationRouteStartForm;
+  v-s:hasTransformation v-wf:coordinationRouteStartForm;
+  v-s:isRoute "true"^^xsd:boolean;
+.
+
+# ----------------------------------------------------------- УПРАВЛЕНИЕ ПРАВАМИ --
 v-wf:permission_c_on_decision
   rdf:type v-s:PermissionStatement ;
   v-s:canCreate "true"^^xsd:boolean ;
@@ -1692,821 +3025,6 @@ v-wf:permission_c_on_decision
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
 
-v-wf:DecisionAnswerToYourQuestion
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Ответ на ваш вопрос"@ru ;
-  rdfs:label "Answer to your question"@en ;
-.
-
-v-wf:DecisionControll
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Принять отчет по поручению"@ru ;
-  rdfs:label "Accept report"@en ;
-.
-
-v-wf:DecisionNotRequireReview
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Не требует рассмотрения"@ru ;
-  rdfs:label "Review is not necessary"@en ;
-.
-
-v-wf:DecisionNoAgreed
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Согласование не требуется"@ru ;
-  rdfs:label "Negotiation is not required"@en ;
-.
-
-v-wf:DecisionAgreed
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Согласовано"@ru ;
-  rdfs:label "Approved"@en ;
-.
-
-
-v-wf:DecisionAgreedToProject
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Начать проект"@ru ;
-  rdfs:label "Start project"@en ;
-.
-
-v-wf:DecisionAgreedToExecute
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Согласовано в реализацию"@ru ;
-  rdfs:label "Approved for implementation"@en ;
-.
-
-v-wf:DecisionAgreedToExecuteComment
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Согласовано в реализацию"@ru ;
-  rdfs:label "Approved for implementation"@en ;
-.
-
-v-wf:DecisionSign
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Подписано"@ru ;
-  rdfs:label "Signed"@en ;
-.
-
-v-wf:DecisionApprove
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Утверждено"@ru ;
-  rdfs:label "Approved"@en ;
-.
-
-v-wf:DecisionReview
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Рассмотрено"@ru ;
-  rdfs:label "Reviewed"@en ;
-.
-
-v-wf:DecisionRejected
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Отклонено"@ru ;
-  rdfs:label "Declined"@en ;
-.
-
-v-wf:DecisionDeclined
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Отклонено. На доработку"@ru ;
-  rdfs:label "Declined. To remake"@en ;
-.
-
-v-wf:DecisionRemake
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Доработать"@ru ;
-  rdfs:label "Rework"@en ;
-.
-
-v-wf:DecisionRemakeGroupAccount
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Доработать"@ru ;
-  rdfs:label "Rework"@en ;
-.
-# v-s:dateTo
-
-v-wf:DecisionRemaked
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Доработано"@ru ;
-  rdfs:label "Reworked"@en ;
-.
-
-v-wf:DecisionNotForMe
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Ошибочный исполнитель"@ru ;
-  rdfs:label "Wrong executor"@en ;
-.
-
-v-wf:DecisionRevoke_Bundle
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Отозвать задачу"@ru ;
-  rdfs:label "Revoke task"@en ;
-.
-
-v-wf:DecisionRevokeTask
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Задача отозвана"@ru ;
-  rdfs:label "TaskRevoked"@en ;
-.
-
-v-wf:DecisionProlongate
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Прошу продлить срок"@ru ;
-  rdfs:label "Prolongate"@en ;
-.
-
-v-wf:DecisionBreak
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Прервать процесс"@ru ;
-  rdfs:label "Cancel route"@en ;
-.
-v-wf:DecisionBreaked_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Процесс прерван"@ru ;
-  rdfs:label "Process is interrupted"@en ;
-.
-
-v-wf:DecisionExamined
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Принято к сведению"@ru ;
-  rdfs:label "Examined"@en ;
-.
-
-v-wf:DecisionReturnedToReview
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Вернуть на рассмотрение"@ru ;
-  rdfs:label "Returned to review"@en ;
-.
-
-v-wf:DecisionAchieved
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Выполнено"@ru ;
-  rdfs:label "Completed"@en ;
-.
-
-v-wf:DecisionNotPerformed
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Не выполнено"@ru ;
-  rdfs:label "Not completed"@en ;
-.
-
-v-wf:DecisionNotPerformed_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Не выполнено. Примите решение"@ru ;
-  rdfs:label "Not completed. Make a decision"@en ;
-.
-v-wf:DecisionNotForMe_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Ошибочный исполнитель. Примите решение"@ru ;
-  rdfs:label "Erroneous performer. Make a decision"@en ;
-.
-v-wf:DecisionRejected_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Отклонено. Примите решение"@ru ;
-  rdfs:label "Rejected. Make a decision"@en ;
-.
-v-wf:DecisionProlongate_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Продлить срок"@ru ;
-  rdfs:label "Prolongate task"@en ;
-.
-v-wf:DecisionRemake_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Доработать"@ru ;
-  rdfs:label "Remake"@en ;
-.
-v-wf:DecisionConfirm
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Подтверждено"@ru ;
-  rdfs:label "Confirmed"@en ;
-.
-
-v-wf:DecisionDelegate_Bundle
-  rdf:type v-s:Bundle;
-#  rdfs:label "Делегировать принятие решения"@ru ;
-  rdfs:label "Делегировать"@ru ;
-  rdfs:label "Delegate decision making"@en ;
-.
-v-wf:DecisionRedirect_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Перенаправить задачу"@ru ;
-  rdfs:label "Redirect task"@en ;
-.
-v-wf:DecisionDelegated_Bundle
-  rdf:type v-s:Bundle;
-  rdfs:label "Делегировано"@ru ;
-  rdfs:label "Delegated"@en ;
-.
-v-wf:DecisionRevokeTask_infoBundle
-  rdf:type v-s:Bundle ;
-  rdfs:comment "Задача будет отозвана, процесс пойдет дальше. Задача Доработать в данном случае не формируется."@ru ;
-  rdfs:comment "Task will be revoke, process will go further."@en ;
-.
-
-
-
-
-
-v-wf:DecisionRedirect
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Перенаправлено"@ru ;
-  rdfs:label "Redirected"@en ;
-.
-
-v-wf:DecisionPostponed
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Отложено"@ru ;
-  rdfs:label "Postponed"@en ;
-.
-
-v-wf:DecisionCalculationsPerformed
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Расчет выполнен"@ru ;
-  rdfs:label "Calculations performed"@en ;
-.
-v-wf:DecisionAcceptMotivatedRefusal
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Принять мотивированный отказ"@ru ;
-  rdfs:label "Accept a motivated refusal"@en ;
-.
-v-wf:DecisionIssueTaskToAnother
-  rdf:type owl:Class ;
-  rdfs:subClassOf v-wf:Decision ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Выдать задачу повторно"@ru ;
-  rdfs:label "Re-issue the task"@en ;
-.
-
-v-s:TS_DecisionRedirect
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
-  v-ui:forClass v-wf:DecisionRedirect
-.
-v-wf:DecisionRedirectTemplate
-  rdf:type v-ui:ClassTemplate ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Перенаправить-"@ru ;
-  rdfs:label "Template for -Decision Redirect- class"@en ;
-  v-ui:forClass v-wf:DecisionRedirect ;
-  v-ui:template """
-<script>
-  template.on("cancel", function () {
-    var modal = template.closest(".modal");
-    if (modal.length) {
-      modal.modal("hide");
-    } else {
-      window.history.back();
-    }
-  });
-
-</script>
-<div>
-  <div class="view -edit -search">
-    <span rel="v-s:creator">
-      <span>
-        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
-        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
-      </span>
-    </span>
-    <small>
-      <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created"></span>
-    </small>
-    <hr class="margin-sm"/>
-  </div>
-  <h4 class="decision" about="@" property="rdfs:label"></h4>
-  <em about="v-wf:to" property="rdfs:label"></em>
-  <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
-  <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
-  <em about="rdfs:comment" property="rdfs:label"></em>
-  <div property="rdfs:comment" class="view -edit -search"></div>
-  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br class="-view edit -search">
-  <div class="actions -view edit -search">
-    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
-  </div>
-</div>
-  """ ;
-.
-
-v-s:TS_DecisionNoAgreed
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionNoAgreed
-.
-v-s:TS_DecisionAgreed
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionAgreed
-.
-v-s:TS_DecisionAgreedToProject
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionAgreedToProject
-.
-v-s:TS_DecisionAgreedToExecuteComment
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionAgreedToExecuteComment
-.
-v-s:TS_DecisionSign
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionSign
-.
-v-s:TS_DecisionApprove
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionApprove
-.
-v-s:TS_DecisionReview
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionReview
-.
-v-s:TS_DecisionRejected
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionRejected
-.
-v-s:TS_DecisionDeclined
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionDeclined
-.
-v-s:TS_DecisionRemaked
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionRemaked
-.
-v-s:TS_DecisionNotForMe
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionNotForMe
-.
-v-s:TS_DecisionRevoke_Bundle
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
-  v-ui:forClass v-wf:DecisionRevoke_Bundle
-.
-v-s:TS_DecisionRevokeTask
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
-  v-ui:forClass v-wf:DecisionRevokeTask
-.
-v-s:TS_DecisionProlongate
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionProlongate
-.
-v-s:TS_DecisionBreak
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionBreak
-.
-v-s:TS_DecisionExamined
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionExamined
-.
-v-s:TS_DecisionReturnedToReview
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionReturnedToReview
-.
-v-s:TS_DecisionAchieved
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionAchieved
-.
-v-s:TS_DecisionNotPerformed
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionNotPerformed
-.
-v-s:TS_DecisionConfirm
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionConfirm
-.
-v-s:TS_DecisionPostponed
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionPostponed
-.
-v-s:TS_DecisionCalculationsPerformed
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionCalculationsPerformed
-.
-v-s:TS_DecisionAcceptMotivatedRefusal
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-ui:forClass v-wf:DecisionAcceptMotivatedRefusal
-.
-v-wf:DecisionTemplate1
-  rdf:type v-ui:ClassTemplate ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Решение-"@ru ;
-  rdfs:label "Template for -Decision- class"@en ;
-  v-ui:forClass v-wf:DecisionNotForMe ;
-  v-ui:forClass v-wf:DecisionAgreed ;
-  v-ui:forClass v-wf:DecisionNoAgreed ;
-  v-ui:forClass v-wf:DecisionSign ;
-  v-ui:forClass v-wf:DecisionApprove ;
-  v-ui:forClass v-wf:DecisionReview ;
-  v-ui:forClass v-wf:DecisionBreak ;
-  v-ui:forClass v-wf:DecisionExamined ;
-  v-ui:forClass v-wf:DecisionReturnedToReview ;
-  v-ui:forClass v-wf:DecisionAchieved ;
-  v-ui:forClass v-wf:DecisionRejected ;
-  v-ui:forClass v-wf:DecisionGoCoordination1;
-  v-ui:forClass v-wf:DecisionGoCoordination2;
-  v-ui:forClass v-wf:DecisionGoCoordination3;
-  v-ui:forClass v-wf:DecisionGoCoordination4;
-  v-ui:forClass v-wf:DecisionGoCoordination5;
-  v-ui:forClass v-wf:DecisionGoCoordination6;
-  v-ui:forClass v-wf:DecisionGoSign;
-  v-ui:forClass v-wf:DecisionGoApproval;
-  v-ui:forClass v-wf:DecisionDeclined ;
-  v-ui:forClass v-wf:DecisionPostponed ;
-  v-ui:forClass v-wf:DecisionRemaked ;
-  v-ui:forClass v-wf:DecisionNotPerformed ;
-  v-ui:forClass v-wf:DecisionConfirm ;
-  v-ui:forClass v-wf:DecisionAgreedToProject ;
-  v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
-  v-ui:forClass v-wf:DecisionCalculationsPerformed ;
-  v-ui:template """
-<script>
-  template.on("cancel", function () {
-    var modal = template.closest(".modal");
-    if (modal.length) {
-      modal.modal("hide");
-    } else {
-      window.history.back();
-    }
-  });
-
-</script>
-<div>
-  <div class="view -edit -search">
-    <span rel="v-s:creator">
-      <span>
-        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
-        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
-      </span>
-    </span>
-    <small>
-      <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created"></span>
-    </small>
-    <hr class="margin-sm"/>
-  </div>
-  <h4 class="decision" about="@" property="rdfs:label"></h4>
-  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
-  <div property="rdfs:comment" class="view -edit -search"></div>
-  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br class="-view edit -search">
-  <div class="actions -view edit -search">
-    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
-  </div>
-</div>
-  """ ;
-.
-
-v-wf:DecisionRevokeTemplate
-  rdf:type v-ui:ClassTemplate ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Решение-"@ru ;
-  rdfs:label "Template for -Decision- class"@en ;
-  v-ui:forClass v-wf:DecisionRevokeTask ;
-  v-ui:template """
-<script>
-  template.on("cancel", function () {
-    var modal = template.closest(".modal");
-    if (modal.length) {
-      modal.modal("hide");
-    } else {
-      window.history.back();
-    }
-  });
-
-</script>
-<div>
-  <div class="view -edit -search">
-    <span rel="v-s:creator">
-      <span>
-        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
-        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
-      </span>
-    </span>
-    <small>
-      <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created"></span>
-    </small>
-    <hr class="margin-sm"/>
-  </div>
-  <h4 class="decision" about="@" property="rdfs:label"></h4>
-  <div>
-    <div class="alert alert-info">
-      <div about="v-wf:DecisionRevokeTask_infoBundle" property="rdfs:comment" style="white-space: pre-line; line-height: 1;"></div>
-    </div>
-  </div>
-  <em about="rdfs:comment" property="rdfs:label" class="-view edit search"></em>
-  <div property="rdfs:comment" class="view -edit -search"></div>
-  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br class="-view edit -search">
-  <div class="actions -view edit -search">
-    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
-  </div>
-</div>
-  """ ;
-.
-
-v-s:TS_DecisionRemake
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
-  v-ui:forClass v-wf:DecisionRemake
-.
-v-s:TS_DecisionRemakeGroupAccount
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
-  v-ui:forClass v-wf:DecisionRemakeGroupAccount
-.
-v-wf:DecisionTemplateForRemake
-  rdf:type v-ui:ClassTemplate ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Решение- Доработать"@ru ;
-  rdfs:label "Template for -Decision- Remake class"@en ;
-  v-ui:forClass v-wf:DecisionRemake ;
-  v-ui:template """
-<script>
-  template.on("cancel", function () {
-    var modal = template.closest(".modal");
-    if (modal.length) {
-      modal.modal("hide");
-    } else {
-      window.history.back();
-    }
-  });
-
-</script>
-<div>
-  <div class="view -edit -search">
-    <span rel="v-s:creator">
-      <span>
-        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
-        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
-      </span>
-    </span>
-    <small>
-      <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created"></span>
-    </small>
-    <hr class="margin-sm"/>
-  </div>
-  <h4 class="decision" about="@" property="rdfs:label"></h4>
-  <div class="row">
-    <div class="col-md-9">
-      <em about="rdfs:comment" property="rdfs:label"></em>
-      <div property="rdfs:comment" class="view -edit -search"></div>
-      <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-    </div>
-    <div class="col-md-3">
-      <em about="v-wf:dateGiven" property="rdfs:label"></em>
-      <div property="v-s:dateTo" class="view -edit -search"></div>
-      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-  </div>
-  <br class="-view edit -search">
-  <div class="actions -view edit -search">
-    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
-  </div>
-</div>
-  """ ;
-.
-
-v-wf:DecisionRedirectTemplateSpec1
-  rdf:type v-ui:PropertySpecification ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация к свойству комментарий для некоторых подклассов класса -Решение-"@ru ;
-  rdfs:label "Spec for template for some -Decision- subclasses"@en ;
-  v-ui:minCardinality "1"^^xsd:integer ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:forProperty rdfs:comment ;
-  v-ui:forClass v-wf:DecisionNotForMe ;
-  v-ui:forClass v-wf:DecisionRejected ;
-  v-ui:forClass v-wf:DecisionDeclined ;
-  v-ui:forClass v-wf:DecisionPostponed ;
-  v-ui:forClass v-wf:DecisionRemake ;
-  v-ui:forClass v-wf:DecisionNotPerformed ;
-  v-ui:forClass v-wf:DecisionProlongate ;
-.
-
-v-wf:DecisionRemakeTemplateSpec1
-  rdf:type v-ui:PropertySpecification ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация к свойству новая дата для некоторых подклассов класса -Решение-"@ru ;
-  rdfs:label "Spec for template for some -Decision- subclasses"@en ;
-  v-ui:minCardinality "1"^^xsd:integer ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:forProperty v-s:dateTo ;
-  v-ui:forClass v-wf:DecisionRemake ;
-.
-
-v-wf:DecisionRedirectTemplateSpec2
-  rdf:type v-ui:PropertySpecification ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация к свойству комментарий для некоторых подклассов класса -Решение-"@ru ;
-  rdfs:label "Spec for template for some -Decision- subclasses"@en ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:forProperty rdfs:comment ;
-  v-ui:forClass v-wf:DecisionAgreed ;
-  v-ui:forClass v-wf:DecisionNoAgreed;
-  v-ui:forClass v-wf:DecisionSign ;
-  v-ui:forClass v-wf:DecisionApprove ;
-  v-ui:forClass v-wf:DecisionReview ;
-  v-ui:forClass v-wf:DecisionBreak ;
-  v-ui:forClass v-wf:DecisionRemaked ;
-  v-ui:forClass v-wf:DecisionExamined ;
-  v-ui:forClass v-wf:DecisionReturnedToReview ;
-#  v-ui:forClass v-wf:DecisionAchieved ;
-  v-ui:forClass v-wf:DecisionAgreedToProject ;
-  v-ui:forClass v-wf:DecisionConfirm ;
-  v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
-  v-ui:forClass v-wf:DecisionCalculationsPerformed ;
-.
-v-wf:DecisionRedirectTemplateSpec2_comment
-  rdf:type v-ui:PropertySpecification ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация к свойству комментарий для некоторых подклассов класса -Решение-"@ru ;
-  rdfs:label "Spec for template for some -Decision- subclasses"@en ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:minCardinality "0"^^xsd:integer ;
-  v-ui:forProperty rdfs:comment ;
-  v-ui:forClass v-wf:DecisionAchieved ;
-.
-
-
-v-wf:DecisionRedirectTemplateSpec3
-  rdf:type v-ui:ObjectPropertySpecification ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Спецификация свойств для класса -Перенаправить-"@ru ;
-  rdfs:label "Spec for template for -Decision Redirect- class"@en ;
-  v-ui:forClass v-wf:DecisionRedirect ;
-  v-ui:forClass v-wf:DecisionAgreedToExecute ;
-  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
-  v-ui:forProperty v-wf:to ;
-  v-ui:minCardinality "1"^^xsd:integer ;
-  v-ui:maxCardinality "1"^^xsd:integer ;
-  v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
-.
-
-v-wf:signRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Подписать"@ru ;
-  rdfs:label "Sign"@en ;
-  v-s:classTo v-df:SignRouteStartForm;
-  v-s:hasTransformation v-wf:signRouteStartForm;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-
-v-wf:confirmationRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Утвердить"@ru ;
-  rdfs:label "Confirmation"@en ;
-  v-s:classTo v-df:ConfirmationRouteStartForm ;
-  v-s:hasTransformation v-wf:confirmationRouteStartForm ;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-
-v-wf:questionRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Ответить на вопрос"@ru ;
-  rdfs:label "Answer question"@en ;
-  v-s:classTo v-df:QuestionRouteStartForm;
-  v-s:hasTransformation v-wf:questionRouteStartForm;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-v-wf:instructionRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Исполнить поручение"@ru ;
-  rdfs:label "Perform instruction"@en ;
-  v-s:classTo v-df:InstructionRouteStartForm;
-  v-s:hasTransformation v-wf:instructionRouteStartForm;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-v-wf:taskRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Ознакомиться"@ru ;
-  rdfs:label "Get informed"@en ;
-  v-s:classTo v-df:TaskRouteStartForm;
-  v-s:hasTransformation v-wf:taskRouteStartForm;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-v-wf:distributionRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Рассылка"@ru ;
-  rdfs:label "Distribution"@en ;
-  v-s:classTo v-df:DistributionRouteStartForm;
-  v-s:hasTransformation v-wf:distributionRouteStartForm;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-
-v-wf:coordinationRouteStartFormLinkRule
-  rdf:type v-s:DocumentLinkRules;
-  rdfs:label "Согласовать"@ru ;
-  rdfs:label "Coordination"@en ;
-  v-s:classTo v-df:CoordinationRouteStartForm;
-  v-s:hasTransformation v-wf:coordinationRouteStartForm;
-  v-s:isRoute "true"^^xsd:boolean;
-.
-
 v-wf:permission_on_simple_routes_start_from
   rdf:type v-s:PermissionStatement ;
   v-s:canCreate "true"^^xsd:boolean ;
@@ -2520,285 +3038,8 @@ v-wf:permission_on_simple_routes_start_from
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
 
-v-wf:signRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Подписать"@ru ;
-  rdfs:label "Sign"@en ;
-  v-wf:transformRule v-wf:rule1sign ;
-  v-wf:transformRule v-wf:rule2sign ;
-  v-wf:transformRule v-wf:rule3sign ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1sign
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2sign
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3sign
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:SignRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:SignRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
 
-v-wf:confirmationRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Утвердить"@ru ;
-  rdfs:label "Confirmation"@en ;
-  v-wf:transformRule v-wf:rule1confirmation ;
-  v-wf:transformRule v-wf:rule2confirmation ;
-  v-wf:transformRule v-wf:rule3confirmation ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1confirmation
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2confirmation
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3confirmation
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:ConfirmationRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:ConfirmationRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-
-v-wf:questionRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Ответить на вопрос"@ru ;
-  rdfs:label "Answer question"@en ;
-  v-wf:transformRule v-wf:rule1question ;
-  v-wf:transformRule v-wf:rule2question ;
-  v-wf:transformRule v-wf:rule3question ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1question
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2question
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3question
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:QuestionRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:QuestionRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-
-v-wf:instructionRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Исполнить поручение"@ru ;
-  rdfs:label "Perform instruction"@en ;
-  v-wf:transformRule v-wf:rule1instruction ;
-  v-wf:transformRule v-wf:rule2instruction ;
-  v-wf:transformRule v-wf:rule3instruction ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1instruction
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2instruction
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3instruction
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:InstructionRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:InstructionRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-
-v-wf:taskRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Ознакомиться"@ru ;
-  rdfs:label "Get informed"@en ;
-  v-wf:transformRule v-wf:rule1task ;
-  v-wf:transformRule v-wf:rule2task ;
-  v-wf:transformRule v-wf:rule3task ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1task
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2task
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3task
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:TaskRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:TaskRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-
-v-wf:distributionRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Рассылка"@ru ;
-  rdfs:label "Distribution"@en ;
-  v-wf:transformRule v-wf:rule1distribution ;
-  v-wf:transformRule v-wf:rule2distribution ;
-  v-wf:transformRule v-wf:rule3distribution ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1distribution
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2distribution
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3distribution
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:DistributionRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:DistributionRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:coordinationRouteStartForm
-  rdf:type v-wf:Transform ;
-  rdfs:label "Согласовать"@ru ;
-  rdfs:label "Coordination"@en ;
-  v-wf:transformRule v-wf:rule1coordination ;
-  v-wf:transformRule v-wf:rule2coordination ;
-  v-wf:transformRule v-wf:rule3coordination ;
-  rdfs:isDefinedBy v-wf: ;
-.
-v-wf:rule1coordination
-  rdf:type v-wf:Rule ;
-  v-wf:segregateElement "contentName('@')" ;
-  v-wf:aggregate "putValue ('v-wf:processedDocument')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule2coordination
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('v-wf:forNet', 's-wf:WrapUniversalNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-v-wf:rule3coordination
-  rdf:type v-wf:Rule ;
-  v-wf:aggregate "putUri ('rdf:type', 'v-df:CoordinationRouteStartForm')" ;
-  v-wf:aggregate "putUri ('v-wf:useTransformation', 'v-df:CoordinationRouteStartFormToNet')" ;
-  v-wf:segregateElement "contentName('@')" ;
-  rdfs:isDefinedBy v-wf: ;
-  v-wf:grouping "1";
-.
-
-v-s:TS_DecisionIssueTaskToAnother
-  rdf:type v-ui:TemplateSpecification;
-  v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
-  v-ui:forClass v-wf:DecisionIssueTaskToAnother
-.
-v-wf:DecisionTemplateForTaskToAnother
-  rdf:type v-ui:ClassTemplate ;
-  rdfs:isDefinedBy v-wf: ;
-  rdfs:label "Шаблон для класса -Решение- Задача повторно (другому) со сроком"@ru ;
-  rdfs:label "Template for -Decision- IssueTaskToAnother class"@en ;
-  v-ui:forClass v-wf:DecisionIssueTaskToAnother ;
-  v-ui:template """
-<script>
-  template.on("cancel", function () {
-    window.history.back();
-  });
-
-</script>
-<div>
-  <div class="view -edit -search">
-    <span rel="v-s:creator">
-      <span>
-        <strong rel="v-s:employee" data-template="v-ui:LabelTemplate"></strong>
-        <small rel="v-s:occupation" data-template="v-ui:LabelTemplate"></small>
-      </span>
-    </span>
-    <small>
-      <span>&bullet;&nbsp;&nbsp;</span>
-      <span property="v-s:created"></span>
-    </small>
-    <hr class="margin-sm"/>
-  </div>
-  <h4 class="decision" about="@" property="rdfs:label"></h4>
-  <div class="row">
-    <div class="col-md-9">
-      <em about="v-wf:to" property="rdfs:label"></em>
-      <div rel="v-wf:to" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
-      <veda-control rel="v-wf:to" data-type="link" class="-view edit search fulltext"></veda-control>
-    </div>
-    <div class="col-md-3">
-      <em about="v-wf:dateGiven" property="rdfs:label"></em>
-      <div property="v-s:dateTo" class="view -edit -search"></div>
-      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-  </div>
-  <em about="rdfs:comment" property="rdfs:label"></em>
-  <div property="rdfs:comment" class="view -edit -search"></div>
-  <veda-control property="rdfs:comment" data-type="text" class="-view edit search"></veda-control>
-  <br class="-view edit -search">
-  <div class="actions -view edit -search">
-    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
-  </div>
-</div>
-  """ ;
-.
+# -------------------------------------------------------------- СОБЫТИЯ --
 
 v-wf:AutoComplitTask_Daily
   rdf:type v-s:Event ;
@@ -2872,3 +3113,31 @@ put_individual(ticket, scriptInfo, _event_id);
 print("[v-wf:AutoComplitTask_Daily] ************************** END **************************");
 """ ;
 .
+
+#v-df:ActionInDecisionTemplate
+#  rdf:type v-ui:ClassTemplate ;
+#  rdfs:isDefinedBy v-wf: ;
+#  rdfs:label "Шаблон для класса Мероприятие внутри Ответа на задачу."@ru ;
+#  rdfs:label "Action in decision Template."@en ;
+#  v-ui:forClass v-s:Activity ;
+#  v-ui:template """
+#<div class="panel panel-default">
+#  <div class="panel-heading">
+#    <span about="v-s:hasActivity" property="rdfs:label"></span>
+#  </div>
+#  <div class="panel-body">
+#    <em about="v-s:responsible" property="rdfs:label"></em>
+#    <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+#    <veda-control rel="v-s:responsible" data-type="link" class="fulltext -view edit search"></veda-control>
+#    <br>
+#    <em about="v-s:description" property="rdfs:label"></em>
+#    <div property="v-s:description" class="view -edit -search"></div>
+#    <veda-control property="v-s:description" data-type="text" class="-view edit search"></veda-control>
+#    <br>
+#    <em about="v-s:dateTo" property="rdfs:label"></em>
+#    <div property="v-s:dateTo" class="view -edit -search"></div>
+#    <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+#  </div>
+#</div>
+#  """ ;
+#.
