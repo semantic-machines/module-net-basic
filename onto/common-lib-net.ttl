@@ -1121,7 +1121,7 @@ s-wf:UserTaskFormTemplate
       }
     }
   }
-  return individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
+  individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forNetElement").then(function(forNetElementArr) {
     //is rework task
     if (forNetElementArr.length > 0 && forNetElementArr[0].id === "s-wf:cr_rework") {
       return individual.getPropertyChain("v-wf:onWorkOrder", "v-wf:forWorkItem", "v-wf:forProcess").then(function(forProcessArr) {
@@ -1174,7 +1174,6 @@ s-wf:UserTaskFormTemplate
     $("#stopProcess", template).remove();
     console.log("Unexpected behaviour", error);
   });
-
 </script>
 <div>
   <div class="container sheet">

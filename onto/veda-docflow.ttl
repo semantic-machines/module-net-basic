@@ -724,7 +724,7 @@ v-df:SignRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -782,7 +782,7 @@ v-df:SignRouteStartFormTemplate
   $("#add-controller", template).click(function() {
     individual["v-s:controller"] = [veda.appointment];
   });
-  
+
 </script>
 """ ;
 .
@@ -811,7 +811,7 @@ v-df:ConfirmationRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -871,7 +871,7 @@ v-df:ConfirmationRouteStartFormTemplate
   $("#add-controller", template).click(function() {
     individual["v-s:controller"] = [veda.appointment];
   });
-  
+
 </script>
 """ ;
 .
@@ -940,7 +940,7 @@ v-df:QuestionRouteStartFormTemplate
       window.history.back();
     }
   });
-  
+
 </script>
 """ ;
 .
@@ -969,7 +969,7 @@ v-df:InstructionRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1030,7 +1030,7 @@ v-df:InstructionRouteStartFormTemplate
       window.history.back();
     }
   });
-  
+
 </script>
 """ ;
 .
@@ -1049,12 +1049,12 @@ v-df:SpecialInstructionRouteStartFormTemplate
       state: individual.hasValue("v-s:dateTo"),
       cause: ["v-ui:minCardinality"]
     };
-    template.trigger("validated", result);
+    template[0].dispatchEvent(new CustomEvent("validated", {detail: result}));
   });
 
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1115,7 +1115,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
       window.history.back();
     }
   });
-  
+
 </script>
 """ ;
 .
@@ -1144,7 +1144,7 @@ v-df:TaskRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1193,7 +1193,7 @@ v-df:TaskRouteStartFormTemplate
       window.history.back();
     }
   });
-  
+
 </script>
 """ ;
 .
@@ -1222,7 +1222,7 @@ v-df:DistributionRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1271,7 +1271,7 @@ v-df:DistributionRouteStartFormTemplate
       window.history.back();
     }
   });
-  
+
 </script>
 """ ;
 .
@@ -1300,7 +1300,7 @@ v-df:CoordinationRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    return processedDocument.rights.then(function (rights) {
+    processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1361,7 +1361,7 @@ v-df:CoordinationRouteStartFormTemplate
   $("#add-controller", template).click(function() {
     individual["v-s:controller"] = [veda.appointment];
   });
-  
+
 </script>
 """ ;
 .
@@ -3068,7 +3068,7 @@ var queryString = "( 'rdf:type'=='v-wf:DecisionForm' && 'v-wf:isCompleted'=='fal
 queryString = queryString + " && 'v-wf:dateGiven'==["+ datePeriod[0].toISOString() +","+ datePeriod[1].toISOString() +"])";
 print(queryString);
 var result = query(ticket, queryString).result;
-for (var i=0;i<result.length;i++){ 
+for (var i=0;i<result.length;i++){
   var uri = veda.Util.genUri();
   try {
     var decisionRevoke = {
