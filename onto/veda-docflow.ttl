@@ -724,7 +724,7 @@ v-df:SignRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -811,7 +811,7 @@ v-df:ConfirmationRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -969,7 +969,7 @@ v-df:InstructionRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1054,7 +1054,7 @@ v-df:SpecialInstructionRouteStartFormTemplate
 
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1144,7 +1144,7 @@ v-df:TaskRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1222,7 +1222,7 @@ v-df:DistributionRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
@@ -1300,7 +1300,7 @@ v-df:CoordinationRouteStartFormTemplate
 <script>
   var processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
-    processedDocument.rights.then(function (rights) {
+    return processedDocument.rights.then(function (rights) {
       if ( !rights.hasValue('v-s:canUpdate', true) ) {
         $('#set-canEdit', template).remove();
       }
