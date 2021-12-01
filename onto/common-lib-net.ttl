@@ -1223,23 +1223,7 @@ s-wf:UserTaskFormTemplate
         <div about="@" rel="v-wf:from" data-template="v-ui:LabelTemplate"></div>
         <em about="v-wf:to" property="rdfs:label"></em>
         <div about="@" rel="v-wf:to" data-template="v-ui:LabelTemplate"></div>
-        <div about="@" rel="v-wf:redirect_from_task">
-          <script>
-            if ( !individual.hasValue("v-wf:to") ) {
-              template.empty();
-            }
-          </script>
-          <div>
-            <hr class="margin-sm"/>
-            <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
-            <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
-            <!--span rel="v-s:creator v-wf:from" data-template="v-ui:LabelTemplate"></span-->
-            <div rel="v-wf:takenDecision">
-              <em about="rdfs:comment" property="rdfs:label"> </em>
-              <span about="@"  property="rdfs:comment"></span>
-            </div>
-          </div>
-        </div>
+        <div about="@" rel="v-wf:redirect_from_task" data-template="s-wf:UserTaskFormTemplate_RedirectInfo"></div>
       </div>
     </div>
   </div>
@@ -1318,11 +1302,32 @@ s-wf:UserTaskFormTemplate
       decision.one("afterSave", function () {
         modal.modal("hide").remove();
       });
-    })
-  })
-
-
+    });
+  });
 </script>
+  """ ;
+.
+
+s-wf:UserTaskFormTemplate_RedirectInfo
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
+  v-ui:forClass s-wf:UserTaskForm ;
+  v-ui:template """
+<script>
+  if ( !individual.hasValue("v-wf:to") ) {
+    template.empty();
+  }
+</script>
+<div>
+  <hr class="margin-sm">
+  <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
+  <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
+  <div rel="v-wf:takenDecision">
+    <em about="rdfs:comment" property="rdfs:label"> </em>
+    <span about="@"  property="rdfs:comment"></span>
+  </div>
+</div>
   """ ;
 .
 
