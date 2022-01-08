@@ -5,13 +5,13 @@ export const post = function (individual, template, container, mode, extra) {
   template = $(template);
   container = $(container);
 
-  if ( mode === "edit" && this.isNew() ) {
-    this["v-s:controller"] = [ veda.appointment ? veda.appointment : veda.user ];
+  if (mode === 'edit' && this.isNew()) {
+    this['v-s:controller'] = [veda.appointment ? veda.appointment : veda.user];
   }
-  template.on("cancel", function () {
-    var modal = template.closest(".modal");
+  template.on('cancel', function () {
+    var modal = template.closest('.modal');
     if (modal.length) {
-      modal.modal("hide");
+      modal.modal('hide');
     } else {
       window.history.back();
     }
@@ -19,35 +19,35 @@ export const post = function (individual, template, container, mode, extra) {
 };
 
 export const html = `
-<div class="container sheet">
-  <h3>
-    <span about="v-df:QuestionRouteStartForm" property="rdfs:label"></span><br>
-    <small about="@" property="rdfs:label"></small>
-  </h3>
-  <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
+  <div class="container sheet">
+    <h3>
+      <span about="v-df:QuestionRouteStartForm" property="rdfs:label"></span><br />
+      <small about="@" property="rdfs:label"></small>
+    </h3>
+    <!--em about="v-wf:processedDocument" property="rdfs:label"></em>
   <div about="@" rel="v-wf:processedDocument" data-template="v-ui:ClassNameLabelLinkTemplate" class="view edit search"></div-->
-  <div class="row">
-    <div class="col-md-6">
-      <em about="v-s:responsible" property="rdfs:label"></em>
-      <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
-      <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+    <div class="row">
+      <div class="col-md-6">
+        <em about="v-s:responsible" property="rdfs:label"></em>
+        <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
+        <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext"></veda-control>
+      </div>
+      <div class="col-md-4">
+        <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
+        <div property="v-s:dateTo" class="view -edit -search"></div>
+        <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
+      </div>
     </div>
-    <div class="col-md-4">
-      <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
-      <div property="v-s:dateTo" class="view -edit -search"></div>
-      <veda-control property="v-s:dateTo" data-type="dateTime" class="-view edit search"></veda-control>
-    </div>
-  </div>
-  <em about="rdfs:comment" property="rdfs:label"></em>
-  <div property="rdfs:comment" class="view -edit -search"></div>
-  <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
+    <em about="rdfs:comment" property="rdfs:label"></em>
+    <div property="rdfs:comment" class="view -edit -search"></div>
+    <veda-control property="rdfs:comment" rows="3" data-type="text" class="-view edit search"></veda-control>
 
-  <em about="v-s:controller" property="rdfs:label"></em>
-  <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
-  <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
-  <br>
-  <div class="actions -view edit -search">
-    <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+    <em about="v-s:controller" property="rdfs:label"></em>
+    <div rel="v-s:controller" data-template="v-ui:LabelTemplate" class="view -edit -search"></div>
+    <veda-control rel="v-s:controller" data-type="link" class="-view edit search fulltext"></veda-control>
+    <br />
+    <div class="actions -view edit -search">
+      <span about="@" data-template="v-ui:StandardButtonsTemplate" data-embedded="true" data-buttons="send cancel"></span>
+    </div>
   </div>
-</div>
 `;
