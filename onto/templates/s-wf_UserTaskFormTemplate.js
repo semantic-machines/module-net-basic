@@ -9,14 +9,13 @@ export const pre = function (individual, template, container, mode, extra) {
   container = $(container);
 
   if (individual.hasValue('v-wf:dateGiven')) {
-    var label = $('.date-given', template);
-    var now = new Date();
-    var yesterday = new Date().setHours(0, 0, 0, 1);
-    var tomorrow = new Date().setHours(23, 59, 59, 999);
-    var dateGiven = individual['v-wf:dateGiven'][0];
-    var dateGivenYesterday = new Date(dateGiven).setHours(0, 0, 0, 1);
-    var dateGivenTomorrow = new Date(dateGiven).setHours(23, 59, 59, 999);
-    var dateDone = individual.hasValue('v-wf:takenDecision') && individual['v-wf:takenDecision'][0]['v-s:created'][0];
+    const label = $('.date-given', template);
+    const yesterday = new Date().setHours(0, 0, 0, 1);
+    const tomorrow = new Date().setHours(23, 59, 59, 999);
+    const dateGiven = individual['v-wf:dateGiven'][0];
+    const dateGivenYesterday = new Date(dateGiven).setHours(0, 0, 0, 1);
+    const dateGivenTomorrow = new Date(dateGiven).setHours(23, 59, 59, 999);
+    const dateDone = individual.hasValue('v-wf:takenDecision') && individual['v-wf:takenDecision'][0]['v-s:created'][0];
     if (individual.hasValue('v-wf:isCompleted', false)) {
       if (dateGiven < yesterday) {
         label.toggleClass('label-default label-danger');
@@ -38,7 +37,7 @@ export const pre = function (individual, template, container, mode, extra) {
   return individual
     .getPropertyChain('v-wf:onWorkOrder', 'v-wf:forWorkItem', 'v-wf:forNetElement')
     .then(function (forNetElementArr) {
-      //is rework task
+      // is rework task
       if (forNetElementArr.length > 0 && forNetElementArr[0].id === 's-wf:cr_rework') {
         return individual
           .getPropertyChain('v-wf:onWorkOrder', 'v-wf:forWorkItem', 'v-wf:forProcess')
@@ -48,7 +47,7 @@ export const pre = function (individual, template, container, mode, extra) {
           .then(function (forProcess) {
             $('#stopProcess', template).click(function (e) {
               e.preventDefault();
-              var warn = new IndividualModel('v-s:AreYouSure');
+              const warn = new IndividualModel('v-s:AreYouSure');
               warn.load().then(function (warn) {
                 warn = warn['rdfs:label'].map(CommonUtil.formatValue).join(' ');
                 if (confirm(warn)) {
@@ -59,17 +58,17 @@ export const pre = function (individual, template, container, mode, extra) {
                 }
               });
             });
-            var startForm = forProcess.properties['v-wf:hasStartForm'];
+            const startForm = forProcess.properties['v-wf:hasStartForm'];
             if (startForm) {
               return startForm[0].data;
             } else {
-              //Устаревший вариант (но почему то не такой уж и устаревший)
+              // Устаревший вариант (но почему то не такой уж и устаревший)
               console.log('not found hasStartForm, use variables');
-              var promises = forProcess['v-wf:inVars'].map(function (vrbl) {
+              const promises = forProcess['v-wf:inVars'].map(function (vrbl) {
                 return vrbl.load();
               });
               return Promise.all(promises).then(function (variables) {
-                var startFormVar = variables.filter(function (vrbl) {
+                const startFormVar = variables.filter(function (vrbl) {
                   return vrbl.hasValue('v-wf:variableName', 'startForm_id');
                 });
                 return startFormVar[0]['v-wf:variableValue'][0].id;
@@ -79,7 +78,7 @@ export const pre = function (individual, template, container, mode, extra) {
           .then(function (startFormId) {
             if (startFormId) {
               $('#edit-StartForm', template).click(function () {
-                var modal = BrowserUtil.showModal(new IndividualModel(startFormId), new IndividualModel('s-wf:ComplexRouteStartForm_Common_Template'), 'view');
+                BrowserUtil.showModal(new IndividualModel(startFormId), new IndividualModel('s-wf:ComplexRouteStartForm_Common_Template'), 'view');
               });
             }
             return true;
@@ -101,33 +100,39 @@ export const post = function (individual, template, container, mode, extra) {
   template = $(template);
   container = $(container);
 
-  var document = individual.hasValue('v-wf:onDocument') && individual['v-wf:onDocument'][0];
-  var taskRights = individual.rights;
-  var documentRights = document && document.rights;
+  const document = individual.hasValue('v-wf:onDocument') && individual['v-wf:onDocument'][0];
+  const taskRights = individual.rights;
+  const documentRights = document && document.rights;
 
   Promise.all([taskRights, documentRights]).then(function (rights) {
-    var taskRights = rights[0];
-    var canReadDocument = rights[1] && rights[1].hasValue('v-s:canRead', true);
+    const taskRights = rights[0];
+    const canReadDocument = rights[1] && rights[1].hasValue('v-s:canRead', true);
     if (document && !canReadDocument) {
       $('#NotRightsAlert', template).removeClass('hidden');
     }
     if (individual.hasValue('v-wf:takenDecision') || !taskRights.hasValue('v-s:canUpdate', true)) {
       $('.possible-decisions, .new-decision', template).remove();
     } else {
+      const decision = new IndividualModel();
+      decision['v-s:backwardTarget'] = [individual];
+      decision['v-s:backwardProperty'] = [new IndividualModel('v-wf:takenDecision')];
+      decision['v-s:canRead'] = [true];
+      $('.possible-decisions input', template).first().prop('checked', 'checked').change();
+
       $('.possible-decisions input', template).on('change', function (e) {
-        var input = $(this);
-        var decisionContainer = $('.new-decision', template);
-        var decisionClassId = input.closest('[resource]').attr('resource');
-        var decisionClass = new IndividualModel(decisionClassId);
+        const input = $(this);
+        const decisionContainer = $('.new-decision', template);
+        const decisionClassId = input.closest('[resource]').attr('resource');
+        const decisionClass = new IndividualModel(decisionClassId);
         decision['rdf:type'] = [decisionClass];
         decision.properties['rdfs:label'] = decisionClass.properties['rdfs:label'];
         if (decisionClassId === 'v-wf:DecisionDeclined' && document && !canReadDocument) {
-          var comment = new IndividualModel('v-s:NotRightsForDocumentCommentBundle');
+          const comment = new IndividualModel('v-s:NotRightsForDocumentCommentBundle');
           comment.load().then(function (comment) {
             decision['rdfs:comment'] = comment['rdfs:label'];
           });
         } else {
-          var prevComment = $("veda-control[property='rdfs:comment'] textarea", decisionContainer).val();
+          const prevComment = $("veda-control[property='rdfs:comment'] textarea", decisionContainer).val();
           if (prevComment) {
             decision['rdfs:comment'] = [prevComment];
           }
@@ -136,7 +141,7 @@ export const post = function (individual, template, container, mode, extra) {
         decision.present(decisionContainer, undefined, 'edit');
       });
 
-      function completedHandler() {
+      function completedHandler () {
         if (individual.hasValue('v-wf:isCompleted', true) || individual.hasValue('v-wf:takenDecision')) {
           $('.possible-decisions, .new-decision', template).remove();
         }
@@ -147,25 +152,19 @@ export const post = function (individual, template, container, mode, extra) {
         individual.off('v-wf:isCompleted', completedHandler);
         individual.off('v-wf:takenDecision', completedHandler);
       });
-
-      var decision = new IndividualModel();
-      decision['v-s:backwardTarget'] = [individual];
-      decision['v-s:backwardProperty'] = [new IndividualModel('v-wf:takenDecision')];
-      decision['v-s:canRead'] = [true];
-      $('.possible-decisions input', template).first().prop('checked', 'checked').change();
     }
   });
 
   $('#decisionRedirect', template).click(function () {
-    var decisionClass = new IndividualModel('v-wf:DecisionRedirect');
-    var decision = new IndividualModel();
+    const decisionClass = new IndividualModel('v-wf:DecisionRedirect');
+    const decision = new IndividualModel();
     new IndividualModel('v-wf:DecisionDelegated_Bundle').load().then(function (delegatedBundle) {
       decision['rdf:type'] = [decisionClass];
       decision['v-s:backwardTarget'] = [individual];
       decision['rdfs:label'] = delegatedBundle['rdfs:label'];
       decision['v-s:backwardProperty'] = [new IndividualModel('v-wf:takenDecision')];
       decision['v-s:canRead'] = [true];
-      var modal = BrowserUtil.showModal(decision, undefined, 'edit');
+      const modal = BrowserUtil.showModal(decision, undefined, 'edit');
       decision.one('afterReset', function () {
         modal.modal('hide').remove();
       });

@@ -9,7 +9,7 @@ export const post = function (individual, template, container, mode, extra) {
     this['v-s:controller'] = [veda.appointment ? veda.appointment : veda.user];
   }
   template.on('cancel', function () {
-    var modal = template.closest('.modal');
+    const modal = template.closest('.modal');
     if (modal.length) {
       modal.modal('hide');
     } else {

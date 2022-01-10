@@ -5,7 +5,7 @@ export const pre = function (individual, template, container, mode, extra) {
   container = $(container);
 
   template.on('cancel', function () {
-    var modal = template.closest('.modal');
+    const modal = template.closest('.modal');
     if (modal.length) {
       modal.modal('hide');
     } else {

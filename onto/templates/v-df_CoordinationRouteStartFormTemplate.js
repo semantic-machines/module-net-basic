@@ -5,7 +5,7 @@ export const pre = function (individual, template, container, mode, extra) {
   template = $(template);
   container = $(container);
 
-  var processedDocument = individual['v-wf:processedDocument'][0];
+  const processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
       if (!rights.hasValue('v-s:canUpdate', true)) {
@@ -20,7 +20,7 @@ export const post = function (individual, template, container, mode, extra) {
   container = $(container);
 
   template.on('cancel', function () {
-    var modal = template.closest('.modal');
+    const modal = template.closest('.modal');
     if (modal.length) {
       modal.modal('hide');
     } else {

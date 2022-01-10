@@ -6,15 +6,15 @@ export const pre = function (individual, template, container, mode, extra) {
   container = $(container);
 
   template.on('validate', function () {
-    var result = {};
+    const result = {};
     result['v-s:dateTo'] = {
       state: individual.hasValue('v-s:dateTo'),
       cause: ['v-ui:minCardinality'],
     };
-    template[0].dispatchEvent(new CustomEvent('validated', { detail: result }));
+    template[0].dispatchEvent(new CustomEvent('validated', {detail: result}));
   });
 
-  var processedDocument = individual['v-wf:processedDocument'][0];
+  const processedDocument = individual['v-wf:processedDocument'][0];
   if (processedDocument) {
     return processedDocument.rights.then(function (rights) {
       if (!rights.hasValue('v-s:canUpdate', true)) {
@@ -34,7 +34,7 @@ export const post = function (individual, template, container, mode, extra) {
     }
   }
   template.on('cancel', function () {
-    var modal = template.closest('.modal');
+    const modal = template.closest('.modal');
     if (modal.length) {
       modal.modal('hide');
     } else {
