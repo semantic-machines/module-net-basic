@@ -15,8 +15,10 @@ export const html = `
     <em about="v-s:TaskIsRedirectedFrom" property="rdfs:label"> </em>
     <span rel="v-wf:to" data-template="v-ui:LabelTemplate"></span>
     <div rel="v-wf:takenDecision">
-      <em about="rdfs:comment" property="rdfs:label"> </em>
-      <span about="@" property="rdfs:comment"></span>
+      <div>
+        <em about="rdfs:comment" property="rdfs:label"> </em>
+        <span about="@" property="rdfs:comment"></span>
+      </div>
     </div>
   </div>
 `;
