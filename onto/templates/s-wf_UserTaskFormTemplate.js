@@ -104,7 +104,38 @@ export const post = function (individual, template, container, mode, extra) {
   const taskRights = individual.rights;
   const documentRights = document && document.rights;
 
-  Promise.all([taskRights, documentRights]).then(function (rights) {
+  $('#decisionRedirect', template).click(function () {
+    const decisionClass = new IndividualModel('v-wf:DecisionRedirect');
+    const decision = new IndividualModel();
+    new IndividualModel('v-wf:DecisionDelegated_Bundle').load().then(function (delegatedBundle) {
+      decision['rdf:type'] = [decisionClass];
+      decision['v-s:backwardTarget'] = [individual];
+      decision['rdfs:label'] = delegatedBundle['rdfs:label'];
+      decision['v-s:backwardProperty'] = [new IndividualModel('v-wf:takenDecision')];
+      decision['v-s:canRead'] = [true];
+      const modal = BrowserUtil.showModal(decision, undefined, 'edit');
+      decision.one('afterReset', function () {
+        modal.modal('hide').remove();
+      });
+      decision.one('afterSave', function () {
+        modal.modal('hide').remove();
+      });
+    });
+  });
+
+  function completedHandler () {
+    if (individual.hasValue('v-wf:isCompleted', true) || individual.hasValue('v-wf:takenDecision')) {
+      $('.possible-decisions, .new-decision', template).remove();
+    }
+  }
+  individual.on('v-wf:isCompleted', completedHandler);
+  individual.on('v-wf:takenDecision', completedHandler);
+  template.one('remove', function () {
+    individual.off('v-wf:isCompleted', completedHandler);
+    individual.off('v-wf:takenDecision', completedHandler);
+  });
+
+  return Promise.all([taskRights, documentRights]).then(function (rights) {
     const taskRights = rights[0];
     const canReadDocument = rights[1] && rights[1].hasValue('v-s:canRead', true);
     if (document && !canReadDocument) {
@@ -113,12 +144,6 @@ export const post = function (individual, template, container, mode, extra) {
     if (individual.hasValue('v-wf:takenDecision') || !taskRights.hasValue('v-s:canUpdate', true)) {
       $('.possible-decisions, .new-decision', template).remove();
     } else {
-      const decision = new IndividualModel();
-      decision['v-s:backwardTarget'] = [individual];
-      decision['v-s:backwardProperty'] = [new IndividualModel('v-wf:takenDecision')];
-      decision['v-s:canRead'] = [true];
-      $('.possible-decisions input', template).first().prop('checked', 'checked').change();
-
       $('.possible-decisions input', template).on('change', function (e) {
         const input = $(this);
         const decisionContainer = $('.new-decision', template);
@@ -141,37 +166,12 @@ export const post = function (individual, template, container, mode, extra) {
         decision.present(decisionContainer, undefined, 'edit');
       });
 
-      function completedHandler () {
-        if (individual.hasValue('v-wf:isCompleted', true) || individual.hasValue('v-wf:takenDecision')) {
-          $('.possible-decisions, .new-decision', template).remove();
-        }
-      }
-      individual.on('v-wf:isCompleted', completedHandler);
-      individual.on('v-wf:takenDecision', completedHandler);
-      template.one('remove', function () {
-        individual.off('v-wf:isCompleted', completedHandler);
-        individual.off('v-wf:takenDecision', completedHandler);
-      });
-    }
-  });
-
-  $('#decisionRedirect', template).click(function () {
-    const decisionClass = new IndividualModel('v-wf:DecisionRedirect');
-    const decision = new IndividualModel();
-    new IndividualModel('v-wf:DecisionDelegated_Bundle').load().then(function (delegatedBundle) {
-      decision['rdf:type'] = [decisionClass];
+      const decision = new IndividualModel();
       decision['v-s:backwardTarget'] = [individual];
-      decision['rdfs:label'] = delegatedBundle['rdfs:label'];
       decision['v-s:backwardProperty'] = [new IndividualModel('v-wf:takenDecision')];
       decision['v-s:canRead'] = [true];
-      const modal = BrowserUtil.showModal(decision, undefined, 'edit');
-      decision.one('afterReset', function () {
-        modal.modal('hide').remove();
-      });
-      decision.one('afterSave', function () {
-        modal.modal('hide').remove();
-      });
-    });
+      $('.possible-decisions input', template).first().prop('checked', 'checked').change();
+    }
   });
 };
 
