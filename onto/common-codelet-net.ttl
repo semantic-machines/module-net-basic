@@ -228,13 +228,3 @@ s-wf:codelet_interrupt_process
 """ ;
   rdfs:isDefinedBy s-wf: ;
 .
-
-# ------------------------------ CODELET : "рассылка" ----------------------------- #
-s-wf:codelet_distribution
-  rdf:type v-s:Codelet ;
-  rdfs:label "Рассылка" ;
-  v-s:script """
-  veda.Codelet.distribution (process, task)
-""" ;
-  rdfs:isDefinedBy s-wf: ;
-.
