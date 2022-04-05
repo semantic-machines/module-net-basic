@@ -92,7 +92,7 @@ export const pre = function (individual, template, container, mode, extra) {
     .catch(function (error) {
       $('#edit-StartForm', template).remove();
       $('#stopProcess', template).remove();
-      console.log('Unexpected behaviour', error);
+      console.error('Unexpected behaviour');
     });
 };
 
