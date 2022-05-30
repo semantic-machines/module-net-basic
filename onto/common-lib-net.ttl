@@ -726,6 +726,15 @@ s-wf:participantSpecification
   v-ui:maxCardinality 1000 ;
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
 .
+s-wf:deadlineDaysSpecification
+  rdf:type v-ui:DatatypePropertySpecification ;
+  v-ui:forClass s-wf:SimpleRouteStartForm ;
+  v-ui:forProperty s-wf:SimpleRouteStartForm_deadlineDays ;
+  v-ui:minCardinality 0 ;
+  v-ui:maxCardinality 1 ;
+  v-ui:minValue 1 ;
+  v-ui:maxValue 1000 ;
+.
 
 #--------------------------------------------------------------------------------------
 
