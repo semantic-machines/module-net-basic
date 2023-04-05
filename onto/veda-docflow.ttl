@@ -1025,7 +1025,7 @@ v-wf:CS_DecisionBreak
 v-s:TS_DecisionExamined
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:defaultTemplate v-wf:DecisionTemplateForExamine;
   v-ui:forClass v-wf:DecisionExamined
 .
 v-wf:CS_DecisionExamined
@@ -1167,6 +1167,14 @@ v-wf:DecisionTemplate1
   v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
   v-ui:template "v-wf_DecisionTemplate1.js" ;
+.
+v-wf:DecisionTemplateForExamine
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение Принято к сведению-"@ru ;
+  rdfs:label "Template for -Decision Examined- class"@en ;
+  v-ui:forClass v-wf:DecisionExamined ;
+  v-ui:template "v-wf_DecisionTemplateForExamine.js" ;
 .
 
 # --------------------------------------------------------- Шаблон для класса Решение Доработать --
