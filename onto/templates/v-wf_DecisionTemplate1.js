@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export const pre = function (individual, template, container, mode, extra) {
+export const pre = async function (individual, template, container, mode, extra) {
   template = $(template);
   container = $(container);
 
@@ -12,6 +12,22 @@ export const pre = function (individual, template, container, mode, extra) {
       window.history.back();
     }
   });
+  if (individual['rdf:type'][0].id == 'v-wf:DecisionAchieved') {
+    const dateGiven = await individual.getPropertyChain('v-s:backwardTarget', 'v-wf:dateGiven');
+    console.log(dateGiven);
+    if (dateGiven.length > 0 && dateGiven[0] < new Date()) {
+      template.on('validate', function () {
+        const result = {};
+        result['rdfs:comment'] = {
+          state: individual.hasValue('rdfs:comment'),
+          cause: ['v-ui:minCardinality'],
+        };
+        template[0].dispatchEvent(new CustomEvent('validated', {detail: result}));
+      });  
+    }
+    
+  }
+  console.log(individual['rdf:type'][0].id);
 };
 
 export const html = `

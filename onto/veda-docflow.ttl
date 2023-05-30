@@ -6,7 +6,7 @@
 @prefix v-wf: <http://semantic-machines.com/veda/veda-workflow/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix cfg: <http://semantic-machines.com/veda/config/> .
-
+@prefix s-wf: <http://semantic-machines.com/veda/simple-workflow/> .
 
 @prefix v-df: <http://semantic-machines.com/veda/veda-docflow/> .
 <http://semantic-machines.com/veda/veda-docflow>
@@ -2372,3 +2372,145 @@ print("[v-wf:AutoComplitTask_Daily] ************************** END *************
 """ ;
 .
 
+s-wf:UserTaskForm_NotActualResponsible_Notification
+  rdf:type v-s:Event ;
+  v-s:author cfg:VedaSystemAppointment ;
+  rdfs:label "Уведомление отправителя задачи о неактуальности-недоступности исполнителя  " ;
+  v-s:triggerByType s-wf:UserTaskForm ;
+  v-s:runAt "V8.LowPriority";
+  v-s:script """
+//print("[s-wf:UserTaskForm_NotActualResponsible_Notification] ************************** START **************************");
+// if (parent_script_id && parent_script_id != 'cfg:Event_16') {
+//   print("Not first class event. Exit.");
+//   return;
+// };
+
+const taskUri = document['@'];
+const task = document;//get_individual(ticket, taskUri);
+//print(`${taskUri} updateCounter: ${task['v-s:updateCounter'][0].data}`);
+
+if (veda.Util.hasValue(task, 'v-s:updateCounter') && task['v-s:updateCounter'][0].data > 1) {
+  print(`Skip ${taskUri}: updateCounter > 1`);
+  return;
+}
+let label;
+if (veda.Util.hasValue(task, 'rdfs:label')) {
+  label = task['rdfs:label'].reduce((acc,l) => {
+    if (l.lang == undefined || l.lang == 'RU') acc = l.data;
+    return acc;
+  }, 'empty label');
+  if (label.toLowerCase().indexOf('подписать') == -1) {
+    print(`Skip ${taskUri}: label.indexOf('подписать') == -1 (${label})`);
+    return;
+  }
+} else {
+  print(`Skip ${taskUri}: empty label`);
+  return;
+}
+if (!veda.Util.hasValue(task, 'v-wf:to')) {
+  print(`Skip ${taskUri}: empty v-wf:to`);
+  return;
+}
+// 0 - ok
+// 1 - deleted
+// 2 - absense & not valid
+// 3 - not found person uri in v-wf:to or person is undefined
+let personState = 3;
+// 0 - ok
+// 1 - deleted
+// 3 - not found position uri in v-wf:to or position is undefined
+let positionState = 3;
+let personLabel;
+let positionLabel;
+let dateAbsenceTo;
+task['v-wf:to'].forEach(objUri => {
+  const obj = get_individual(ticket, objUri.data);
+  if (obj != undefined) {
+    if (veda.Util.hasValue(obj, 'rdf:type', {data: 'v-s:Person', type: 'Uri'})) {
+      personLabel = obj['rdfs:label'][0].data;
+      if (veda.Util.hasValue(obj, 'v-s:valid', {data: false, type: 'Boolean'}) && veda.Util.hasValue(obj, 'v-s:dateAbsenceTo')) {
+        personState = 2;
+        dateAbsenceTo = veda.Util.formatValue(new Date(obj['v-s:dateAbsenceTo'][0].data));
+      } else if (veda.Util.hasValue(obj, 'v-s:deleted', {data: true, type: 'Boolean'})) {
+        personState = 1;
+      } else {
+        personState = 0;
+      }
+    }
+    if (veda.Util.hasValue(obj, 'rdf:type', {data: 'v-s:Position', type: 'Uri'})) {
+      positionLabel = obj['rdfs:label'][0].data;
+      if (veda.Util.hasValue(obj, 'v-s:deleted', {data: true, type: 'Boolean'})) {
+        positionState = 1;
+      } else {
+        positionState = 0;
+      }
+    }
+  }
+});
+if (positionState == 0 && personState == 0) {
+  return;
+}
+let docLabel = veda.Workflow.get_properties_chain (task['v-wf:onDocument'], [{$get:'rdfs:label'}]);
+docLabel = docLabel.reduce((acc,l) => {
+    if (l.lang == undefined || l.lang == 'RU') acc = l.data;
+    return acc;
+  }, 'empty label');
+
+let fromLabel = veda.Workflow.get_properties_chain (task['v-wf:from'], [{$get:'rdfs:label'}]);
+fromLabel = fromLabel.reduce((acc,l) => {
+    if (l.lang == undefined || l.lang == 'RU') acc = l.data;
+    return acc;
+  }, 'empty label');
+
+var vedaInfo = get_individual(ticket, "v-s:vedaInfo");
+var appUrl = "";
+if (vedaInfo["v-s:appUrl"] == undefined) {
+  print("Warning: v-s:vedaInfo[v-s:appUrl] is undefined");
+} else {
+  appUrl = vedaInfo["v-s:appUrl"][0].data;
+}
+
+const messageParams = {
+  app_name: veda.Workflow.getAppName,
+  taskLabel: label,
+  docLabel: docLabel,
+  docUrl: appUrl + "/" + task['v-wf:onDocument'][0].data,
+  taskUrl: appUrl + "/" + taskUri,
+  userLabel: fromLabel
+}
+//print(`personState: ${personState} positionState: ${positionState}`);
+if (personState == 1) {
+  messageParams.actionText = ` уволившегося сотрудника: ${personLabel} ${positionLabel}.`;
+} else if (positionState == 1 && personState == 0) {
+  messageParams.actionText = ' сотрудника перешедшего на другую должность.'; 
+} else if (positionState == 1 && personState == 3) {
+  messageParams.actionText = ' удаленную должность.';
+} else if (personState == 2) {
+  messageParams.actionText = ` отсутствующего сотрудника. ${personLabel} ${positionLabel} отсутствует до ${dateAbsenceTo}`;
+}
+// print(`messageParams: ${JSON.stringify(messageParams, null, 2)}`);
+const template = get_individual(ticket, 's-wf:msg-template-notification_not-actual-responsible');
+const subjectTemplate = String(template['v-s:notificationSubject'][0].data);
+const bodyTemplate = String(template['v-s:notificationBody'][0].data);
+const subject = veda.Util.Mustache.render(subjectTemplate, messageParams).replace (/&#x2F;/g, '/');
+const message = veda.Util.Mustache.render(bodyTemplate, messageParams).replace (/&#x2F;/g, '/');
+
+const emailUri = veda.Util.genUri();
+const email= {
+    "@" : emailUri,
+    "rdf:type" : veda.Util.newUri("v-s:Email"),
+    "v-wf:to" : task['v-wf:from'],
+    "v-wf:from" : veda.Util.newUri("d:SYK-PORTALMS_appointment"),
+    "v-s:subject" : veda.Util.newStr(subject),
+    "v-s:messageBody" : veda.Util.newStr(message),
+    "v-s:hasMessageType" : veda.Util.newUri("v-s:OtherNotification"),
+    "v-s:origin" : veda.Util.newUri("s-wf:UserTaskForm_NotActualResponsible_Notification"),
+    "v-s:created" : veda.Util.newDate(new Date()),
+    "v-s:creator" : veda.Util.newUri("d:SYK-PORTALMS_appointment")
+};
+print('New email: ' + emailUri);
+put_individual(ticket, email, _event_id);
+
+print("[s-wf:UserTaskForm_NotActualResponsible_Notification] ************************** END **************************");
+""" ;
+.

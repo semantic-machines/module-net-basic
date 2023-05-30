@@ -187,7 +187,7 @@ export const html = `
         <div class="col-sm-7 col-md-9" style="border-right: 1px dotted #ccc;">
           <h2>
             <span about="@" property="rdfs:label"></span><br />
-            <small about="@" property="v-s:description"></small>
+            <small about="@" property="v-s:description" style='white-space: pre-line;'></small>
           </h2>
 
           <div class="possible-decisions clearfix" style="position:relative">
