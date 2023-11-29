@@ -207,6 +207,7 @@ v-df:CoordinationRouteStartForm
   rdfs:comment "Задача согласовать"@ru ;
 .
 
+#спецификации сделаны отдельно для каждого стенда
 #v-s:responsible
 v-df:PsStartForm_responsible
   rdf:type v-ui:ObjectPropertySpecification ;
@@ -223,6 +224,7 @@ v-df:PsStartForm_responsible
   v-ui:queryPrefix "('rdf:type'=='v-s:Appointment' && 'v-s:employee.v-s:hasAccount.isExists'=='true' && 'v-s:official'=='true') || ('rdf:type'=='v-s:Position' && 'v-s:origin'=='Role')"^^xsd:string ;
   rdfs:label "Спецификация исполнителя задачи для класса Стартовая форма задачи question"@ru ;
   rdfs:label "Task sender property specification for Question task class"@en ;
+  v-s:deleted true ;
 .
 
 v-s:count
