@@ -40,7 +40,7 @@ export const html = `
       <div class="col-md-6">
         <em about="v-s:responsible" property="rdfs:label"></em>
         <div rel="v-s:responsible" data-template="v-ui:LabelTemplate" class="view edit -search"></div>
-        <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext tree"></veda-control>
+        <veda-control rel="v-s:responsible" data-type="link" class="-view edit search fulltext list"></veda-control>
       </div>
       <div class="col-md-4">
         <em about="s-wf:SimpleRouteStartForm_deadlineDate" property="rdfs:label"></em>
