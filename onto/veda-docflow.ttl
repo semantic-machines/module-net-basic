@@ -1586,6 +1586,7 @@ v-df:InstructionRouteStartFormToNet
   v-wf:transformRule v-df:rul_InstructionTransform8 ;
   v-wf:transformRule v-df:rul_InstructionTransform9 ;
   v-wf:transformRule v-df:rul_InstructionTransform10 ;
+  v-wf:transformRule v-df:rul_InstructionTransform11 ;
   rdfs:isDefinedBy v-df: ;
 .
 v-df:rul_InstructionTransform0
@@ -1680,7 +1681,13 @@ v-df:rul_InstructionTransform10
   v-wf:aggregate  "putValue ('v-wf:variableValue')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'setStatus')";
 .
-
+v-df:rul_InstructionTransform11
+  rdf:type v-wf:Rule ;
+  v-wf:segregateElement "contentName('v-wf:StartForm_isAutoinstruction')" ;
+  v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
+  v-wf:aggregate  "putValue ('v-wf:variableValue')";
+  v-wf:aggregate  "putString ('v-wf:variableName', 'isAutoinstruction')";
+.
 
 # --------------------------------------------------------- Ознакомиться в сеть --
 v-df:TaskRouteStartFormToNet

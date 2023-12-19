@@ -136,6 +136,12 @@ s-wf:map_isEditable_true
   v-wf:mappingExpression "veda.Util.newBool (true)";
   rdfs:isDefinedBy s-wf: ;
 .
+s-wf:map_isAutoinstruction
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_isAutoinstruction ;
+  v-wf:mappingExpression "process.getInputVariable ('isAutoinstruction')" ;
+  rdfs:isDefinedBy s-wf: ;
+.
 
 s-wf:var_actor_task_add_to_date_to
   rdf:type v-wf:VarDefine ;
@@ -305,6 +311,13 @@ s-wf:var_set_autoCompleted
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:var_isAutoinstruction
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "isAutoinstruction" ;
+  rdfs:label "Признак автопоручения"@ru ;
+  v-wf:varDefineScope v-wf:Net ;
+  rdfs:isDefinedBy s-wf: ;
+.
 # --------------------------------
 
 s-wf:map_possible_decision
@@ -322,6 +335,11 @@ s-wf:possible_decision_for_controller
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:possible_decision ;
   v-wf:mappingExpression "[veda.Util.newUri('v-wf:DecisionConfirm'), veda.Util.newUri ('v-wf:DecisionRemake')]" ;
+.
+s-wf:possible_decision_for_wrong_executor_task
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:possible_decision ;
+  v-wf:mappingExpression "[veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother')]" ;
 .
 s-wf:map_decision_route_to_add_reaction
   rdf:type v-wf:Mapping ;
@@ -1255,6 +1273,14 @@ s-wf:var_redirect_from
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:var_redirect_from_actor
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "redirect_from_actor" ;
+  v-wf:varDefineScope v-wf:Net ;
+  rdfs:label "Var actor who redirected" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:var_actor_task_comment
   rdf:type v-wf:VarDefine ;
   v-wf:varDefineName "actor_task_comment" ;
@@ -1452,7 +1478,8 @@ s-wf:map_redirect_from_2_result_decision
   v-wf:mappingExpression """
 
   veda.Workflow.get_properties_chain (process.getLocalVariable('result_decision'),
-              [{$get:'v-s:backwardTarget'}] )
+      [{$get:'v-s:backwardTarget'}] 
+    )
 
   """;
   rdfs:label "Задача из формы решения пользователя"@ru ;
@@ -1465,6 +1492,17 @@ s-wf:map_from_2_result_decision_author
   veda.Workflow.get_properties_chain(process.getLocalVariable('redirect_from'), [{$get:'v-wf:from'}]).length > 0  ? veda.Workflow.get_properties_chain(process.getLocalVariable('redirect_from'), [{$go:'v-wf:from'}, {$get:'v-s:defaultAppointment'}]) : veda.Workflow.get_properties_chain(process.getLocalVariable('result_decision'), [{$get:'v-s:creator'}])
   """;
   rdfs:label "Автор задачи из формы решения пользователя"@ru ;
+.
+
+s-wf:map_redirect_from__actor_2_result_decision
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_redirect_from_actor ;
+  v-wf:mappingExpression """
+
+  process.getLocalVariable('actor')
+
+  """;
+  rdfs:label "Исполнитель задачи из формы решения пользователя (для обработки перенаправления)"@ru ;
 .
 
 # Не нашел упоминания в процессах
@@ -1536,7 +1574,41 @@ s-wf:def_exec_initiator
 
 s-wf:def_exec_responsible
   rdf:type v-wf:ExecutorDefinition ;
-  v-wf:executorExpression "process.getLocalVariable ('responsible') ? process.getLocalVariable ('responsible') : (process.getLocalVariable ('controller') ? process.getLocalVariable ('controller') : (process.getLocalVariable ('initiator') ? process.getLocalVariable ('initiator') : process.getLocalVariable ('actor')))" ;
+  v-wf:executorExpression """
+  process.getLocalVariable ('responsible') ? 
+    process.getLocalVariable ('responsible') 
+    : (
+      process.getLocalVariable ('controller') ? 
+        process.getLocalVariable ('controller') 
+        : (
+          process.getLocalVariable ('initiator') ? 
+            process.getLocalVariable ('initiator') 
+            : process.getLocalVariable ('actor')
+        )
+    )
+  """ ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:exec_responsible_for_redirected
+  rdf:type v-wf:ExecutorDefinition ;
+  v-wf:executorExpression """
+  process.getLocalVariable ('redirect_from_actor') ? 
+    process.getLocalVariable ('redirect_from_actor')
+    : (
+      process.getLocalVariable ('responsible') ? 
+        process.getLocalVariable ('responsible') 
+        : (
+          process.getLocalVariable ('controller') ? 
+            process.getLocalVariable ('controller') 
+            : (
+              process.getLocalVariable ('initiator') ? 
+                process.getLocalVariable ('initiator') 
+                : process.getLocalVariable ('actor')
+            )
+        )
+    )
+  """ ;
   rdfs:isDefinedBy s-wf: ;
 .
 
