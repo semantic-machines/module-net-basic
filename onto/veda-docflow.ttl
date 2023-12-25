@@ -2423,7 +2423,7 @@ if (!veda.Util.hasValue(task, 'v-wf:to')) {
 // 0 - ok
 // 1 - deleted
 // 2 - absense & not valid
-// 3 - not found person uri in v-wf:to or person is undefined
+// 3 - not found person uri in v-wf:to
 let personState = 3;
 // 0 - ok
 // 1 - deleted
@@ -2432,6 +2432,7 @@ let positionState = 3;
 let personLabel;
 let positionLabel;
 let dateAbsenceTo;
+let isPersonInTo = false;
 task['v-wf:to'].forEach(objUri => {
   const obj = get_individual(ticket, objUri.data);
   if (obj != undefined) {
@@ -2445,6 +2446,7 @@ task['v-wf:to'].forEach(objUri => {
       } else {
         personState = 0;
       }
+      isPersonInTo = true;
     }
     if (veda.Util.hasValue(obj, 'rdf:type', {data: 'v-s:Position', type: 'Uri'})) {
       positionLabel = obj['rdfs:label'][0].data;
@@ -2456,6 +2458,7 @@ task['v-wf:to'].forEach(objUri => {
     }
   }
 });
+if (personState == 3 && !isPersonInTo) personState = 0;
 if (positionState == 0 && personState == 0) {
   return;
 }
@@ -2492,7 +2495,7 @@ if (personState == 1) {
   messageParams.actionText = ` уволившегося сотрудника: ${personLabel} ${positionLabel}.`;
 } else if (positionState == 1 && personState == 0) {
   messageParams.actionText = ' сотрудника перешедшего на другую должность.'; 
-} else if (positionState == 1 && personState == 3) {
+} else if (positionState == 1 && personState == 0) {
   messageParams.actionText = ' удаленную должность.';
 } else if (personState == 2) {
   messageParams.actionText = ` отсутствующего сотрудника. ${personLabel} ${positionLabel} отсутствует до ${dateAbsenceTo}`;
