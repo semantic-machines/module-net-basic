@@ -648,6 +648,41 @@ s-wf:SimpleRouteStartForm_editable
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:SimpleRouteStartForm_required
+  rdf:type rdf:Property ;
+  rdfs:label "Обязательный"@ru ;
+  rdfs:label "Required"@en ;
+  rdfs:domain s-wf:SimpleRouteStartForm ;
+  rdfs:range xsd:boolean ;
+  rdfs:isDefinedBy s-wf: ;
+.
+s-wf:SimpleRouteStartForm_tooltip
+  rdf:type rdf:Property ;
+  rdfs:label "Tooltip"@ru ;
+  rdfs:label "Tooltip"@en ;
+  rdfs:domain s-wf:SimpleRouteStartForm ;
+  rdfs:range xsd:string ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:SimpleRouteStartForm_participantMinCardinality
+  rdf:type rdf:Property ;
+  rdfs:label "Минимальное кол-во получателей"@ru ;
+  rdfs:label "participantMinCardinality"@en ;
+  rdfs:domain s-wf:SimpleRouteStartForm ;
+  rdfs:range xsd:integer ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:SimpleRouteStartForm_participantMaxCardinality
+  rdf:type rdf:Property ;
+  rdfs:label "Максимальное кол-во получателей"@ru ;
+  rdfs:label "participantMaxCardinality"@en ;
+  rdfs:domain s-wf:SimpleRouteStartForm ;
+  rdfs:range xsd:integer ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:SimpleRouteStartForm_controlled
   rdf:type rdf:Property ;
   rdfs:label "Контролируемый"@ru ;
