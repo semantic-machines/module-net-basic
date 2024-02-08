@@ -450,6 +450,13 @@ v-wf:DecisionNotForMe
   rdfs:label "Ошибочный исполнитель"@ru ;
   rdfs:label "Wrong executor"@en ;
 .
+v-wf:DecisionNotForMeWithAcceptReject
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Ошибочный исполнитель"@ru ;
+  rdfs:label "Wrong executor"@en ;
+.
 v-wf:DecisionRevoke_Bundle
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
@@ -552,6 +559,7 @@ v-wf:DecisionIssueTaskToAnother
     v-ui:maxCardinality "1"^^xsd:integer ;
     v-ui:forProperty rdfs:comment ;
     v-ui:forClass v-wf:DecisionNotForMe ;
+    v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject ;
     v-ui:forClass v-wf:DecisionRejected ;
     v-ui:forClass v-wf:DecisionDeclined ;
     v-ui:forClass v-wf:DecisionPostponed ;
@@ -996,6 +1004,20 @@ v-wf:CS_DecisionNotForMe
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-s:loadPriority 15 ;
 .
+v-s:TS_DecisionNotForMeWithAcceptReject
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject
+.
+v-wf:CS_DecisionNotForMeWithAcceptReject
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionNotForMeWithAcceptReject"@ru, "Class specification v-wf:DecisionNotForMeWithAcceptReject"@en;
+  v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject ;
+  v-s:shelfLife 9999;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
 v-s:TS_DecisionProlongate
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
@@ -1142,6 +1164,7 @@ v-wf:DecisionTemplate1
   rdfs:label "Шаблон для класса -Решение-"@ru ;
   rdfs:label "Template for -Decision- class"@en ;
   v-ui:forClass v-wf:DecisionNotForMe ;
+  v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject ;
   v-ui:forClass v-wf:DecisionAgreed ;
   v-ui:forClass v-wf:DecisionNoAgreed ;
   v-ui:forClass v-wf:DecisionSign ;
@@ -1638,7 +1661,7 @@ v-df:rul_InstructionTransform6_0
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionAchieved')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotPerformed')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMeWithAcceptReject')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionProlongate')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
@@ -1752,7 +1775,7 @@ v-df:rul_TaskTransform6_0
   v-wf:segregateElement "contentName('@')" ;
   v-wf:aggregate  "putUri ('rdf:type', 'v-wf:Variable')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionExamined')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMeWithAcceptReject')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
 v-df:rul_TaskTransform6_3
@@ -1927,7 +1950,7 @@ v-df:rul_CoordinationTransform6_0
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionRejected')";
 # v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotPerformed')";
   v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNoAgreed')";
-  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMe')";
+  v-wf:aggregate  "putUri ('v-wf:variableValue', 'v-wf:DecisionNotForMeWithAcceptReject')";
   v-wf:aggregate  "putString ('v-wf:variableName', 'possible_decision')";
 .
 v-df:rul_CoordinationTransform6_3
@@ -2273,6 +2296,7 @@ v-wf:permission_c_on_decision
   v-s:permissionObject v-wf:DecisionRemake ;
   v-s:permissionObject v-wf:DecisionRemaked ;
   v-s:permissionObject v-wf:DecisionNotForMe ;
+  v-s:permissionObject v-wf:DecisionNotForMeWithAcceptReject ;
   v-s:permissionObject v-wf:DecisionBreak ;
   v-s:permissionObject v-wf:DecisionGoCoordination1;
   v-s:permissionObject v-wf:DecisionGoCoordination2;

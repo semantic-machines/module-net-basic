@@ -341,6 +341,11 @@ s-wf:possible_decision_for_wrong_executor_task
   v-wf:mapToVariable s-wf:possible_decision ;
   v-wf:mappingExpression "[veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother')]" ;
 .
+s-wf:possible_decision_for_wrong_executor_withAcceptReject
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:possible_decision ;
+  v-wf:mappingExpression "[veda.Util.newUri ('v-wf:DecisionIssueTaskToAnother'), veda.Util.newUri('v-wf:DecisionAcceptMotivatedRefusal')]" ;
+.
 s-wf:map_decision_route_to_add_reaction
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:decision_route_to_add_reaction ;
