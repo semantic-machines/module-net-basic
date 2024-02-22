@@ -2457,6 +2457,7 @@ let personLabel;
 let positionLabel;
 let dateAbsenceTo;
 let isPersonInTo = false;
+let isPositionInTo = false;
 task['v-wf:to'].forEach(objUri => {
   const obj = get_individual(ticket, objUri.data);
   if (obj != undefined) {
@@ -2479,10 +2480,13 @@ task['v-wf:to'].forEach(objUri => {
       } else {
         positionState = 0;
       }
+      isPositionInTo = true;
     }
   }
 });
 if (personState == 3 && !isPersonInTo) personState = 0;
+if (positionState == 3 && !isPositionInTo) positionState = 0;
+
 if (positionState == 0 && personState == 0) {
   return;
 }
