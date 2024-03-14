@@ -1200,7 +1200,7 @@ s-wf:map_journal_to_4_PLV_controller
 s-wf:map_journal_to_4_PLV_responsible
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_journal_to ;
-  v-wf:mappingExpression "process.getLocalVariable ('responsible')?process.getLocalVariable ('responsible'):process.getLocalVariable ('initiator')" ;
+  v-wf:mappingExpression "process.getLocalVariable ('responsible')?process.getLocalVariable ('responsible'):(process.getLocalVariable ('controller')?process.getLocalVariable ('controller'):process.getLocalVariable ('initiator'))" ;
   rdfs:isDefinedBy s-wf: ;
 .
 
