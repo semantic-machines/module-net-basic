@@ -1069,7 +1069,6 @@ v-wf:DecisionGoSign
   rdfs:subClassOf v-wf:Decision ;
   rdfs:label "Перейти к этапу подписания"@ru ;
   rdfs:isDefinedBy s-wf: ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 v-wf:DecisionGoApproval
@@ -1077,7 +1076,6 @@ v-wf:DecisionGoApproval
   rdfs:subClassOf v-wf:Decision ;
   rdfs:label "Перейти к этапу утверждения"@ru ;
   rdfs:isDefinedBy s-wf: ;
-  v-ui:hasTemplate v-wf:DecisionTemplate1 ;
 .
 
 

@@ -1,3 +1,16 @@
+export const pre = function (individual, template, container, mode, extra) {
+  if (individual.tooltip != undefined) {
+    const control = $('veda-control[rel="s-wf:SimpleRouteStartForm_participant"]', template);
+    control.attr('data-tooltip', individual.tooltip);
+    control.tooltip({
+      title: individual.tooltip,
+      placement: 'top',
+      container: container,
+      animation: false,
+    });
+  }
+}
+
 export const html = `
   <div>
     <em>

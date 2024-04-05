@@ -83,6 +83,11 @@ v-wf:DecisionBreaked_Bundle
   rdfs:label "Процесс прерван"@ru ;
   rdfs:label "Process is interrupted"@en ;
 .
+v-wf:DecisionRemakeComment_Bundle
+  rdf:type v-s:Bundle;
+  rdfs:label "Комментарий о причинах повторного согласования"@ru ;
+  rdfs:label "Commentary on the reasons for reauthorization"@en ;
+.
 
 
 # --------------------------------------------------------------------- КЛАССЫ --
@@ -557,6 +562,8 @@ v-wf:DecisionIssueTaskToAnother
     rdfs:label "Spec for template for some -Decision- subclasses"@en ;
     v-ui:minCardinality "1"^^xsd:integer ;
     v-ui:maxCardinality "1"^^xsd:integer ;
+    v-ui:placeholder "Укажите, какие изменения были внесены по сравнению с предыдущей версией документа"@ru ;
+    v-ui:placeholder "Indicate what changes have been made from the previous version of the document"@en ;
     v-ui:forProperty rdfs:comment ;
     v-ui:forClass v-wf:DecisionNotForMe ;
     v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject ;
@@ -566,6 +573,14 @@ v-wf:DecisionIssueTaskToAnother
     v-ui:forClass v-wf:DecisionRemake ;
     v-ui:forClass v-wf:DecisionNotPerformed ;
     v-ui:forClass v-wf:DecisionProlongate ;
+    v-ui:forClass v-wf:DecisionGoCoordination1;
+    v-ui:forClass v-wf:DecisionGoCoordination2;
+    v-ui:forClass v-wf:DecisionGoCoordination3;
+    v-ui:forClass v-wf:DecisionGoCoordination4;
+    v-ui:forClass v-wf:DecisionGoCoordination5;
+    v-ui:forClass v-wf:DecisionGoCoordination6;
+    v-ui:forClass v-wf:DecisionGoSign;
+    v-ui:forClass v-wf:DecisionGoApproval;
   .
   v-wf:DecisionRedirectTemplateSpec2
     rdf:type v-ui:PropertySpecification ;
@@ -1163,35 +1178,68 @@ v-wf:DecisionTemplate1
   rdfs:isDefinedBy v-wf: ;
   rdfs:label "Шаблон для класса -Решение-"@ru ;
   rdfs:label "Template for -Decision- class"@en ;
-  v-ui:forClass v-wf:DecisionNotForMe ;
-  v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject ;
-  v-ui:forClass v-wf:DecisionAgreed ;
-  v-ui:forClass v-wf:DecisionNoAgreed ;
-  v-ui:forClass v-wf:DecisionSign ;
-  v-ui:forClass v-wf:DecisionApprove ;
-  v-ui:forClass v-wf:DecisionReview ;
-  v-ui:forClass v-wf:DecisionBreak ;
-  v-ui:forClass v-wf:DecisionExamined ;
-  v-ui:forClass v-wf:DecisionReturnedToReview ;
-  v-ui:forClass v-wf:DecisionAchieved ;
-  v-ui:forClass v-wf:DecisionRejected ;
-  v-ui:forClass v-wf:DecisionGoCoordination1;
-  v-ui:forClass v-wf:DecisionGoCoordination2;
-  v-ui:forClass v-wf:DecisionGoCoordination3;
-  v-ui:forClass v-wf:DecisionGoCoordination4;
-  v-ui:forClass v-wf:DecisionGoCoordination5;
-  v-ui:forClass v-wf:DecisionGoCoordination6;
-  v-ui:forClass v-wf:DecisionGoSign;
-  v-ui:forClass v-wf:DecisionGoApproval;
-  v-ui:forClass v-wf:DecisionDeclined ;
-  v-ui:forClass v-wf:DecisionPostponed ;
-  v-ui:forClass v-wf:DecisionRemaked ;
-  v-ui:forClass v-wf:DecisionNotPerformed ;
-  v-ui:forClass v-wf:DecisionConfirm ;
-  v-ui:forClass v-wf:DecisionAgreedToProject ;
-  v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
-  v-ui:forClass v-wf:DecisionCalculationsPerformed ;
   v-ui:template "v-wf_DecisionTemplate1.js" ;
+.
+v-wf:DecisionTemplateRemake
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Шаблон для класса -Решение- Доработать"@ru ;
+  rdfs:label "Template for -Decision Remake- class"@en ;
+  v-ui:template "v-wf_DecisionTemplateRemake.js" ;
+.
+v-s:TS_DecisionGoCoordination1
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination1 ;
+.
+v-s:TS_DecisionGoCoordination2
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination2 ;
+.
+v-s:TS_DecisionGoCoordination3
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination3 ;
+.
+v-s:TS_DecisionGoCoordination4
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination4 ;
+.
+v-s:TS_DecisionGoCoordination5
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination5 ;
+.
+v-s:TS_DecisionGoCoordination6
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination6 ;
+.
+v-s:TS_DecisionGoCoordination1
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoCoordination1 ;
+.
+v-s:TS_DecisionGoSign
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoSign ;
+.
+v-s:TS_DecisionGoApproval
+  rdf:type v-ui:TemplateSpecification ;
+  v-s:loadPriority 10 ;
+  v-ui:defaultTemplate v-wf:DecisionTemplateRemake ;
+  v-ui:forClass v-wf:DecisionGoApproval ;
 .
 v-wf:DecisionTemplateForExamine
   rdf:type v-ui:ClassTemplate ;
