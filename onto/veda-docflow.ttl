@@ -539,6 +539,13 @@ v-wf:DecisionCalculationsPerformed
   rdfs:label "Расчет выполнен"@ru ;
   rdfs:label "Calculations performed"@en ;
 .
+v-wf:DecisionEffectNotConfirmed
+  rdf:type owl:Class ;
+  rdfs:subClassOf v-wf:Decision ;
+  rdfs:isDefinedBy v-wf: ;
+  rdfs:label "Эффект не подтвержден"@ru ;
+  rdfs:label "Effect not confirmed"@en ;
+.
 v-wf:DecisionAcceptMotivatedRefusal
   rdf:type owl:Class ;
   rdfs:subClassOf v-wf:Decision ;
@@ -603,6 +610,7 @@ v-wf:DecisionIssueTaskToAnother
     v-ui:forClass v-wf:DecisionConfirm ;
     v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
     v-ui:forClass v-wf:DecisionCalculationsPerformed ;
+    v-ui:forClass v-wf:DecisionEffectNotConfirmed ;
   .
   v-wf:DecisionRedirectTemplateSpec2_comment
     rdf:type v-ui:PropertySpecification ;
@@ -1155,6 +1163,20 @@ v-wf:CS_DecisionCalculationsPerformed
   rdf:type v-s:ClassSpecification ;
   rdfs:label "Спецификация класса v-wf:DecisionCalculationsPerformed"@ru, "Class specification v-wf:DecisionCalculationsPerformed"@en;
   v-ui:forClass v-wf:DecisionCalculationsPerformed ;
+  v-s:shelfLife 9999;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-s:loadPriority 15 ;
+.
+v-s:TS_DecisionEffectNotConfirmed
+  rdf:type v-ui:TemplateSpecification;
+  v-s:loadPriority "15"^^xsd:integer;
+  v-ui:defaultTemplate v-wf:DecisionTemplate1;
+  v-ui:forClass v-wf:DecisionEffectNotConfirmed
+.
+v-wf:CS_DecisionEffectNotConfirmed
+  rdf:type v-s:ClassSpecification ;
+  rdfs:label "Спецификация класса v-wf:DecisionEffectNotConfirmed"@ru, "Class specification v-wf:DecisionEffectNotConfirmed"@en;
+  v-ui:forClass v-wf:DecisionEffectNotConfirmed ;
   v-s:shelfLife 9999;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-s:loadPriority 15 ;
@@ -2360,6 +2382,7 @@ v-wf:permission_c_on_decision
   v-s:permissionObject v-wf:DecisionConfirm ;
   v-s:permissionObject v-wf:DecisionRedirect ;
   v-s:permissionObject v-wf:DecisionCalculationsPerformed ;
+  v-s:permissionObject v-wf:DecisionEffectNotConfirmed ;
   v-s:permissionObject v-wf:DecisionIssueTaskToAnother ;
   v-s:permissionSubject cfg:AllUsersGroup ;
 .
