@@ -1056,6 +1056,13 @@ s-wf:UserTaskFormTemplate
   v-ui:forClass s-wf:UserTaskForm ;
   v-ui:template "s-wf_UserTaskFormTemplate.js" ;
 .
+s-wf:UserTaskFormOnlyTemplate
+  rdf:type v-ui:ClassTemplate ;
+  rdfs:isDefinedBy s-wf: ;
+  rdfs:label "Шаблон для класса Форма ответа на задачу"@ru ;
+  v-ui:forClass s-wf:UserTaskForm ;
+  v-ui:template "s-wf_UserTaskFormOnlyTemplate.js" ;
+.
 s-wf:UserTaskFormTemplate_RedirectInfo
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy s-wf: ;
@@ -1523,7 +1530,7 @@ s-wf:map_redirect_from_2_result_decision
   v-wf:mappingExpression """
 
   veda.Workflow.get_properties_chain (process.getLocalVariable('result_decision'),
-      [{$get:'v-s:backwardTarget'}] 
+      [{$get:'v-s:backwardTarget'}]
     )
 
   """;
@@ -1620,14 +1627,14 @@ s-wf:def_exec_initiator
 s-wf:def_exec_responsible
   rdf:type v-wf:ExecutorDefinition ;
   v-wf:executorExpression """
-  process.getLocalVariable ('responsible') ? 
-    process.getLocalVariable ('responsible') 
+  process.getLocalVariable ('responsible') ?
+    process.getLocalVariable ('responsible')
     : (
-      process.getLocalVariable ('controller') ? 
-        process.getLocalVariable ('controller') 
+      process.getLocalVariable ('controller') ?
+        process.getLocalVariable ('controller')
         : (
-          process.getLocalVariable ('initiator') ? 
-            process.getLocalVariable ('initiator') 
+          process.getLocalVariable ('initiator') ?
+            process.getLocalVariable ('initiator')
             : process.getLocalVariable ('actor')
         )
     )
@@ -1638,17 +1645,17 @@ s-wf:def_exec_responsible
 s-wf:exec_responsible_for_redirected
   rdf:type v-wf:ExecutorDefinition ;
   v-wf:executorExpression """
-  process.getLocalVariable ('responsible') ? 
+  process.getLocalVariable ('responsible') ?
     process.getLocalVariable ('responsible')
     : (
-      process.getLocalVariable ('redirect_from_actor') ? 
-        process.getLocalVariable ('redirect_from_actor') 
+      process.getLocalVariable ('redirect_from_actor') ?
+        process.getLocalVariable ('redirect_from_actor')
         : (
-          process.getLocalVariable ('controller') ? 
-            process.getLocalVariable ('controller') 
+          process.getLocalVariable ('controller') ?
+            process.getLocalVariable ('controller')
             : (
-              process.getLocalVariable ('initiator') ? 
-                process.getLocalVariable ('initiator') 
+              process.getLocalVariable ('initiator') ?
+                process.getLocalVariable ('initiator')
                 : process.getLocalVariable ('actor')
             )
         )
