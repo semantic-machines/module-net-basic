@@ -34,7 +34,7 @@ export const html = `
       </label>
     </div>
     <em about="s-wf:SimpleRouteStartForm_controller" property="rdfs:label"></em>
-    <div property="s-wf:SimpleRouteStartForm_controller" class="view -edit -search"></div>
+    <div rel="s-wf:SimpleRouteStartForm_controller" class="view -edit -search" data-template="v-ui:LabelTemplate"></div>
     <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_controller" class="-view edit -search fulltext"></veda-control>
   </div>
 `;
