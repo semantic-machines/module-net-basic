@@ -50,6 +50,11 @@ v-s:NotRightsForDocumentCommentBundle
   rdfs:label "I have no rights to view documents of this type."@en ;
 .
 
+v-s:SelectedDeletedValuesCommentBundle
+  rdf:type v-s:Bundle ;
+  rdfs:comment "Выбраны удаленные значения"@ru ;
+  rdfs:comment "Selected deleted values"@en ;
+.
 # -----------------------------------------------
 
 s-wf:EmptyTask
