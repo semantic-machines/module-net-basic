@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export const pre = function (individual, template, container, mode, extra) {
   template = $(template);
   container = $(container);
@@ -16,9 +18,9 @@ export const pre = function (individual, template, container, mode, extra) {
     });
   }
   
-  template.on('validate', function () {
+  template.on('validate', async function () {
     const result = {};
-    if (individual.hasValue('s-wf:SimpleRouteStartForm_participantMinCardinality') || individual.hasValue('s-wf:SimpleRouteStartForm_participantMinCardinality')) {
+    if (individual.hasValue('s-wf:SimpleRouteStartForm_participantMinCardinality') || individual.hasValue('s-wf:SimpleRouteStartForm_participantMaxCardinality')) {
       const currentParticipants = individual.hasValue('s-wf:SimpleRouteStartForm_participant') ? individual['s-wf:SimpleRouteStartForm_participant'].length : 0;
       if (individual.hasValue('s-wf:SimpleRouteStartForm_participantMinCardinality')) {
         if (currentParticipants < individual['s-wf:SimpleRouteStartForm_participantMinCardinality'][0]) {
@@ -41,6 +43,23 @@ export const pre = function (individual, template, container, mode, extra) {
         state: true,
         cause: ['v-ui:maxCardinality'],
       };
+    }
+    if (individual.hasValue('s-wf:SimpleRouteStartForm_participant') && individual.hasValue('s-wf:SimpleRouteStartForm_editable',true)) {
+      const participants = individual['s-wf:SimpleRouteStartForm_participant'];
+      let hasDeleted = false;
+      for (let i = 0; i < participants.length; i++) {
+        const participant = await participants[i].load();
+        if (participant.hasValue('v-s:deleted',true)) {
+          hasDeleted = true;
+          break;
+        }
+      }
+      if (hasDeleted) {
+        result['s-wf:SimpleRouteStartForm_participant'] = {
+          state: false,
+          cause: ['v-s:SelectedDeletedValuesCommentBundle'],
+        };
+      }
     }
     template[0].dispatchEvent(new CustomEvent('validated', {detail: result}));
   });
