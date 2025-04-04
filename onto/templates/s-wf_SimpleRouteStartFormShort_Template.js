@@ -1,23 +1,13 @@
 import $ from 'jquery';
+import IndividualModel from '/js/common/individual_model.js';
+import CommonUtil from '/js/common/util.js';
 
 export const pre = function (individual, template, container, mode, extra) {
   template = $(template);
   container = $(container);
-  if (individual.hasValue('s-wf:SimpleRouteStartForm_tooltip')) {
-    const tooltipText = individual['s-wf:SimpleRouteStartForm_tooltip'].map(veda.Util.formatValue).join(' ');
-    const tooltipTemplate = '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner aaas" style="text-align: left; white-space:break-spaces"></div></div>';
-    const control = $('veda-control[rel="s-wf:SimpleRouteStartForm_participant"]', template);
-    control.attr('data-tooltip', individual.tooltip);
-    control.tooltip({
-      title: tooltipText,
-      placement: 'bottom',
-      container: container,
-      animation: false,
-      template: tooltipTemplate,
-      sanitize: false
-    });
+  if (!individual.hasValue('s-wf:SimpleRouteStartForm_tooltip')) {
+    $('#tooltip', template).remove();
   }
-  
   template.on('validate', async function () {
     const result = {};
     if (individual.hasValue('s-wf:SimpleRouteStartForm_participantMinCardinality') || individual.hasValue('s-wf:SimpleRouteStartForm_participantMaxCardinality')) {
@@ -63,38 +53,59 @@ export const pre = function (individual, template, container, mode, extra) {
     }
     template[0].dispatchEvent(new CustomEvent('validated', {detail: result}));
   });
-
-  // if (individual.tooltip != undefined) {
-  //   const control = $('veda-control[rel="s-wf:SimpleRouteStartForm_participant"]', template);
-  //   control.attr('data-tooltip', individual.tooltip);
-  //   control.tooltip({
-  //     title: individual.tooltip,
-  //     placement: 'top',
-  //     container: container,
-  //     animation: false,
-  //   });
-  // }
 }
-
 export const html = `
   <div>
-    <em>
-      <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
-      <span about="@" property="v-s:description" class="view edit -search"></span>
-    </em>
-    <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelTemplate"></div>
-    <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
-    <em about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></em>
-    <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search"></div>
-    <veda-control data-type="text" property="s-wf:SimpleRouteStartForm_comment" class="-view edit -search"></veda-control>
-    <em about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></em>
-    <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
-    <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
-    <div class="checkbox checkbox_canEdit disabled">
-      <label>
-        <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
-        <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
-      </label>
+    <div class="row row-attribute -view edit -search" id="tooltip">
+      <div class="col-sm-3 col-xs-5"></div>
+      <div class="col-sm-9 col-xs-7">
+        <div class="alert alert-info" style="padding:10px;">
+          <div about="@" property="s-wf:SimpleRouteStartForm_tooltip" class="markdown" style="white-space: pre-line; line-height: 1;"></div>
+        </div>
+      </div>
     </div>
+    <div class="row row-attribute">
+      <div class="col-sm-3 col-xs-5">
+        <label>
+          <span about="s-wf:SimpleRouteStartForm_participant" property="rdfs:label"></span>
+          <span about="@" property="v-s:description" class="view edit -search"></span>
+        </label>
+      </div>
+      <div class="col-sm-9 col-xs-7">
+        <div rel="s-wf:SimpleRouteStartForm_participant" class="view edit -search" data-template="v-ui:LabelWithBorderTemplate"></div>
+        <veda-control data-type="link" rel="s-wf:SimpleRouteStartForm_participant" class="-view edit search fulltext"></veda-control>
+      </div>
+    </div>
+    <div class="row row-attribute">
+      <div class="col-sm-3 col-xs-5">
+        <label about="s-wf:SimpleRouteStartForm_comment" property="rdfs:label"></label>
+      </div>
+      <div class="col-sm-9 col-xs-7">
+        <div property="s-wf:SimpleRouteStartForm_comment" class="view -edit -search" data-template="v-ui:LabelTemplate"></div>
+        <veda-control data-type="text" rel="s-wf:SimpleRouteStartForm_comment" class="-view edit search"></veda-control>
+      </div>
+    </div>
+    <div class="row row-attribute">
+      <div class="col-sm-3 col-xs-5">
+        <label about="s-wf:SimpleRouteStartForm_deadlineDays" property="rdfs:label"></label>
+      </div>
+      <div class="col-sm-3 col-xs-3">
+        <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view -edit search"></div>
+        <div about="@" property="s-wf:SimpleRouteStartForm_deadlineDays" class="view edit -search"></div>
+        <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view -edit -search"></veda-control>
+      </div>
+    </div>
+    <!--div class="row row-attribute">
+      <div class="col-sm-3 col-xs-5">
+      </div>
+      <div class="col-sm-9 col-xs-7">
+        <div class="checkbox checkbox_canEdit disabled">
+          <label>
+            <veda-control property="v-wf:StartForm_canEdit" data-type="boolean"></veda-control>
+            <span about="v-wf:StartForm_canEdit" property="rdfs:label"></span>
+          </label>
+        </div>
+      </div>
+    </div-->
   </div>
 `;
