@@ -91,7 +91,7 @@ export const html = `
       </div>
       <div class="col-sm-3 col-xs-3">
         <div property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view -edit search"></div>
-        <div about="@" property="s-wf:SimpleRouteStartForm_deadlineDays" class="view edit -search"></div>
+        <div about="@" property="s-wf:SimpleRouteStartForm_deadlineDays" class="view -edit -search"></div>
         <veda-control data-type="integer" property="s-wf:SimpleRouteStartForm_deadlineDays" class="-view edit -search"></veda-control>
       </div>
     </div>
