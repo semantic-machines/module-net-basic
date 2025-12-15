@@ -37,18 +37,20 @@ s-wf:adf43bae5-d0ce-62e4-5e11-e127df46ecc4
           return !currentIsRevoke;
         });
       };
-      if (task_result.is_some_executor_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionDeclined'))) {
+      if (task_result.is_some_executor_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionDeclined'))) {
         veda.Util.newUri('v-wf:DecisionDeclined');
-      } else if (task_result.is_all_executors_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionSign'))) {
+      } else if (task_result.is_all_executors_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionSign'))) {
         veda.Util.newUri('v-wf:DecisionSign');
       } else if (task_result.is_all_executors_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionApprove'))) {
         veda.Util.newUri('v-wf:DecisionApprove');
-      } else if (task_result.is_all_executors_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionReview'))) {
+      } else if (task_result.is_all_executors_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionReview'))) {
         veda.Util.newUri('v-wf:DecisionReview');
-      } else if (task_result.is_all_executors_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionAchieved'))) {
+      } else if (task_result.is_all_executors_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionAchieved'))) {
         veda.Util.newUri('v-wf:DecisionAchieved');
-      } else if (task_result.is_all_executors_taken_decision ('result', veda.Util.newUri ('v-wf:DecisionExamined'))) {
+      } else if (task_result.is_all_executors_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionExamined'))) {
         veda.Util.newUri('v-wf:DecisionExamined');
+      } else if (task_result.is_all_executors_taken_decision_subClassOf ('result', veda.Util.newUri ('v-wf:DecisionAcceptMotivatedRefusal'))) {
+        veda.Util.newUri('v-wf:DecisionAcceptMotivatedRefusal');
       } else {
         veda.Util.newUri('v-wf:DecisionAgreed');
       };
