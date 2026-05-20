@@ -2078,10 +2078,30 @@ s-wf:map_from_4_TIV_initiator
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:map_from_4_TIV_initiator_email
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_from_mailbox ;
+  v-wf:mappingExpression
+  """
+  veda.Util.newStr(veda.Util.getFirstValue(veda.Workflow.get_properties_chain(task.getInputVariable('initiator'), [{$go:'v-s:employee'}, {$go:'v-s:hasAccount'}, {$get:'v-s:mailbox'}])))
+  """;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:map_from_4_TIV_from
   rdf:type v-wf:Mapping ;
   v-wf:mapToVariable s-wf:var_from ;
   v-wf:mappingExpression "task.getInputVariable ('from')";
+  rdfs:isDefinedBy s-wf: ;
+.
+
+s-wf:map_from_4_TIV_from_email
+  rdf:type v-wf:Mapping ;
+  v-wf:mapToVariable s-wf:var_from_mailbox ;
+  v-wf:mappingExpression
+  """
+  veda.Util.newStr(veda.Util.getFirstValue(veda.Workflow.get_properties_chain(task.getInputVariable('from'), [{$go:'v-s:employee'}, {$go:'v-s:hasAccount'}, {$get:'v-s:mailbox'}])))
+  """;
   rdfs:isDefinedBy s-wf: ;
 .
 
@@ -2343,6 +2363,13 @@ s-wf:var_from
   rdfs:isDefinedBy s-wf: ;
 .
 
+s-wf:var_from_mailbox
+  rdf:type v-wf:VarDefine ;
+  v-wf:varDefineName "from_mailbox" ;
+  rdfs:label "Var from_mailbox" ;
+  rdfs:isDefinedBy s-wf: ;
+.
+
 s-wf:var_to
   rdf:type v-wf:VarDefine ;
   v-wf:varDefineName "to" ;
@@ -2491,6 +2518,7 @@ s-wf:msg-template-universal
 По документу '{{documentType}}: {{document}}'
 
 Задачу направил {{from}}
+Электронная почта отправителя: {{from_mailbox}}
 
 Пожалуйста, используйте ссылки для перехода на нужные страницы:
 * Документ: {{document_url}}
