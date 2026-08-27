@@ -670,14 +670,6 @@ v-s:TS_ApprovalTask
   v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
   v-ui:forClass v-df:ApprovalTask
 .
-v-df:CS_ApprovalTask
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:ApprovalTask "@ru, "Class specification v-df:ApprovalTask "@en;
-  v-ui:forClass v-df:ApprovalTask ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:ApprovalTaskTemplate;
-  v-s:loadPriority 15 ;
-.
 v-df:ApprovalTaskTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:ApprovalTask ;
@@ -692,14 +684,6 @@ v-s:TS_SignRouteStartForm
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
   v-ui:forClass v-df:SignRouteStartForm
-.
-v-df:CS_SignRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:SignRouteStartForm "@ru, "Class specification v-df:SignRouteStartForm "@en;
-  v-ui:forClass v-df:SignRouteStartForm ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:SignRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
 .
 v-df:SignRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -716,14 +700,6 @@ v-s:TS_ConfirmationRouteStartForm
   v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
   v-ui:forClass v-df:ConfirmationRouteStartForm
 .
-v-df:CS_ConfirmationRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:ConfirmationRouteStartForm "@ru, "Class specification v-df:ConfirmationRouteStartForm "@en;
-  v-ui:forClass v-df:ConfirmationRouteStartForm ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:ConfirmationRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
-.
 v-df:ConfirmationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:ConfirmationRouteStartForm ;
@@ -739,14 +715,6 @@ v-s:TS_QuestionRouteStartForm
   v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
   v-ui:forClass v-df:QuestionRouteStartForm
 .
-v-df:CS_QuestionRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:QuestionRouteStartForm "@ru, "Class specification v-df:QuestionRouteStartForm "@en;
-  v-ui:forClass v-df:QuestionRouteStartForm ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:QuestionRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
-.
 v-df:QuestionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:QuestionRouteStartForm ;
@@ -761,14 +729,6 @@ v-s:TS_InstructionRouteStartForm
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
   v-ui:forClass v-df:InstructionRouteStartForm
-.
-v-df:CS_InstructionRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:InstructionRouteStartForm "@ru, "Class specification v-df:InstructionRouteStartForm "@en;
-  v-ui:forClass v-df:InstructionRouteStartForm ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:InstructionRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
 .
 v-df:InstructionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -794,14 +754,6 @@ v-s:TS_TaskRouteStartForm
   v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
   v-ui:forClass v-df:TaskRouteStartForm
 .
-v-df:CS_TaskRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:TaskRouteStartForm"@ru, "Class specification v-df:TaskRouteStartForm"@en;
-  v-ui:forClass v-df:TaskRouteStartForm;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:TaskRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
-.
 v-df:TaskRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:TaskRouteStartForm ;
@@ -816,14 +768,6 @@ v-s:TS_DistributionRouteStartForm
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
   v-ui:forClass v-df:DistributionRouteStartForm
-.
-v-df:CS_DistributionRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:DistributionRouteStartForm"@ru, "Class specification v-df:DistributionRouteStartForm"@en;
-  v-ui:forClass v-df:DistributionRouteStartForm;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:DistributionRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
 .
 v-df:DistributionRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -840,14 +784,6 @@ v-s:TS_CoordinationRouteStartForm
   v-ui:defaultTemplate v-df:CoordinationRouteStartFormTemplate;
   v-ui:forClass v-df:CoordinationRouteStartForm
 .
-v-df:CS_CoordinationRouteStartForm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-df:CoordinationRouteStartForm"@ru, "Class specification v-df:CoordinationRouteStartForm"@en;
-  v-ui:forClass v-df:CoordinationRouteStartForm;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-df:CoordinationRouteStartFormTemplate;
-  v-s:loadPriority 15 ;
-.
 v-df:CoordinationRouteStartFormTemplate
   rdf:type v-ui:ClassTemplate ;
   v-ui:forClass v-df:CoordinationRouteStartForm ;
@@ -862,14 +798,6 @@ v-s:TS_DecisionRedirect
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
   v-ui:forClass v-wf:DecisionRedirect
-.
-v-wf:CS_DecisionRedirect
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRedirect"@ru, "Class specification v-wf:DecisionRedirect"@en;
-  v-ui:forClass v-wf:DecisionRedirect ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionRedirectTemplate;
-  v-s:loadPriority 15 ;
 .
 v-wf:DecisionRedirectTemplate
   rdf:type v-ui:ClassTemplate ;
@@ -887,27 +815,11 @@ v-s:TS_DecisionNoAgreed
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNoAgreed
 .
-v-wf:CS_DecisionNoAgreed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionNoAgreed"@ru, "Class specification v-wf:DecisionNoAgreed"@en;
-  v-ui:forClass v-wf:DecisionNoAgreed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionAgreed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreed
-.
-v-wf:CS_DecisionAgreed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionAgreed"@ru, "Class specification v-wf:DecisionAgreed"@en;
-  v-ui:forClass v-wf:DecisionAgreed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionAgreedToProject
   rdf:type v-ui:TemplateSpecification;
@@ -915,27 +827,11 @@ v-s:TS_DecisionAgreedToProject
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreedToProject
 .
-v-wf:CS_DecisionAgreedToProject
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionAgreedToProject"@ru, "Class specification v-wf:DecisionAgreedToProject"@en;
-  v-ui:forClass v-wf:DecisionAgreedToProject ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionAgreedToExecuteComment
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAgreedToExecuteComment
-.
-v-wf:CS_DecisionAgreedToExecuteComment
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionAgreedToExecuteComment"@ru, "Class specification v-wf:DecisionAgreedToExecuteComment"@en;
-  v-ui:forClass v-wf:DecisionAgreedToExecuteComment ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionSign
   rdf:type v-ui:TemplateSpecification;
@@ -943,27 +839,11 @@ v-s:TS_DecisionSign
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionSign
 .
-v-wf:CS_DecisionSign
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionSign"@ru, "Class specification v-wf:DecisionSign"@en;
-  v-ui:forClass v-wf:DecisionSign ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionApprove
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionApprove
-.
-v-wf:CS_DecisionApprove
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionApprove"@ru, "Class specification v-wf:DecisionApprove"@en;
-  v-ui:forClass v-wf:DecisionApprove ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionReview
   rdf:type v-ui:TemplateSpecification;
@@ -971,27 +851,11 @@ v-s:TS_DecisionReview
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionReview
 .
-v-wf:CS_DecisionReview
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionReviewe"@ru, "Class specification v-wf:DecisionReview"@en;
-  v-ui:forClass v-wf:DecisionReview ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionRejected
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRejected
-.
-v-wf:CS_DecisionRejected
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRejected"@ru, "Class specification v-wf:DecisionRejected"@en;
-  v-ui:forClass v-wf:DecisionRejected ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionDeclined
   rdf:type v-ui:TemplateSpecification;
@@ -999,27 +863,11 @@ v-s:TS_DecisionDeclined
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionDeclined
 .
-v-wf:CS_DecisionDeclined
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionDeclined"@ru, "Class specification v-wf:DecisionDeclined"@en;
-  v-ui:forClass v-wf:DecisionDeclined ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionRemaked
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionRemaked
-.
-v-wf:CS_DecisionRemaked
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRemaked"@ru, "Class specification v-wf:DecisionRemaked"@en;
-  v-ui:forClass v-wf:DecisionRemaked ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionNotForMe
   rdf:type v-ui:TemplateSpecification;
@@ -1027,27 +875,11 @@ v-s:TS_DecisionNotForMe
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotForMe
 .
-v-wf:CS_DecisionNotForMe
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionNotForMe"@ru, "Class specification v-wf:DecisionNotForMe"@en;
-  v-ui:forClass v-wf:DecisionNotForMe ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionNotForMeWithAcceptReject
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject
-.
-v-wf:CS_DecisionNotForMeWithAcceptReject
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionNotForMeWithAcceptReject"@ru, "Class specification v-wf:DecisionNotForMeWithAcceptReject"@en;
-  v-ui:forClass v-wf:DecisionNotForMeWithAcceptReject ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionProlongate
   rdf:type v-ui:TemplateSpecification;
@@ -1055,27 +887,11 @@ v-s:TS_DecisionProlongate
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionProlongate
 .
-v-wf:CS_DecisionBreak
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionBreak"@ru, "Class specification v-wf:DecisionBreak"@en;
-  v-ui:forClass v-wf:DecisionBreak ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionBreak
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionBreak
-.
-v-wf:CS_DecisionBreak
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionBreak"@ru, "Class specification v-wf:DecisionBreak"@en;
-  v-ui:forClass v-wf:DecisionBreak ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionExamined
   rdf:type v-ui:TemplateSpecification;
@@ -1083,27 +899,11 @@ v-s:TS_DecisionExamined
   v-ui:defaultTemplate v-wf:DecisionTemplateForExamine;
   v-ui:forClass v-wf:DecisionExamined
 .
-v-wf:CS_DecisionExamined
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionExamined"@ru, "Class specification v-wf:DecisionExamined"@en;
-  v-ui:forClass v-wf:DecisionExamined ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionReturnedToReview
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionReturnedToReview
-.
-v-wf:CS_DecisionReturnedToReview
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionReturnedToReview"@ru, "Class specification v-wf:DecisionReturnedToReview"@en;
-  v-ui:forClass v-wf:DecisionReturnedToReview ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionAchieved
   rdf:type v-ui:TemplateSpecification;
@@ -1111,27 +911,11 @@ v-s:TS_DecisionAchieved
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAchieved
 .
-v-wf:CS_DecisionAchieved
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionAchieved"@ru, "Class specification v-wf:DecisionAchieved"@en;
-  v-ui:forClass v-wf:DecisionAchieved ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionNotPerformed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionNotPerformed
-.
-v-wf:CS_DecisionNotPerformed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionNotPerformed"@ru, "Class specification v-wf:DecisionNotPerformed"@en;
-  v-ui:forClass v-wf:DecisionNotPerformed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionConfirm
   rdf:type v-ui:TemplateSpecification;
@@ -1139,27 +923,11 @@ v-s:TS_DecisionConfirm
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionConfirm
 .
-v-wf:CS_DecisionConfirm
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionConfirm"@ru, "Class specification v-wf:DecisionConfirm"@en;
-  v-ui:forClass v-wf:DecisionConfirm ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionPostponed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionPostponed
-.
-v-wf:CS_DecisionPostponed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionPostponed"@ru, "Class specification v-wf:DecisionPostponed"@en;
-  v-ui:forClass v-wf:DecisionPostponed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionCalculationsPerformed
   rdf:type v-ui:TemplateSpecification;
@@ -1167,27 +935,11 @@ v-s:TS_DecisionCalculationsPerformed
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionCalculationsPerformed
 .
-v-wf:CS_DecisionCalculationsPerformed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionCalculationsPerformed"@ru, "Class specification v-wf:DecisionCalculationsPerformed"@en;
-  v-ui:forClass v-wf:DecisionCalculationsPerformed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionEffectNotConfirmed
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionEffectNotConfirmed
-.
-v-wf:CS_DecisionEffectNotConfirmed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionEffectNotConfirmed"@ru, "Class specification v-wf:DecisionEffectNotConfirmed"@en;
-  v-ui:forClass v-wf:DecisionEffectNotConfirmed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-s:TS_DecisionEffectConfirmed
   rdf:type v-ui:TemplateSpecification;
@@ -1195,27 +947,11 @@ v-s:TS_DecisionEffectConfirmed
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionEffectConfirmed
 .
-v-wf:CS_DecisionEffectConfirmed
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionEffectConfirmed"@ru, "Class specification v-wf:DecisionEffectConfirmed"@en;
-  v-ui:forClass v-wf:DecisionEffectConfirmed ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionAcceptMotivatedRefusal
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplate1;
   v-ui:forClass v-wf:DecisionAcceptMotivatedRefusal
-.
-v-wf:CS_DecisionAcceptMotivatedRefusal
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionAcceptMotivatedRefusal"@ru, "Class specification v-wf:DecisionAcceptMotivatedRefusal"@en;
-  v-ui:forClass v-wf:DecisionAcceptMotivatedRefusal;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplate1;
-  v-s:loadPriority 15 ;
 .
 v-wf:DecisionTemplate1
   rdf:type v-ui:ClassTemplate ;
@@ -1301,27 +1037,11 @@ v-s:TS_DecisionRemake
   v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
   v-ui:forClass v-wf:DecisionRemake
 .
-v-wf:CS_DecisionRemake
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRemake"@ru, "Class specification v-wf:DecisionRemake"@en;
-  v-ui:forClass v-wf:DecisionRemake;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionRemakeGroupAccount
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
   v-ui:forClass v-wf:DecisionRemakeGroupAccount
-.
-v-wf:CS_DecisionRemakeGroupAccount
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRemakeGroupAccount"@ru, "Class specification v-wf:DecisionRemakeGroupAccount"@en;
-  v-ui:forClass v-wf:DecisionRemakeGroupAccount;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplateForRemake;
-  v-s:loadPriority 15 ;
 .
 v-wf:DecisionTemplateForRemake
   rdf:type v-ui:ClassTemplate ;
@@ -1339,14 +1059,6 @@ v-s:TS_DecisionIssueTaskToAnother
   v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
   v-ui:forClass v-wf:DecisionIssueTaskToAnother
 .
-v-wf:CS_DecisionIssueTaskToAnother
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionIssueTaskToAnother"@ru, "Class specification v-wf:DecisionIssueTaskToAnothert"@en;
-  v-ui:forClass v-wf:DecisionIssueTaskToAnother;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionTemplateForTaskToAnother;
-  v-s:loadPriority 15 ;
-.
 v-wf:DecisionTemplateForTaskToAnother
   rdf:type v-ui:ClassTemplate ;
   rdfs:isDefinedBy v-wf: ;
@@ -1363,27 +1075,11 @@ v-s:TS_DecisionRevoke_Bundle
   v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
   v-ui:forClass v-wf:DecisionRevoke_Bundle
 .
-v-wf:CS_DecisionRevoke_Bundle
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRevoke_Bundle"@ru, "Class specification v-wf:DecisionRevoke_Bundle"@en;
-  v-ui:forClass v-wf:DecisionNotForMe ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
-  v-s:loadPriority 15 ;
-.
 v-s:TS_DecisionRevokeTask
   rdf:type v-ui:TemplateSpecification;
   v-s:loadPriority "15"^^xsd:integer;
   v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
   v-ui:forClass v-wf:DecisionRevokeTask
-.
-v-wf:CS_DecisionRevokeTask
-  rdf:type v-s:ClassSpecification ;
-  rdfs:label "Спецификация класса v-wf:DecisionRevokeTask"@ru, "Class specification v-wf:DecisionRevokeTask"@en;
-  v-ui:forClass v-wf:DecisionRevokeTask ;
-  v-s:shelfLife 9999;
-  v-ui:defaultTemplate v-wf:DecisionRevokeTemplate;
-  v-s:loadPriority 15 ;
 .
 v-wf:DecisionRevokeTemplate
   rdf:type v-ui:ClassTemplate ;
