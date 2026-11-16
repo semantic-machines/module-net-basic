@@ -19,16 +19,24 @@ export const post = async function (individual, template, container, mode, extra
   container = $(container);
 
   //autoinstruction tasks use specification from v-s:responsible for "v-wf:to"
+  //v-s:backwardTarget may contain several values - use the first autoinstruction task found (for "make decision operation")
   if (individual.hasValue('v-s:backwardTarget')) {
-    const task = await individual['v-s:backwardTarget'][0].load();
-    if (task.hasValue('v-wf:isAutoinstruction',true)) {
+    let task;
+    for (const backwardTarget of individual['v-s:backwardTarget']) {
+      const candidate = await backwardTarget.load();
+      if (candidate && candidate.hasValue('v-wf:isAutoinstruction', true)) {
+        task = candidate;
+        break;
+      }
+    }
+    if (task) {
       const task_doc = await task['v-wf:onDocument'][0].load();
       const specs = task_doc['rdf:type'].reduce((acc, type) => ({
         ...acc,
         ...veda.ontology.getClassSpecifications(type.id),
       }), {});
       const spec = specs['v-s:responsible'] ? new veda.IndividualModel( specs['v-s:responsible'] ) : undefined;
-      const queryFromSpec = await spec.getPropertyChain('v-ui:queryPrefix');
+      const queryFromSpec = spec ? await spec.getPropertyChain('v-ui:queryPrefix') : [];
       if (queryFromSpec.length>0) {
         $("#responsibleControl", template).attr('data-query-prefix', queryFromSpec[0]);
       }
